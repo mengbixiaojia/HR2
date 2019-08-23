@@ -96,26 +96,9 @@ namespace DAL
         //查询最大编号
         public object Maxfirst_kind_id()
         {
-            var result = Convert.ToInt32(db.
-                first_kind.Select(e => e.first_kind_id).Max());
+            var result = Convert.ToInt32(db.config_file_first_kind.Select(e => e.first_kind_id).Max());
             return result + 1;
         }
-    }
-}
-using EFEntity;
-using IDAL;
-using Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DAL
-{
-    public class config_file_first_kindDAL:DaoBase<config_file_first_kind>,Iconfig_file_first_kindDAL
-    {
         public List<config_file_first_kindModel> SelectBy(config_file_first_kindModel st)
         {
             List<config_file_first_kind> list = SelectBy(e => e.Id.Equals(st.Id));

@@ -42,22 +42,6 @@ namespace BLL
         {
             return ist.Update(st);
         }
-    }
-}
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IBLL;
-using Model;
-using IDAL;
-using IOC;
-
-namespace BLL
-{
-    public class config_file_first_kindBLL : Iconfig_file_first_kindBLL
-    {
         Iconfig_file_first_kindDAL icb = IocCreate.Createconfig_file_first_kindModelDAL();
         public int FirstKindAdd(config_file_first_kindModel fk)
         {

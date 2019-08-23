@@ -57,17 +57,6 @@ namespace IOC
             ioc.RegisterType<IRoleDAL, RoleDAL>();
             return ioc.Resolve<IRoleDAL>();
         }
-
-        private static UnityContainer GetBLLSeciton()
-        {
-            UnityContainer ioc = new UnityContainer();
-            ExeConfigurationFileMap ecf = new ExeConfigurationFileMap();
-            ecf.ExeConfigFilename = @"E:\HR管理系统\HR\UI\Untity.config";
-            Configuration cf = ConfigurationManager.OpenMappedExeConfiguration(ecf, ConfigurationUserLevel.None);
-            UnityConfigurationSection cfs = cf.GetSection("unity") as UnityConfigurationSection;
-            ioc.LoadConfiguration(cfs, "containerOne");
-            return ioc;
-        }
         public static Iconfig_file_first_kindBLL Createconfig_file_first_kindBLL()
         {
             UnityContainer ioc = GetBLLSeciton();
@@ -103,29 +92,11 @@ namespace IOC
             UnityContainer ioc = GetBLLSeciton();
             return ioc.Resolve<IRoleBLL>("RoleBLL");
         }
-    }
-}
-using Microsoft.Practices.Unity.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Unity;
-using System.Configuration;
-using IDAL;
-using DAL;
-using IBLL;
-
-namespace IOC
-{
-    public class IocCreate
-    {
         private static UnityContainer GetBLLSeciton()
         {
             UnityContainer ioc = new UnityContainer();
             ExeConfigurationFileMap ecf = new ExeConfigurationFileMap();
-            ecf.ExeConfigFilename = @"D:\作业\net\MVC\HR\UI\Untity.config";
+            ecf.ExeConfigFilename = @"D:\Source\Repos\HR2\HR\UI\Untity.config";
             Configuration cf = ConfigurationManager.OpenMappedExeConfiguration(ecf, ConfigurationUserLevel.None);
             UnityConfigurationSection cfs = cf.GetSection("unity") as UnityConfigurationSection;
             ioc.LoadConfiguration(cfs, "containerOne");
@@ -160,12 +131,7 @@ namespace IOC
             ioc.RegisterType<Iconfig_file_first_kindDAL, config_file_first_kindDAL>();
             return ioc.Resolve<Iconfig_file_first_kindDAL>();
         }
-
-        public static Iconfig_file_first_kindBLL Createconfig_file_first_kindBLL()
-        {
-            UnityContainer ioc = GetBLLSeciton();
-            return ioc.Resolve<Iconfig_file_first_kindBLL>("config_file_first_kindBLL");
-        }
+        
         public static Iconfig_file_second_kindDAL Createconfig_file_second_kindDAL()
         {
             UnityContainer ioc = new UnityContainer();
