@@ -19,5 +19,6 @@ namespace Common
             log4net.ILog log = log4net.LogManager.GetLogger(t);
             log.Error(msg);
         }
+        
     }
 }

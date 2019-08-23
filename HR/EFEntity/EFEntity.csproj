@@ -52,7 +52,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\config_file_third_kindConfig.cs" />
+    <Compile Include="Config\config_public_charConfig.cs" />
+    <Compile Include="config_file_first_kind.cs" />
+    <Compile Include="config_file_second_kind.cs" />
     <Compile Include="config_file_third_kind.cs" />
+    <Compile Include="config_public_char.cs" />
     <Compile Include="MyDBContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

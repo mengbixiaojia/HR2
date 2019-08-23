@@ -12,7 +12,7 @@ namespace EFEntity
     {
         public MyDBContext() :  base("name=sql")
         {
-            //Database.SetInitializer<MyDBContext>(null);
+            Database.SetInitializer<MyDBContext>(null);
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -21,5 +21,8 @@ namespace EFEntity
         }
         
         public DbSet<config_file_third_kind> config_file_third_kind { get; set; }
+        public DbSet<config_public_char> config_public_char { get; set; }
+        public DbSet<config_file_first_kind> config_file_first_kind { get; set; }
+        public DbSet<config_file_second_kind> config_file_second_kind { get; set; }
     }
 }

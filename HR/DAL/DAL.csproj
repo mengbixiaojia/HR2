@@ -52,10 +52,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="config_file_first_kindDAL.cs" />
+    <Compile Include="config_file_second_kindDAL.cs" />
+    <Compile Include="config_file_third_kindDAL.cs" />
+    <Compile Include="config_public_charDAL.cs" />
     <Compile Include="DaoBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{8455ab12-29fb-479d-964d-e3d8a13f2fbc}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EFEntity\EFEntity.csproj">
       <Project>{6f6e3aec-dfc6-4094-b8b8-8d973a903324}</Project>
       <Name>EFEntity</Name>
