@@ -169,7 +169,10 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Common\HtmlExtend.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\config_file_second_kindController.cs" />
+    <Compile Include="Controllers\config_public_charController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -182,6 +185,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="css\cwcalendar.css" />
+    <Content Include="css\table.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -189,16 +194,33 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\calendar-ch.js" />
+    <Content Include="Scripts\human_check.js" />
+    <Content Include="Scripts\human_input_check.js" />
+    <Content Include="Scripts\human_register.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.7.2.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery.easyui.min.js" />
+    <Content Include="Scripts\jquery.messager.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\locate.js" />
+    <Content Include="Scripts\login.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\right_add.js" />
+    <Content Include="Scripts\right_list_information.js" />
+    <Content Include="Scripts\select.js" />
+    <Content Include="Scripts\selectAll.js" />
+    <Content Include="Scripts\time.js" />
+    <Content Include="Scripts\user_add.js" />
+    <Content Include="Scripts\vue.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -229,10 +251,25 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Untity.config">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Views\config_file_second_kind\Index.cshtml" />
+    <Content Include="Views\config_file_second_kind\Update.cshtml" />
+    <Content Include="Views\config_file_second_kind\Add.cshtml" />
+    <Content Include="Views\config_public_char\Index.cshtml" />
+    <Content Include="Views\config_public_char\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\calendar\" />
+    <Folder Include="Scripts\comm\" />
+    <Folder Include="Scripts\easyui\" />
+    <Folder Include="Scripts\input_control\" />
+    <Folder Include="Scripts\media\" />
+    <Folder Include="Scripts\print_page\" />
+    <Folder Include="Scripts\table\" />
+    <Folder Include="Scripts\tree\" />
+    <Folder Include="Scripts\winopen\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
