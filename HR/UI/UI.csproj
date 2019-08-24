@@ -173,8 +173,10 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Common\HtmlExtend.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\config_file_first_kindController.cs" />
+    <Compile Include="Controllers\config_file_second_kindController.cs" />
     <Compile Include="Controllers\config_file_third_kindController.cs" />
     <Compile Include="Controllers\config_majorController.cs" />
     <Compile Include="Controllers\config_major_kindController.cs" />
@@ -493,6 +495,11 @@
     <Content Include="Views\user_list\user_edit.cshtml" />
     <Content Include="Views\user_list\user_list.cshtml" />
     <Content Include="Views\config_public_char\profession_designS.cshtml" />
+    <Content Include="Views\config_file_second_kind\Add.cshtml" />
+    <Content Include="Views\config_file_second_kind\Index.cshtml" />
+    <Content Include="Views\config_file_second_kind\Update.cshtml" />
+    <Content Include="Views\config_public_char\Index2.cshtml" />
+    <Content Include="Views\config_public_char\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

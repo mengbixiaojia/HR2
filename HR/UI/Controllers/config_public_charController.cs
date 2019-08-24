@@ -24,6 +24,20 @@ namespace UI.Controllers
             return View();
         }
 
+        public ActionResult Index2()
+        {
+            return View();
+        }
+        public ActionResult Select()
+        {
+            config_public_charModel s = new config_public_charModel()
+            {
+                attribute_kind = "薪酬设置"
+            };
+            List<config_public_charModel> list = ib.SelectBy(s);
+            return Content(JsonConvert.SerializeObject(list));
+        }
+
         // GET: config_public_char/Create
         public ActionResult Create()
         {
@@ -82,7 +96,7 @@ namespace UI.Controllers
         {
             return View();
         }
-        public ActionResult Index2()
+        public ActionResult Index3()
         {
             config_public_charModel cpm = new config_public_charModel()
             {
@@ -90,6 +104,47 @@ namespace UI.Controllers
             };
             List<config_public_charModel> list = icb.SelectBy(cpm);
             return Content(JsonConvert.SerializeObject(list));
+        }
+
+        public ActionResult Del(int id)
+        {
+            config_public_charModel s = new config_public_charModel()
+            {
+                Id = id
+            };
+            if (ib.config_public_charDelect(s) > 0)
+            {
+                return Content("OK");
+            }
+            else
+            {
+                return Content("ON");
+            }
+        }
+        [HttpGet]
+        public ActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Add(config_public_charModel s)
+        {
+            config_public_charModel ss = new config_public_charModel()
+            {
+                attribute_name = s.attribute_name
+            };
+            if (ib.config_public_charAdd(s) > 0)
+            {
+                return Redirect("Index2");
+
+            }
+            else
+            {
+                //return Content("<script>alert('新增失败')</script>");
+                return View();
+            }
+
         }
     }
 }

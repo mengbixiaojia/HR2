@@ -12,7 +12,7 @@ namespace BLL
 {
     public class config_public_charBLL:Iconfig_public_charBLL
     {
-      Iconfig_public_charDAL ist = IocCreate.Createconfig_public_charDAL();
+        Iconfig_public_charDAL ist = IocCreate.Createconfig_public_charDAL();
 
         public List<config_public_charModel> SelectBy(config_public_charModel st)
         {
@@ -38,22 +38,7 @@ namespace BLL
         {
             return ist.Update(st);
         }
-    }
-}
-using IBLL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Model;
-using IOC;
-using IDAL;
-namespace BLL
-{
-    public class config_public_charBLL : config_public_charIBLL
-    {
-        config_public_charIDAL cis = IocCreate.Createconfig_public_charIDAL();
+        Iconfig_public_charDAL cis = IocCreate.Createconfig_public_charDAL();
         public int config_public_charAdd(config_public_charModel s)
         {
             return cis.config_public_charAdd(s);

@@ -9,7 +9,7 @@ using Model;
 
 namespace DAL
 {
-    public class config_public_charDAL : DaoBase<config_public_char>, config_public_charIDAL
+    public class config_public_charDAL : DaoBase<config_public_char>, Iconfig_public_charDAL
     {
         /// <summary>
         /// 新增
@@ -21,7 +21,6 @@ namespace DAL
             config_public_char st = new config_public_char() {
                 attribute_kind="薪酬设置",
                 attribute_name=s.attribute_name
-
             };
             return Add(st);
         }
@@ -54,22 +53,7 @@ namespace DAL
             }
             return list2;
         }
-    }
-}
-using EFEntity;
-using IDAL;
-using Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DAL
-{
-    public class config_public_charDAL:DaoBase<config_public_char>,Iconfig_public_charDAL
-    {
-          public List<config_public_charModel> SelectBy(config_public_charModel st)
+        public List<config_public_charModel> SelectBy(config_public_charModel st)
         {
             List<config_public_char> list = SelectBy(e => e.attribute_kind.Equals(st.attribute_kind));
             List<config_public_charModel> list2 = new List<config_public_charModel>();

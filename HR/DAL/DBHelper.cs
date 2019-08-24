@@ -41,7 +41,7 @@ namespace DAL
 
         private static SqlConnection CreateConnection()
         {
-            string conStr = @"Data Source=USER-7D0M5L1D14;Initial Catalog=HR_DB;Persist Security Info=True;User ID=sa;Password=123";
+            string conStr = @"Data Source=DESKTOP-SLSITSQ;Initial Catalog=HR_DB;Persist Security Info=True;User ID=sa;Password=945975932";
             SqlConnection cn = new SqlConnection(conStr);
             return cn;
         }
