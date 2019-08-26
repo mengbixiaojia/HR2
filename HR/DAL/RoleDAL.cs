@@ -27,9 +27,17 @@ namespace DAL
             return db;
         }
 
-        public int Add(usersModel st)
+        public int Add(RoleModel st)
         {
-            throw new NotImplementedException();
+            //把DTO转为EO
+            Role est = new Role()
+            {
+                RoleID = st.RoleID,
+                RoleName = st.RoleName,
+                RoleExplain = st.RoleExplain,
+                IsOK = st.IsOK
+            };
+            return Add(est);
         }
 
         public List<usersModel> cxqb()
@@ -37,14 +45,32 @@ namespace DAL
             throw new NotImplementedException();
         }
 
-        public int Del(usersModel st)
+        public int Del(RoleModel st)
         {
-            throw new NotImplementedException();
+            Role est = new Role()
+            {
+                RoleID = st.RoleID
+            };
+            return Delete(est);
         }
 
-        public List<usersModel> fenye(int dqy)
+        public List<RoleModel> fenye(int dqy)
         {
-            throw new NotImplementedException();
+            int rows = 0;
+            List<Role> list = FenYe<int>(e => e.RoleID, e => e.RoleID > 0, ref rows, dqy, 2);
+            List<RoleModel> list2 = new List<RoleModel>();
+            foreach (Role item in list)
+            {
+                RoleModel um = new RoleModel()
+                {
+                    RoleID = item.RoleID,
+                    RoleName = item.RoleName,
+                    RoleExplain = item.RoleExplain,
+                    IsOK = item.IsOK
+                };
+                list2.Add(um);
+            }
+            return list2;
         }
 
         public List<RoleModel> RoleSelect()
@@ -55,22 +81,57 @@ namespace DAL
 
         public int Row()
         {
-            throw new NotImplementedException();
+            int rows = 0;
+            List<Role> list = FenYe<int>(e => e.RoleID, e => e.RoleID > 0, ref rows, 1, 2);
+            return rows;
         }
 
-        public List<usersModel> Select()
+        public List<RoleModel> Select()
         {
-            throw new NotImplementedException();
+            List<Role> list = SelectAll();
+            List<RoleModel> list2 = new List<RoleModel>();
+            foreach (Role item in list)
+            {
+                RoleModel sm = new RoleModel()
+                {
+                    RoleID = item.RoleID,
+                    RoleName = item.RoleName,
+                    RoleExplain = item.RoleExplain,
+                    IsOK = item.IsOK
+                };
+                list2.Add(sm);
+            }
+            return list2;
         }
 
-        public List<usersModel> SelectBy(usersModel st)
+        public List<RoleModel> SelectBy(RoleModel st)
         {
-            throw new NotImplementedException();
+            List<Role> list = SelectBy(e => e.RoleID.Equals(st.RoleID));
+            List<RoleModel> list2 = new List<RoleModel>();
+            foreach (var item in list)
+            {
+                RoleModel sd = new RoleModel()
+                {
+                    RoleID = item.RoleID,
+                    RoleName=item.RoleName,
+                    RoleExplain=item.RoleExplain,
+                    IsOK=item.IsOK
+                };
+                list2.Add(sd);
+            }
+            return list2;
         }
 
-        public int Update(usersModel st)
+        public int Update(RoleModel st)
         {
-            throw new NotImplementedException();
+            Role est = new Role()
+            {
+                RoleID = st.RoleID,
+                RoleName = st.RoleName,
+                RoleExplain = st.RoleExplain,
+                IsOK = st.IsOK
+            };
+            return Update(est);
         }
     }
 }

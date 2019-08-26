@@ -22,6 +22,7 @@ namespace EFEntity
         }
         public DbSet<config_major_kind> major_kind { get; set; }
         public DbSet<config_major> config_major { get; set; }
+        public DbSet<Role> Role { get; set; }
         public DbSet<users> users { get; set; }
         public DbSet<config_public_char> public_char { get; set; }
         public DbSet<config_file_third_kind> config_file_third_kind { get; set; }

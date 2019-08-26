@@ -10,5 +10,7 @@ namespace Model
     {
         public int RoleID { get; set; }
         public string RoleName { get; set; }
+        public string RoleExplain { get; set; }
+        public string IsOK { get; set; }
     }
 }

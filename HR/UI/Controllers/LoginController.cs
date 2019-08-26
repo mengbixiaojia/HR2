@@ -25,12 +25,23 @@ namespace UI.Controllers
         // GET: Login
         public ActionResult login(usersModel u)
         {
+            string u_true_name = Request["u_true_name"];
+            string u_passsword = Request["u_password"];
+            usersModel um = new usersModel()
+            {
+                u_true_name = u_true_name,
+                u_password = u_passsword
+            };
+            int pd = iub.login(um);
             if (ModelState.IsValid)
             {
-                int ok = int.Parse(iub.login(u).ToString());
-                if (ok>0)
+                //int ok = int.Parse(iub.login(u).ToString());
+                //ViewData["id"] = ok;
+                if (pd>0)
                 {
-                    return Content("<script>alert('登录成功');window.location.href='/Login/login'</script>");
+                    Session["user"] = pd;
+                    Session["us"] = u_true_name;
+                    return Content("<script>alert('登录成功');localStorage.setItem('a','"+u_true_name+"');window.location.href='/index/Index'</script>");
                 }
                 else
                 {

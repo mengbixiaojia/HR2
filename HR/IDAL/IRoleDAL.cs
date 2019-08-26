@@ -10,5 +10,12 @@ namespace IDAL
    public interface IRoleDAL
     {
         List<RoleModel> RoleSelect();
+        int Add(RoleModel st);
+        int Del(RoleModel st);
+        int Update(RoleModel st);
+        List<RoleModel> Select();
+        List<RoleModel> SelectBy(RoleModel st);
+        int Row();
+        List<RoleModel> fenye(int dqy);
     }
 }

@@ -39,15 +39,6 @@ namespace BLL
         {
             return ist.Update(st);
         }
-
-        public object login(usersModel u)
-        {
-            return ist.login(u);
-        }
-        public List<usersModel> cxqb()
-        {
-            return ist.cxqb();
-        }
         public int Row()
         {
             return ist.Row();
@@ -55,6 +46,16 @@ namespace BLL
         public List<usersModel> fenye(int dqy)
         {
             return ist.fenye(dqy);
+        }
+
+        int IusersBLL.login(usersModel us)
+        {
+            return ist.login(us);
+        }
+
+        public List<usersModel> cxqb()
+        {
+            return ist.cxqb();
         }
     }
 }
