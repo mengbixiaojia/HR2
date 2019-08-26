@@ -181,8 +181,10 @@
     <Compile Include="Controllers\config_majorController.cs" />
     <Compile Include="Controllers\config_major_kindController.cs" />
     <Compile Include="Controllers\config_public_charController.cs" />
+    <Compile Include="Controllers\indexController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\major_changeController.cs" />
+    <Compile Include="Controllers\right_listController.cs" />
     <Compile Include="Controllers\user_listController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -197,8 +199,28 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Bin\BLL.dll" />
+    <Content Include="Bin\CommonServiceLocator.dll" />
+    <Content Include="Bin\DAL.dll" />
+    <Content Include="Bin\EFEntity.dll" />
+    <Content Include="Bin\EntityFramework.dll" />
+    <Content Include="Bin\IBLL.dll" />
+    <Content Include="Bin\IDAL.dll" />
+    <Content Include="Bin\IOC.dll" />
+    <Content Include="Bin\Model.dll" />
+    <Content Include="Bin\UI.dll" />
+    <Content Include="Bin\UI.pdb" />
+    <Content Include="Bin\Unity.Abstractions.dll" />
+    <Content Include="Bin\Unity.Configuration.dll" />
+    <Content Include="Bin\Unity.Container.dll" />
+    <Content Include="Bin\Unity.Interception.Configuration.dll" />
+    <Content Include="Bin\Unity.Interception.dll" />
+    <Content Include="Bin\Unity.RegistrationByConvention.dll" />
+    <Content Include="Bin\Unity.ServiceLocation.dll" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Controllers\bin\IBLL.dll" />
+    <Content Include="Controllers\bin\Model.dll" />
     <Content Include="css\cwcalendar.css" />
     <Content Include="css\table.css" />
     <Content Include="favicon.ico" />
@@ -408,16 +430,14 @@
     <Content Include="images\tuopu_32.gif" />
     <Content Include="images\tuopu_33.gif" />
     <Content Include="images\tuopu_34.gif" />
-    <Content Include="obj\Debug\UI.csproj.FileListAbsolute.txt" />
-    <Content Include="obj\Debug\UI.dll" />
-    <Content Include="obj\Debug\UI.pdb" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="images\images\mod_image\Thumbs.db" />
     <Content Include="images\images\Thumbs.db" />
     <Content Include="images\Thumbs.db" />
-    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <Content Include="obj\Debug\UI.csprojResolveAssemblyReference.cache" />
+    <Content Include="Fakes\System.EnterpriseServices.fakes" />
+    <Content Include="Fakes\System.Net.Http.fakes" />
+    <Content Include="Fakes\System.Net.Http.WebRequest.fakes" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\calendar-ch.js" />
     <Content Include="Scripts\comm\comm.js" />
@@ -486,24 +506,28 @@
     <Content Include="Views\config_file_first_kind\first_kind.cshtml" />
     <Content Include="Views\config_file_first_kind\first_kind_change.cshtml" />
     <Content Include="Views\config_file_first_kind\first_kind_register.cshtml" />
-    <Content Include="Views\Login\login.cshtml" />
+    <Content Include="Views\config_file_second_kind\Add.cshtml" />
+    <Content Include="Views\config_file_second_kind\Index.cshtml" />
+    <Content Include="Views\config_file_second_kind\Update.cshtml" />
     <Content Include="Views\config_major\major.cshtml" />
     <Content Include="Views\config_major\major_add.cshtml" />
     <Content Include="Views\config_major_kind\major_kind_add.cshtml" />
     <Content Include="Views\config_major_kind\profession_design.cshtml" />
+    <Content Include="Views\index\Index.cshtml" />
+    <Content Include="Views\index\main.cshtml" />
+    <Content Include="Views\index\top.cshtml" />
+    <Content Include="Views\Login\login.cshtml" />
+    <Content Include="Views\right_list\right_add.cshtml" />
+    <Content Include="Views\right_list\right_list.cshtml" />
     <Content Include="Views\user_list\user_add.cshtml" />
     <Content Include="Views\user_list\user_edit.cshtml" />
     <Content Include="Views\user_list\user_list.cshtml" />
-    <Content Include="Views\config_public_char\profession_designS.cshtml" />
-    <Content Include="Views\config_file_second_kind\Add.cshtml" />
-    <Content Include="Views\config_file_second_kind\Index.cshtml" />
-    <Content Include="Views\config_file_second_kind\Update.cshtml" />
-    <Content Include="Views\config_public_char\Index2.cshtml" />
     <Content Include="Views\config_public_char\Add.cshtml" />
+    <Content Include="Views\config_public_char\Index2.cshtml" />
+    <Content Include="Views\config_public_char\profession_designS.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="Scripts\calendar\" />
     <Folder Include="Scripts\easyui\" />
     <Folder Include="Scripts\input_control\" />

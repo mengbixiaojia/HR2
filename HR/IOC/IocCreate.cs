@@ -144,5 +144,17 @@ namespace IOC
             UnityContainer ioc = GetBLLSeciton();
             return ioc.Resolve<Iconfig_file_second_kindBLL>("config_file_second_kindBLL");
         }
+
+        public static IPopedomRoleDAL CreatePopedomRoleDAL()
+        {
+            UnityContainer ioc = new UnityContainer();
+            ioc.RegisterType<IPopedomRoleDAL, PopedomRoleDAL>();
+            return ioc.Resolve<IPopedomRoleDAL>();
+        }
+        public static IPopedomRoleBLL CreatePopedomRoleBLL()
+        {
+            UnityContainer ioc = GetBLLSeciton();
+            return ioc.Resolve<IPopedomRoleBLL>("PopedomRoleBLL");
+        }
     }
 }
