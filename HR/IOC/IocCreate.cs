@@ -51,18 +51,24 @@ namespace IOC
             return ioc.Resolve<Iconfig_public_charDAL>();
         }
         
-            public static IRoleDAL CreateRoleDAL()
+        public static IRoleDAL CreateRoleDAL()
         {
             UnityContainer ioc = new UnityContainer();
             ioc.RegisterType<IRoleDAL, RoleDAL>();
             return ioc.Resolve<IRoleDAL>();
+        }
+        public static IPopedomRoleDAL CreatePopedomRoleDAL()
+        {
+            UnityContainer ioc = new UnityContainer();
+            ioc.RegisterType<IPopedomRoleDAL, PopedomRoleDAL>();
+            return ioc.Resolve<IPopedomRoleDAL>();
         }
 
         private static UnityContainer GetBLLSeciton()
         {
             UnityContainer ioc = new UnityContainer();
             ExeConfigurationFileMap ecf = new ExeConfigurationFileMap();
-            ecf.ExeConfigFilename = @"E:\HR管理系统\HR\UI\Untity.config";
+            ecf.ExeConfigFilename = @"E:\Source\HR2\HR\UI\Untity.config";
             Configuration cf = ConfigurationManager.OpenMappedExeConfiguration(ecf, ConfigurationUserLevel.None);
             UnityConfigurationSection cfs = cf.GetSection("unity") as UnityConfigurationSection;
             ioc.LoadConfiguration(cfs, "containerOne");
@@ -102,6 +108,11 @@ namespace IOC
         {
             UnityContainer ioc = GetBLLSeciton();
             return ioc.Resolve<IRoleBLL>("RoleBLL");
+        }
+        public static IPopedomRoleBLL CreatePopedomRoleBLL()
+        {
+            UnityContainer ioc = GetBLLSeciton();
+            return ioc.Resolve<IPopedomRoleBLL>("PopedomRoleBLL");
         }
     }
 }

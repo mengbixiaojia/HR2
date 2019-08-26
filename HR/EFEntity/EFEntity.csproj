@@ -54,12 +54,14 @@
   <ItemGroup>
     <Compile Include="Config\config_file_first_kindConfig.cs" />
     <Compile Include="Config\config_major_kindConfig.cs" />
+    <Compile Include="Config\RoleConfig.cs" />
     <Compile Include="config_file_first_kind.cs" />
     <Compile Include="config_major.cs" />
     <Compile Include="config_major_kind.cs" />
     <Compile Include="config_public_char.cs" />
     <Compile Include="major_change.cs" />
     <Compile Include="MyDBContext.cs" />
+    <Compile Include="PopedomRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="users.cs" />

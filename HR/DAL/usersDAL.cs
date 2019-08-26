@@ -99,11 +99,6 @@ namespace DAL
             };
             return Update(est);
         }
-
-        object IusersDAL.login(usersModel u)
-        {
-            return login(u);
-        }
         public List<usersModel> fenye(int dqy)
         {
             int rows = 0;
@@ -132,6 +127,23 @@ namespace DAL
         {
             var values=db.Database.SqlQuery<usersModel>($"select [Id],[u_name],[u_true_name],(select [RoleName] from [dbo].[Role] r where (r.[RoleID]=u.[RoleID]))as name,[u_password] from [dbo].[users] u").ToList();
             return values;
+        }
+        public int login(usersModel us)
+        {
+            users u = new users();
+            List<users> list = SelectBy(e => e.u_true_name.Equals(us.u_true_name) && e.u_password.Equals(us.u_password));
+            foreach (users item in list)
+            {
+                if(item==null || item.Equals(""))
+                {
+                    return 0;
+                }
+                else
+                {
+                    return list[0].Id;
+                }
+            }
+            return 0;
         }
     }
 }

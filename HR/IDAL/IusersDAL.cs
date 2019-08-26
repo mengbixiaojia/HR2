@@ -15,7 +15,7 @@ namespace IDAL
          int Update(usersModel st);
         List<usersModel> Select();
        List<usersModel> SelectBy(usersModel st);
-        object login(usersModel u);
+       int login(usersModel us);
         List<usersModel> cxqb();
         int Row();
         List<usersModel> fenye(int dqy);
