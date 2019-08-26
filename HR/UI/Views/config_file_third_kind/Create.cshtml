@@ -14,12 +14,43 @@
     <script src="~/Scripts/jquery-1.10.2.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var sid = $("#bb").val();
+            $.ajax({
+                url: "/config_file_third_kind/SeByy",
+                type: "post",
+                data: "sid=" + sid,
+                success: function (msg) {
+                    $("#cc option").remove();
+                    var data = eval("(" + msg + ")");
+                    for (var i = 0; i < data.length; i++) {
+                        var $items = $("<option value='" + data[i]["second_kind_id"] + "'>" + data[i]["second_kind_name"] + "</option>");
+                        $("#cc").append($items);
+                    };
+                }
+            });
+
+            $("#bb").change(function () {
+                var sid = $("#bb").val();
+                $.ajax({
+                    url: "/config_file_third_kind/SeByy",
+                    type: "post",
+                    data: "sid=" + sid,
+                    success: function (msg) {
+                        $("#cc option").remove();
+                        var data = eval("(" + msg + ")");
+                        for (var i = 0; i < data.length; i++) {
+                            var $items = $("<option value='" + data[i]["second_kind_id"] + "'>" + data[i]["second_kind_name"] + "</option>");
+                            $("#cc").append($items);
+                        };
+                    }
+                });
+            })
+        })
+    </script>
 </head>
 <body>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryval")
-    
-    
     @using (Ajax.BeginForm("Create", new AjaxOptions() { HttpMethod = "Post" }))
     {
         <table width="100%">
@@ -45,7 +76,7 @@
                     I级机构名称
                 </td>
                 <td width="81%" class="TD_STYLE2">
-                    @Html.DropDownList("first_kind_id", ViewData["yj"] as IEnumerable<SelectListItem>)
+                    @Html.DropDownList("first_kind_id", ViewData["yj"] as IEnumerable<SelectListItem> ,new { @Id="bb"})
                     @Html.ValidationMessageFor(model => model.first_kind_name, "", new { @class = "text-danger" })
                 </td>
             </tr>
@@ -54,9 +85,8 @@
                     II级机构名称
                 </td>
                 <td width="81%" class="TD_STYLE2">
-
-                    @Html.DropDownList("second_kind_id", ViewData["ej"] as IEnumerable<SelectListItem>)
-                    @Html.ValidationMessageFor(model => model.second_kind_name, "", new { @class = "text-danger" })
+                    <select name="second_kind_id" id="cc" class="TD_STYLE1">
+                    </select>
                 </td>
             </tr>
             <tr>

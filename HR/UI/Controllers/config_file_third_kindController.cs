@@ -30,7 +30,6 @@ namespace UI.Controllers
         public ActionResult Create()
         {
             List<config_file_first_kindModel> list = ikb.Select();
-            List<config_file_second_kindModel> li = isb.Select();
             List<SelectListItem> listyj = new List<SelectListItem>();
             for (int i = 0; i < list.Count; i++)
             {
@@ -41,53 +40,35 @@ namespace UI.Controllers
                 };
                 listyj.Add(sl);
             }
-            List<SelectListItem> listej = new List<SelectListItem>();
-            for (int i = 0; i < li.Count; i++)
-            {
-                SelectListItem sl = new SelectListItem()
-                {
-                    Text = li[i].second_kind_name.ToString(),
-                    Value = li[i].second_kind_id.ToString()
-                };
-                listej.Add(sl);
-            }
             config_file_third_kindModel ctm = new config_file_third_kindModel();
             ctm.third_kind_id = ib.max().ToString();
             ViewData["yj"] = listyj;
-            ViewData["ej"] = listej;
             return View(ctm);
         }
-         
+
         // POST: config_file_third_kind/Create
         [HttpPost]
         public ActionResult Create(config_file_third_kindModel cm)
         {
-            try
+            config_file_second_kindModel csm = new config_file_second_kindModel
             {
-                config_file_second_kindModel csm = new config_file_second_kindModel
-                {
-                    second_kind_id = cm.second_kind_id
-                };
-                config_file_first_kindModel cfm = new config_file_first_kindModel
-                {
-                    first_kind_id = cm.first_kind_id
-                };
-                List<config_file_second_kindModel> lists = isb.SelectByName(csm);
-                List<config_file_first_kindModel> listf = ikb.SelectByName(cfm);
-                cm.second_kind_name = lists[0].second_kind_name;
-                cm.first_kind_name = listf[0].first_kind_name;
-                if (ib.Add(cm)>0)
-                {
-                    return Content("<script>alert('新增成功!');window.location.href='/config_file_third_kind/Index'</script>");
-                }
-                else
-                {
-                    return Content("<script>alert('新增失败!');window.location.href='/config_file_third_kind/Index'</script>");
-                }
+                second_kind_id = cm.second_kind_id
+            };
+            config_file_first_kindModel cfm = new config_file_first_kindModel
+            {
+                first_kind_id = cm.first_kind_id
+            };
+            List<config_file_second_kindModel> lists = isb.SelectByName(csm);
+            List<config_file_first_kindModel> listf = ikb.SelectByName(cfm);
+            cm.second_kind_name = lists[0].second_kind_name;
+            cm.first_kind_name = listf[0].first_kind_name;
+            if (ib.Add(cm) > 0)
+            {
+                return Content("<script>alert('新增成功!');window.location.href='/config_file_third_kind/Index'</script>");
             }
-            catch
+            else
             {
-                return View(cm);
+                return Content("<script>alert('新增失败!');window.location.href='/config_file_third_kind/Index'</script>");
             }
         }
 
@@ -150,6 +131,16 @@ namespace UI.Controllers
             {
                 return Content("<script>alert('删除成功!');window.location.href='/config_file_third_kind/Index'</script>");
             }
+        }
+
+        public ActionResult SeByy()
+        {
+            config_file_second_kindModel cm = new config_file_second_kindModel
+            {
+                Id = int.Parse(Request["sid"]),
+            };
+            List<config_file_second_kindModel> list = isb.SelectBy(cm);
+            return Content(JsonConvert.SerializeObject(list));
         }
     }
 }
