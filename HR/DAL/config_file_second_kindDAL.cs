@@ -125,5 +125,26 @@ namespace DAL
             };
             return Update(est);
         }
+
+        public List<config_file_second_kindModel> SeBy(String Id)
+        {
+            List<config_file_second_kind> list = SelectBy(e => e.first_kind_id.Equals(Id));
+            List<config_file_second_kindModel> list2 = new List<config_file_second_kindModel>();
+            foreach (var item in list)
+            {
+                config_file_second_kindModel sd = new config_file_second_kindModel()
+                {
+                    Id = item.Id,
+                    first_kind_id = item.first_kind_id,
+                    first_kind_name = item.first_kind_name,
+                    second_kind_id = item.second_kind_id,
+                    second_kind_name = item.second_kind_name,
+                    second_salary_id = item.second_salary_id,
+                    second_sale_id = item.second_sale_id,
+                };
+                list2.Add(sd);
+            }
+            return list2;
+        }
     }
 }

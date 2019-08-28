@@ -156,5 +156,17 @@ namespace IOC
             UnityContainer ioc = GetBLLSeciton();
             return ioc.Resolve<IPopedomRoleBLL>("PopedomRoleBLL");
         }
+        public static Iengage_major_releaseDAL Createengage_major_releaseDAL()
+        {
+            UnityContainer ioc = new UnityContainer();
+            ioc.RegisterType<Iengage_major_releaseDAL, engage_major_releaseDAL>();
+            return ioc.Resolve<Iengage_major_releaseDAL>();
+        }
+
+        public static Iengage_major_releaseBLL Createengage_major_releaseBLL()
+        {
+            UnityContainer ioc = GetBLLSeciton();
+            return ioc.Resolve<Iengage_major_releaseBLL>("engage_major_releaseBLL");
+        }
     }
 }

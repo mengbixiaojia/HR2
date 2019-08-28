@@ -12,5 +12,6 @@ namespace IDAL
         int majorkindDel(config_major_kindModel ck);
         List<config_major_kindModel> majorKindSelect();
         int majorkindAdd(config_major_kindModel ck);
+        List<config_major_kindModel> SelectByName(config_major_kindModel st);
     }
 }

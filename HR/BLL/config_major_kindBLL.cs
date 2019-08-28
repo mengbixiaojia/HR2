@@ -28,5 +28,9 @@ namespace BLL
         {
             return icd.majorKindSelect();
         }
+        public List<config_major_kindModel> SelectByName(config_major_kindModel st)
+        {
+            return icd.SelectByName(st);
+        }
     }
 }

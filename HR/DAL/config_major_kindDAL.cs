@@ -48,5 +48,21 @@ namespace DAL
             }
             return list2;
         }
+        public List<config_major_kindModel> SelectByName(config_major_kindModel st)
+        {
+            List<config_major_kind> list = SelectBy(e => e.major_kind_id.Equals(st.major_kind_id));
+            List<config_major_kindModel> list2 = new List<config_major_kindModel>();
+            foreach (var item in list)
+            {
+                config_major_kindModel sd = new config_major_kindModel()
+                {
+                    Id = item.Id,
+                    major_kind_id = item.major_kind_id,
+                    major_kind_name = item.major_kind_name,
+                };
+                list2.Add(sd);
+            }
+            return list2;
+        }
     }
 }

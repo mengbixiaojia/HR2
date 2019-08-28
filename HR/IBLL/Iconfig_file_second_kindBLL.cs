@@ -18,6 +18,7 @@ namespace IBLL
         List<config_file_second_kindModel> SelectByName(config_file_second_kindModel st);
         DataTable SelectType(string id);
         DataTable SelectXLK();
+        List<config_file_second_kindModel> SeBy(String Id);
     }
 }
 

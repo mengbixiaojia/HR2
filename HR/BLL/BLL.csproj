@@ -47,6 +47,7 @@
     <Compile Include="config_majorBLL.cs" />
     <Compile Include="config_major_kindBLL.cs" />
     <Compile Include="config_public_charBLL.cs" />
+    <Compile Include="engage_major_releaseBLL.cs" />
     <Compile Include="major_changeBLL.cs" />
     <Compile Include="PopedomRoleBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

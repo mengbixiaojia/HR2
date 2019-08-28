@@ -13,5 +13,6 @@ namespace IBLL
         int majorKindDel(config_major_kindModel fk);
         List<config_major_kindModel> majorKindSelect();
         int majorKindAdd(config_major_kindModel fk);
+        List<config_major_kindModel> SelectByName(config_major_kindModel st);
     }
 }

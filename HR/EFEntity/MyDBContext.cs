@@ -28,5 +28,6 @@ namespace EFEntity
         public DbSet<config_file_third_kind> config_file_third_kind { get; set; }
         public DbSet<config_file_first_kind> config_file_first_kind { get; set; }
         public DbSet<config_file_second_kind> config_file_second_kind { get; set; }
+        public DbSet<engage_major_release> engage_major_release { get; set; }
     }
 }

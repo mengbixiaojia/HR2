@@ -1,0 +1,149 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/css/table.css" rel="stylesheet" />
+    <script src="~/Scripts/comm/comm.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/vue.js"></script>
+</head>
+<body>
+    <div id="Vue"> 
+        <input type="hidden" name="utilBean.currPage" id="page" />
+        <table width="100%">
+            <tr>
+                <td>
+                    <font color="black">
+                        您正在做的业务是：人力资源--招聘管理--职位发布管理--职位发布变更
+                    </font>
+                </td>
+            </tr>
+
+        </table>
+        当前可变更是职位发布总数：@ViewData["rows"] 例
+        <table width="100%" border="1" cellpadding=0 cellspacing=1
+               bordercolorlight=#848284 bordercolordark=#eeeeee
+               class="TABLE_STYLE1">
+            <tr>
+                <td width="15%" class="TD_STYLE1">
+                    职位名称
+                </td>
+                <td width="20%" class="TD_STYLE1">
+                    公司名称
+                </td>
+                <td width="10%" class="TD_STYLE1">
+                    招聘人数
+                </td>
+                <td width="20%" class="TD_STYLE1">
+                    发布时间
+                </td>
+                <td width="20%" class="TD_STYLE1">
+                    截止时间
+                </td>
+                <td width="8%" class="TD_STYLE1">
+                    修改
+                </td>
+                <td width="8%" class="TD_STYLE1">
+                    删除
+                </td>
+            </tr>
+
+
+            <tr v-for="(item,i) in dt">
+                <td class="TD_STYLE2">
+                    {{item.major_name}}
+                </td>
+                <td class="TD_STYLE2">
+                    {{item.second_kind_name}}
+                </td>
+                <td class="TD_STYLE2">
+                    {{item.human_amount}}
+                </td>
+                <td class="TD_STYLE2">
+                    {{item.regist_time}}
+                </td>
+                <td class="TD_STYLE2">
+                    {{item.deadline}}
+                </td>
+                <td class="TD_STYLE2">
+                    <a v-bind:href="['/engage_major_release/Edit/'+item.Id]">修改</a>
+                </td>
+                <td class="TD_STYLE2">
+                    <a v-bind:href="['/engage_major_release/Delete/'+item.Id]" onclick="return confirm('是否删除?')">删除</a>
+                </td>
+            </tr>
+        </table>
+        <p>
+            &nbsp;&nbsp;总数：@ViewData["rows"] 例 &nbsp;&nbsp;&nbsp;当前第{{ye}} 页 /每页显示 10 条 &nbsp;&nbsp;&nbsp;共 @ViewData["page"] 页 &nbsp;&nbsp;&nbsp;
+            <a v-on:click="SYY">上一页</a> &nbsp;&nbsp;&nbsp;
+            <a v-on:click="XYY">下一页</a> &nbsp;&nbsp;&nbsp;跳到第 <input name=page type=text class=input1 id="currPage" size=1> 页&nbsp;&nbsp;<input type="image" src="../../../images/go.bmp" v-on:click="go" width=18 height=18 border=0>
+        </p>
+    </div>
+    <script type="text/javascript">
+        var page = @ViewData["page"];
+        var dqy = 1;
+        var vm = new Vue({
+            el: "#Vue",
+            data: {
+                dt: null,
+                ye:1
+            },
+            methods: {
+                load: function () {
+                    var t = this;
+                    $.ajax({
+                        url: "/engage_major_release/Index2",
+                        type: "post",
+                        data: "dqy=" + dqy,
+                        success: function (msg) {
+                            var dd = eval("(" + msg + ")");
+                            t.dt = dd;
+                        }
+                    })
+                },
+                SYY: function () {
+                    if (dqy>1) {
+                        dqy--;
+                        this.ye--
+                    } else {
+                        dqy=1
+                        this.ye=1
+                    }
+                    this.load();
+                },
+                XYY: function () {
+                    if (dqy<page) {
+                        dqy++;
+                        this.ye++
+                    } else {
+                        dqy=page
+                        this.ye=page
+                    }
+                    this.load();
+                },
+                go: function () {
+                    dqy = $("#currPage").val();
+                    if (page >= dqy) {
+                        this.ye=dqy;
+                        this.load();
+                        $("#currPage").val("");
+                    } else {
+                        alert("憨憨!");
+                        $("#currPage").val("");
+                    }
+                }
+            },
+            created: function () {
+                this.load();
+            }
+        });
+    </script>
+</body>
+</html>

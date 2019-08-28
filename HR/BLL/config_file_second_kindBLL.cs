@@ -56,5 +56,9 @@ namespace BLL
         {
             return ist.SelectType(id);
         }
+        public List<config_file_second_kindModel> SeBy(String Id)
+        {
+            return ist.SeBy(Id);
+        }
     }
 }
