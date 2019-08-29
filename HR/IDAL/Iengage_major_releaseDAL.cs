@@ -13,7 +13,7 @@ namespace IDAL
         int Del(engage_major_releaseModel st);
          int Update(engage_major_releaseModel st);
         List<engage_major_releaseModel> Select();
-       List<engage_major_releaseModel> SelectBy(engage_major_releaseModel st);
+        engage_major_releaseModel SelectBy(engage_major_releaseModel st);
         List<engage_major_releaseModel> fenye(int dqy);
         int page();
         int rows();

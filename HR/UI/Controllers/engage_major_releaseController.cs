@@ -36,18 +36,10 @@ namespace UI.Controllers
             List<engage_major_releaseModel> list = re.fenye(int.Parse(Request["dqy"]));
             return Content(JsonConvert.SerializeObject(list));
         }
-        // GET: engage_major_release/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: engage_major_release/Create
         public ActionResult Create()
         {
             List<config_file_first_kindModel> list = ib.Select();
-            List<config_file_second_kindModel> li = sb.Select();
-            List<config_major_kindModel> lll = ia.majorKindSelect();
             List<SelectListItem> listyj = new List<SelectListItem>();
             for (int i = 0; i < list.Count; i++)
             {
@@ -58,16 +50,7 @@ namespace UI.Controllers
                 };
                 listyj.Add(sl);
             }
-            List<SelectListItem> listej = new List<SelectListItem>();
-            for (int i = 0; i < list.Count; i++)
-            {
-                SelectListItem sl = new SelectListItem()
-                {
-                    Text = li[i].second_kind_name.ToString(),
-                    Value = li[i].second_kind_id.ToString()
-                };
-                listej.Add(sl);
-            }
+            List<config_major_kindModel> lll = ia.majorKindSelect();
             List<SelectListItem> liss = new List<SelectListItem>();
             for (int i = 0; i < lll.Count; i++)
             {
@@ -81,7 +64,6 @@ namespace UI.Controllers
             engage_major_releaseModel ctm = new engage_major_releaseModel();
             ViewData["yj"] = listyj;
             ViewData["jj"] = liss;
-            ViewData["ej"] = listej;
             ctm.register = Session["us"].ToString();
             return View(ctm);
         }
@@ -143,18 +125,29 @@ namespace UI.Controllers
         // GET: engage_major_release/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            engage_major_releaseModel emrm = new engage_major_releaseModel
+            {
+                Id = id
+            };
+            engage_major_releaseModel cm = re.SelectBy(emrm);
+            return View(cm);
         }
 
         // POST: engage_major_release/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(engage_major_releaseModel em)
         {
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                if (re.Update(em)>0)
+                {
+                    return Content("<script>alert('修改成功!'),window.location.href='/engage_major_release/Index'</script>");
+                }
+                else
+                {
+                    ViewData.Model = em;
+                    return Content("<script>alert('修改失败!'),window.location.href='/engage_major_release/Edit'</script>");
+                }
             }
             catch
             {
@@ -165,22 +158,17 @@ namespace UI.Controllers
         // GET: engage_major_release/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: engage_major_release/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
+            engage_major_releaseModel emrm = new engage_major_releaseModel()
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                Id = id
+            };
+            if (re.Del(emrm) >0)
+            {
+                return Content("<script>alert('删除成功!'),window.location.href='/engage_major_release/Index'</script>");
             }
-            catch
+            else
             {
-                return View();
+                return Content("<script>alert('删除失败!'),window.location.href='/engage_major_release/Index'</script>");
             }
         }
 

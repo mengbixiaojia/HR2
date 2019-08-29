@@ -14,7 +14,7 @@ namespace BLL
     {
       Iengage_major_releaseDAL ist = IocCreate.Createengage_major_releaseDAL();
 
-        public List<engage_major_releaseModel> SelectBy(engage_major_releaseModel st)
+        public engage_major_releaseModel SelectBy(engage_major_releaseModel st)
         {
             return ist.SelectBy(st);
         }

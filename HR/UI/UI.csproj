@@ -1118,6 +1118,7 @@
     <Content Include="Views\engage_major_release\Create.cshtml" />
     <Content Include="Views\engage_major_release\Index.cshtml" />
     <Content Include="Views\engage_major_release\Index1.cshtml" />
+    <Content Include="Views\engage_major_release\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

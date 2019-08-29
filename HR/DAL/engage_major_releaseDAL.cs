@@ -11,38 +11,33 @@ namespace DAL
 {
     public class engage_major_releaseDAL:DaoBase<engage_major_release>,Iengage_major_releaseDAL
     {
-          public List<engage_major_releaseModel> SelectBy(engage_major_releaseModel st)
+          public engage_major_releaseModel SelectBy(engage_major_releaseModel st)
         {
             List<engage_major_release> list = SelectBy(e => e.Id.Equals(st.Id));
-            List<engage_major_releaseModel> list2 = new List<engage_major_releaseModel>();
-            foreach (var item in list)
+            engage_major_releaseModel sd = new engage_major_releaseModel()
             {
-               engage_major_releaseModel sd = new engage_major_releaseModel()
-                {
-                    Id =item.Id,
-                    first_kind_id = item.first_kind_id,
-                    first_kind_name = item.first_kind_name,
-                    second_kind_id = item.second_kind_id,
-                    second_kind_name = item.second_kind_name,
-                    third_kind_id = item.third_kind_id,
-                    third_kind_name = item.third_kind_name,
-                    major_id = item.major_id,
-                    major_describe = item.major_describe,
-                    major_kind_id = item.major_kind_id,
-                    major_kind_name = item.major_kind_name,
-                    major_name = item.major_name,
-                    engage_type = item.engage_type,
-                    engage_required = item.engage_required,
-                    regist_time = item.regist_time,
-                    register = item.register,
-                    human_amount = item.human_amount,
-                    changer = item.changer,
-                    change_time = item.change_time,
-                    deadline = item.deadline
-                };
-                list2.Add(sd);
-            }
-            return list2;
+                Id = list[0].Id,
+                first_kind_id = list[0].first_kind_id,
+                first_kind_name = list[0].first_kind_name,
+                second_kind_id = list[0].second_kind_id,
+                second_kind_name = list[0].second_kind_name,
+                third_kind_id = list[0].third_kind_id,
+                third_kind_name = list[0].third_kind_name,
+                major_id = list[0].major_id,
+                major_describe = list[0].major_describe,
+                major_kind_id = list[0].major_kind_id,
+                major_kind_name = list[0].major_kind_name,
+                major_name = list[0].major_name,
+                engage_type = list[0].engage_type,
+                engage_required = list[0].engage_required,
+                regist_time = list[0].regist_time,
+                register = list[0].register,
+                human_amount = list[0].human_amount,
+                changer = list[0].changer,
+                change_time = list[0].change_time,
+                deadline = list[0].deadline
+            };
+            return sd;
         }
 
         public int Add(engage_major_releaseModel st)
@@ -184,14 +179,13 @@ namespace DAL
         public int rows()
         {
             int rows = 0;
-            List<engage_major_release> list = FenYe(e => e.Id, e => e.Id > 0, ref rows, 1, 10);
+            List<engage_major_release> list = FenYe(e => e.Id, e => e.Id > 0, ref rows, 1, 5);
             return rows;
         }
         public int page()
         {
-            int rows = 0;
-            List<engage_major_release> list = FenYe(e => e.Id, e => e.Id > 0, ref rows, 1, 5);
-            double pages = rows / 5.00;
+            int rowes = rows();
+            double pages = rowes / 5.00;
             return (int)Math.Ceiling(pages);
         }
     }
