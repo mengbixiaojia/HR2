@@ -49,6 +49,7 @@
     <Compile Include="config_major_kindModel.cs" />
     <Compile Include="config_public_charModel.cs" />
     <Compile Include="engage_major_releaseModel.cs" />
+    <Compile Include="engage_resumeModel.cs" />
     <Compile Include="major_changeModel.cs" />
     <Compile Include="PopedomRoleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

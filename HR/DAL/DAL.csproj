@@ -61,6 +61,7 @@
     <Compile Include="DaoBase.cs" />
     <Compile Include="DBHelper.cs" />
     <Compile Include="engage_major_releaseDAL.cs" />
+    <Compile Include="engage_resumeDAL.cs" />
     <Compile Include="major_changeDAL.cs" />
     <Compile Include="PopedomRoleDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

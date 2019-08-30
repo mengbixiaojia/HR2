@@ -187,6 +187,10 @@
     <Compile Include="Controllers\major_changeController.cs" />
     <Compile Include="Controllers\right_listController.cs" />
     <Compile Include="Controllers\user_listController.cs" />
+    <Compile Include="Filter\ErrorFilterAttribute.cs" />
+    <Compile Include="Filter\LoginFilterAttribute.cs" />
+    <Compile Include="Filter\QXFilterAttribute.cs" />
+    <Compile Include="Filter\TestFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1119,6 +1123,7 @@
     <Content Include="Views\engage_major_release\Index.cshtml" />
     <Content Include="Views\engage_major_release\Index1.cshtml" />
     <Content Include="Views\engage_major_release\Edit.cshtml" />
+    <Content Include="Views\Shared\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

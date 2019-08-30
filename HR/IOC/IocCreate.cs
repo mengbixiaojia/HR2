@@ -168,5 +168,17 @@ namespace IOC
             UnityContainer ioc = GetBLLSeciton();
             return ioc.Resolve<Iengage_major_releaseBLL>("engage_major_releaseBLL");
         }
+        public static Iengage_resumeDAL Createengage_resumeDAL()
+        {
+            UnityContainer ioc = new UnityContainer();
+            ioc.RegisterType<Iengage_resumeDAL, engage_resumeDAL>();
+            return ioc.Resolve<Iengage_resumeDAL>();
+        }
+
+        public static Iengage_resumeBLL Createengage_resumeBLL()
+        {
+            UnityContainer ioc = GetBLLSeciton();
+            return ioc.Resolve<Iengage_resumeBLL>("engage_resumeBLL");
+        }
     }
 }

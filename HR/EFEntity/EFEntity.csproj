@@ -62,6 +62,7 @@
     <Compile Include="config_file_third_kind.cs" />
     <Compile Include="config_public_char.cs" />
     <Compile Include="engage_major_release.cs" />
+    <Compile Include="engage_resume.cs" />
     <Compile Include="MyDBContext.cs" />
     <Compile Include="PopedomRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

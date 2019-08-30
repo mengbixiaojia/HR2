@@ -7,10 +7,11 @@ using System.Web;
 using System.Web.Mvc;
 using IBLL;
 using IOC;
-using Newtonsoft.Json;
+using UI.Filter;
 
 namespace UI.Controllers
 {
+    [LoginFilter]
     public class indexController : Controller
     {
         IPopedomRoleBLL iprb = IocCreate.CreatePopedomRoleBLL();
