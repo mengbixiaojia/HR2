@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\作业\net\MVC\HR\Common\bin\Debug\log4net.dll</HintPath>
+      <HintPath>..\..\..\..\Y2\服务器控件\T3\Log4net\log4net-2.0.8-bin-newkey\log4net-2.0.8\bin\net\4.0\release\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

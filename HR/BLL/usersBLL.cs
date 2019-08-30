@@ -57,5 +57,9 @@ namespace BLL
         {
             return ist.cxqb();
         }
+        public DataTable SelectJS(int Uid)
+        {
+            return ist.SelectJS(Uid);
+        }
     }
 }

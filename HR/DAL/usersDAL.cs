@@ -131,7 +131,7 @@ namespace DAL
         public int login(usersModel us)
         {
             users u = new users();
-            List<users> list = SelectBy(e => e.u_true_name.Equals(us.u_true_name) && e.u_password.Equals(us.u_password));
+            List<users> list = SelectBy(e => e.u_name.Equals(us.u_name) && e.u_password.Equals(us.u_password));
             foreach (users item in list)
             {
                 if(item==null || item.Equals(""))
@@ -145,5 +145,12 @@ namespace DAL
             }
             return 0;
         }
+        //根据Uid查询角色
+        public DataTable SelectJS(int Uid)
+        {
+            string sql = string.Format(@"select [RoleID],u_true_name,(select  RoleName from Role r where (u.RoleID=r.[RoleID]))as RoleName from [dbo].[users] u  where id={0}", Uid);
+            return DBHelper.SelectTable(sql);
+        }
+
     }
 }

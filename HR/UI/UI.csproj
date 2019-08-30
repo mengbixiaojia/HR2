@@ -46,7 +46,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <HintPath>..\..\..\..\Y2\服务器控件\T3\Log4net\log4net-2.0.8-bin-newkey\log4net-2.0.8\bin\net\4.0\release\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -1119,6 +1119,10 @@
     <Content Include="Views\engage_major_release\Index.cshtml" />
     <Content Include="Views\engage_major_release\Index1.cshtml" />
     <Content Include="Views\engage_major_release\Edit.cshtml" />
+    <Content Include="Views\major_change\register.cshtml" />
+    <Content Include="Views\major_change\register_list.cshtml" />
+    <Content Include="Views\major_change\register_locate.cshtml" />
+    <Content Include="Views\right_list\right_list_information.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

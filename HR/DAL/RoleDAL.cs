@@ -57,7 +57,7 @@ namespace DAL
         public List<RoleModel> fenye(int dqy)
         {
             int rows = 0;
-            List<Role> list = FenYe<int>(e => e.RoleID, e => e.RoleID > 0, ref rows, dqy, 2);
+            List<Role> list = FenYe<int>(e => e.RoleID, e => e.RoleID > 0, ref rows, dqy, 5);
             List<RoleModel> list2 = new List<RoleModel>();
             foreach (Role item in list)
             {
@@ -82,9 +82,16 @@ namespace DAL
         public int Row()
         {
             int rows = 0;
-            List<Role> list = FenYe<int>(e => e.RoleID, e => e.RoleID > 0, ref rows, 1, 2);
+            List<Role> list = FenYe<int>(e => e.RoleID, e => e.RoleID > 0, ref rows, 1, 5);
             return rows;
         }
+        public int pages()
+        {
+            int rows = 0;
+            List<Role> list = FenYe<int>(e => e.RoleID, e => e.RoleID > 0, ref rows, 1, 5);
+            double page = rows / 5.00;
+            return (int)Math.Ceiling(page);
+        } 
 
         public List<RoleModel> Select()
         {
@@ -104,22 +111,18 @@ namespace DAL
             return list2;
         }
 
-        public List<RoleModel> SelectBy(RoleModel st)
+        public RoleModel SelectBy(int id)
         {
-            List<Role> list = SelectBy(e => e.RoleID.Equals(st.RoleID));
-            List<RoleModel> list2 = new List<RoleModel>();
-            foreach (var item in list)
-            {
-                RoleModel sd = new RoleModel()
+            Role r = SelectBy(e => e.RoleID.Equals(id)).FirstOrDefault();
+           
+                RoleModel rm = new RoleModel()
                 {
-                    RoleID = item.RoleID,
-                    RoleName=item.RoleName,
-                    RoleExplain=item.RoleExplain,
-                    IsOK=item.IsOK
+                    RoleID = r.RoleID,
+                    RoleName=r.RoleName,
+                    RoleExplain=r.RoleExplain,
+                    IsOK=r.IsOK
                 };
-                list2.Add(sd);
-            }
-            return list2;
+            return rm;
         }
 
         public int Update(RoleModel st)
@@ -132,6 +135,37 @@ namespace DAL
                 IsOK = st.IsOK
             };
             return Update(est);
+        }
+        public DataTable selectJSQX(object rid,object id)
+        {
+            string sql = "";
+            if (id == null)
+            {
+                //第一次过来,根数据
+                sql = string.Format(@"select q.[id],[text],[state],qr.Pid,
+case
+
+    when qr.Pid is not null then 1
+	else 0
+end as checked
+from [dbo].[Popedoms] q
+left join(select Pid from [dbo].[PopedomRole] where uid = '{0}') qr on q.id = qr.Pid
+where q.FID = 0", rid);
+            }
+            else
+            {
+                //第n次过来,子数据
+                sql = string.Format(@"select q.[id],[text],[state],qr.Pid,
+case
+
+    when qr.Pid is not null then 1
+	else 0
+end as checked
+from [dbo].[Popedoms] q
+left join(select Pid from [dbo].[PopedomRole] where uid = '{0}') qr on q.id = qr.Pid
+where q.FID = {1}", rid, id);
+            }
+            return DBHelper.SelectTable(sql);
         }
     }
 }

@@ -4,6 +4,7 @@ using IOC;
 using Model;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,20 +39,28 @@ namespace BLL
         {
             return irb.Row();
         }
+        public int pages()
+        {
+            return irb.pages();
+        }
 
         public List<RoleModel> Select()
         {
             return irb.Select();
         }
 
-        public List<RoleModel> SelectBy(RoleModel st)
+        public RoleModel SelectBy(int id)
         {
-            return irb.SelectBy(st);
+            return irb.SelectBy(id);
         }
 
         public int Update(RoleModel st)
         {
             return irb.Update(st);
+        }
+        public DataTable selectJSQX(object rid, object id)
+        {
+            return irb.selectJSQX(rid, id);
         }
     }
 }

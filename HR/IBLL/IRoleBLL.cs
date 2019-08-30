@@ -1,6 +1,7 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,8 +15,11 @@ namespace IBLL
         int Del(RoleModel st);
         int Update(RoleModel st);
         List<RoleModel> Select();
-        List<RoleModel> SelectBy(RoleModel st);
+        RoleModel SelectBy(int id);
         int Row();
+        int pages();
         List<RoleModel> fenye(int dqy);
+
+        DataTable selectJSQX(object rid, object id);
     }
 }

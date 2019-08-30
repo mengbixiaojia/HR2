@@ -29,5 +29,6 @@ namespace EFEntity
         public DbSet<config_file_first_kind> config_file_first_kind { get; set; }
         public DbSet<config_file_second_kind> config_file_second_kind { get; set; }
         public DbSet<engage_major_release> engage_major_release { get; set; }
+        public DbSet<major_change> major_change { get; set; }
     }
 }

@@ -71,7 +71,7 @@ namespace EFEntity
 
         public System.String check_reason { get; set; }  
 
-        public System.Int16 check_status { get; set; }  
+        public System.Int32 check_status { get; set; }  
 
         public System.String register { get; set; }  
 
