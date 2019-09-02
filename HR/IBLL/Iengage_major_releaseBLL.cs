@@ -17,6 +17,8 @@ namespace IBLL
         List<engage_major_releaseModel> fenye(int dqy);
         int page();
         int rows();
+        List<engage_major_releaseModel> SelectByName(engage_major_releaseModel st);
+        List<engage_major_releaseModel> SelectByNamee(engage_major_releaseModel st);
     }
 }
 

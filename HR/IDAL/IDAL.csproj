@@ -47,6 +47,7 @@
     <Compile Include="Iconfig_public_charDAL.cs" />
     <Compile Include="Iconfig_majorDAL.cs" />
     <Compile Include="Iconfig_major_kindDAL.cs" />
+    <Compile Include="Iengage_interviewDAL.cs" />
     <Compile Include="Iengage_major_releaseDAL.cs" />
     <Compile Include="Iengage_resumeDAL.cs" />
     <Compile Include="Imajor_changeDAL.cs" />

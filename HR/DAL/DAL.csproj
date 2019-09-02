@@ -60,6 +60,7 @@
     <Compile Include="config_public_charDAL.cs" />
     <Compile Include="DaoBase.cs" />
     <Compile Include="DBHelper.cs" />
+    <Compile Include="engage_interviewDAL.cs" />
     <Compile Include="engage_major_releaseDAL.cs" />
     <Compile Include="engage_resumeDAL.cs" />
     <Compile Include="major_changeDAL.cs" />

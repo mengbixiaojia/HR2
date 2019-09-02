@@ -112,7 +112,7 @@ namespace UI.Controllers
                 }
                 else
                 {
-                    return Content("<script>alert('新增成功');window.location='Create'</script>");
+                    return Content("<script>alert('新增失败');window.location='Create'</script>");
                 }
                 return View(em);
             }
@@ -130,6 +130,7 @@ namespace UI.Controllers
                 Id = id
             };
             engage_major_releaseModel cm = re.SelectBy(emrm);
+            cm.register = Session["us"].ToString();
             return View(cm);
         }
 

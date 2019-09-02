@@ -188,5 +188,38 @@ namespace DAL
             double pages = rowes / 5.00;
             return (int)Math.Ceiling(pages);
         }
+
+        public List<engage_major_releaseModel> SelectByName(engage_major_releaseModel st)
+        {
+            List<engage_major_release> list = SelectBy(e => e.major_kind_id.Equals(st.major_kind_id));
+            List<engage_major_releaseModel> list2 = new List<engage_major_releaseModel>();
+            foreach (var item in list)
+            {
+                engage_major_releaseModel sd = new engage_major_releaseModel()
+                {
+                    Id = item.Id,
+                    major_kind_id = item.major_kind_id,
+                    major_kind_name = item.major_kind_name,
+                };
+                list2.Add(sd);
+            }
+            return list2;
+        }
+        public List<engage_major_releaseModel> SelectByNamee(engage_major_releaseModel st)
+        {
+            List<engage_major_release> list = SelectBy(e => e.major_id.Equals(st.major_id));
+            List<engage_major_releaseModel> list2 = new List<engage_major_releaseModel>();
+            foreach (var item in list)
+            {
+                engage_major_releaseModel sd = new engage_major_releaseModel()
+                {
+                    Id = item.Id,
+                    major_id = item.major_id,
+                    major_name = item.major_name,
+                };
+                list2.Add(sd);
+            }
+            return list2;
+        }
     }
 }

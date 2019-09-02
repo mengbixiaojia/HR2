@@ -56,11 +56,14 @@
     <Compile Include="Config\config_file_second_kindConfig.cs" />
     <Compile Include="Config\config_file_third_kindConfig.cs" />
     <Compile Include="Config\config_public_charConfig.cs" />
+    <Compile Include="Config\engage_interviewConfig.cs" />
+    <Compile Include="Config\engage_resumeConfig.cs" />
     <Compile Include="Config\RoleConfig.cs" />
     <Compile Include="config_file_first_kind.cs" />
     <Compile Include="config_file_second_kind.cs" />
     <Compile Include="config_file_third_kind.cs" />
     <Compile Include="config_public_char.cs" />
+    <Compile Include="engage_interview.cs" />
     <Compile Include="engage_major_release.cs" />
     <Compile Include="engage_resume.cs" />
     <Compile Include="MyDBContext.cs" />

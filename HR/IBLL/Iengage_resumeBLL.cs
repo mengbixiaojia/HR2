@@ -14,6 +14,9 @@ namespace IBLL
         int Update(engage_resumeModel st);
         List<engage_resumeModel> Select();
         List<engage_resumeModel> SelectBy(engage_resumeModel st);
+        List<engage_resumeModel> FenYeByZT(int dqy);
+        int rows();
+        int page();
     }
 }
 

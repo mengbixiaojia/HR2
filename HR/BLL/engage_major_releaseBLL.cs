@@ -50,5 +50,13 @@ namespace BLL
         {
             return ist.rows();
         }
+        public List<engage_major_releaseModel> SelectByName(engage_major_releaseModel st)
+        {
+            return ist.SelectByName(st);
+        }
+        public List<engage_major_releaseModel> SelectByNamee(engage_major_releaseModel st)
+        {
+            return ist.SelectByNamee(st);
+        }
     }
 }

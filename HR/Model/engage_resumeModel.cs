@@ -49,7 +49,7 @@ namespace Model
 
         public System.String human_race  {  get;set; }  
 
-        public System.DateTime human_birthday  {  get;set; }  
+        public System.DateTime? human_birthday  {  get;set; }  
 
         public System.Int16 human_age  {  get;set; }  
 
@@ -81,11 +81,11 @@ namespace Model
 
         public System.String register  {  get;set; }  
 
-        public System.DateTime regist_time  {  get;set; }  
+        public System.DateTime? regist_time  {  get;set; }  
 
         public System.String checker  {  get;set; }  
 
-        public System.DateTime check_time  {  get;set; }  
+        public System.DateTime? check_time  {  get;set; }  
 
         public System.Int16 interview_status  {  get;set; }  
 
@@ -95,15 +95,15 @@ namespace Model
 
         public System.String test_checker  {  get;set; }  
 
-        public System.DateTime test_check_time  {  get;set; }  
+        public System.DateTime? test_check_time  {  get;set; }  
 
         public System.String pass_register  {  get;set; }  
 
-        public System.DateTime pass_regist_time  {  get;set; }  
+        public System.DateTime? pass_regist_time  {  get;set; }  
 
         public System.String pass_checker  {  get;set; }  
 
-        public System.DateTime pass_check_time  {  get;set; }  
+        public System.DateTime? pass_check_time  {  get;set; }  
 
         public System.Int16 pass_check_status  {  get;set; }  
 

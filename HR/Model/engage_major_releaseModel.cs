@@ -35,15 +35,15 @@ namespace Model
 
         public System.String engage_type  {  get;set; }  
 
-        public System.DateTime deadline  {  get;set; }  
+        public System.DateTime? deadline  {  get;set; }  
 
         public System.String register  {  get;set; }  
 
         public System.String changer  {  get;set; }  
 
-        public System.DateTime regist_time  {  get;set; }  
+        public System.DateTime? regist_time  {  get;set; }  
 
-        public System.DateTime change_time  {  get;set; }  
+        public System.DateTime? change_time  {  get;set; }  
 
         public System.String major_describe  {  get;set; }  
 

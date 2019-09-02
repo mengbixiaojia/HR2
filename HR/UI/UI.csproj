@@ -181,7 +181,9 @@
     <Compile Include="Controllers\config_majorController.cs" />
     <Compile Include="Controllers\config_major_kindController.cs" />
     <Compile Include="Controllers\config_public_charController.cs" />
+    <Compile Include="Controllers\engage_interviewController.cs" />
     <Compile Include="Controllers\engage_major_releaseController.cs" />
+    <Compile Include="Controllers\engage_resumeController.cs" />
     <Compile Include="Controllers\indexController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\major_changeController.cs" />
@@ -1124,6 +1126,9 @@
     <Content Include="Views\engage_major_release\Index1.cshtml" />
     <Content Include="Views\engage_major_release\Edit.cshtml" />
     <Content Include="Views\Shared\Login.cshtml" />
+    <Content Include="Views\engage_resume\Add.cshtml" />
+    <Content Include="Views\engage_interview\Index.cshtml" />
+    <Content Include="Views\engage_resume\Add2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
