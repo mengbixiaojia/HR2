@@ -28,7 +28,7 @@ namespace IDAL
         int Row();
         int pages();
         List<major_changeModel> fenye(int dqy);
-        List<major_changeModel> fenye1(int dqy, major_changeModel mm, DateTime sj);
+        List<major_changeModel> fenye1(int dqy, major_changeModel mm, DateTime time1, DateTime time2);
         List<major_changeModel> fenye2(int dqy);
 
     }

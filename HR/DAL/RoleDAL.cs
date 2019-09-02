@@ -167,5 +167,52 @@ where q.FID = {1}", rid, id);
             }
             return DBHelper.SelectTable(sql);
         }
+        /// <summary>
+        ///  查询当前角色对应权限
+        /// </summary>
+        /// <param name="rid"></param>
+        /// <param name="pid"></param>
+        /// <returns></returns>
+        public DataTable selectQX(string rid, string pid)
+        {
+            string sql = string.Format("select a.id, text, state,pe.id,case when pe.id is not null then 1 else 0 end as checked from [Popedoms] a left join(select * from PopedomRole where  uid='{0}') pe on a.id= pe.Pid where a.FID ='{1}'", rid, pid);
+            return DBHelper.SelectTable(sql);
+
+        }
+        //根据角色id删除角色权限表
+        public int DeletePer(string rid)
+        {
+            string sql = string.Format(@"Delete from [dbo].[PopedomRole] where uid ='{0}'", rid);
+            return DBHelper.InsertDeleteUpdate(sql);
+
+        }
+        /// <summary>
+        /// 新增角色权限表
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <returns></returns>
+        public int AddPer(string sql)
+        {
+            return DBHelper.InsertDeleteUpdate(sql);
+
+        }
+    public List<RoleModel> selectupdate(int id)
+        {
+            List<Role> list = SelectBy(e => e.RoleID == id);
+
+
+            List<RoleModel> li = new List<RoleModel>();
+            foreach (Role item in list)
+            {
+                RoleModel ko = new RoleModel();
+                ko.RoleID = item.RoleID;
+                ko.RoleName = item.RoleName;
+                ko.RoleExplain = item.RoleExplain;
+                ko.IsOK = item.IsOK; li.Add(ko);
+            }
+            return li;
+
+        }
+
     }
 }

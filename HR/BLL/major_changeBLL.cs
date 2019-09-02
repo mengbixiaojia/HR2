@@ -102,9 +102,9 @@ namespace BLL
         {
             return ist.SelectBy2(st);
         }
-        public List<major_changeModel> fenye1(int dqy, major_changeModel mm, DateTime sj)
+        public List<major_changeModel> fenye1(int dqy, major_changeModel mm, DateTime time1, DateTime time2)
         {
-            return ist.fenye1(dqy, mm, sj);
+            return ist.fenye1(dqy, mm, time1,time2);
         }
         public List<major_changeModel> fenye2(int dqy)
         {

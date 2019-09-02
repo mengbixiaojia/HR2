@@ -8,12 +8,30 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Runtime.Remoting.Messaging;
+using System.Data.Entity.Infrastructure;
 
 namespace DAL
 {
     public class usersDAL:DaoBase<users>,IusersDAL
     {
         static MyDBContext db = CreateDbContext();
+        private Boolean RemoveHoldingEntityInContext(users entity)
+        {
+            var objContext = ((IObjectContextAdapter)db).ObjectContext;
+            var objSet = objContext.CreateObjectSet<users>();
+            var entityKey = objContext.CreateEntityKey(objSet.EntitySet.Name, entity);
+            Object foundEntity;
+            var exists = objContext.TryGetObjectByKey(entityKey, out foundEntity);
+
+            if (exists)
+            {
+                objContext.Detach(foundEntity);
+            }
+
+            return (exists);
+
+        }
+
         private static MyDBContext CreateDbContext()
         {
             //从当前请求的线程取值
@@ -98,26 +116,89 @@ namespace DAL
                 RoleID = st.RoleID
             };
             return Update(est);
-        }
-        public List<usersModel> fenye(int dqy)
+        }      
+            public Dictionary<string, object> Fenye(int pageIndex)
         {
             int rows = 0;
-            List<users> list = FenYe<int>(e => e.Id, e => e.Id > 0, ref rows, dqy, 2);
-            List<usersModel> list2 = new List<usersModel>();
+            List<users> list = FenYe<int>(e => e.Id, e => e.Id > 0, ref rows, pageIndex, 3);
+            List<usersModel> dt = new List<usersModel>();
             foreach (users item in list)
             {
                 usersModel um = new usersModel()
                 {
                     Id = item.Id,
                     u_name = item.u_name,
+                    u_password = item.u_password,
                     u_true_name = item.u_true_name,
-                    u_password = item.u_password
+                    RoleID = item.RoleID
                 };
-                list2.Add(um);
+
+                if (item.RoleID == 1)
+                {
+                    um.RoleName = "人事专员";
+                }
+                else if (item.RoleID == 2)
+                {
+                    um.RoleName = "人事经理";
+                }
+                else if (item.RoleID == 3)
+                {
+                    um.RoleName = "薪酬专员";
+                }
+                else if (item.RoleID == 4)
+                {
+                    um.RoleName = "薪酬经理";
+                }
+                else if (item.RoleID == 5)
+                {
+                    um.RoleName = "招聘专员";
+                }
+                else if (item.RoleID == 6)
+                {
+                    um.RoleName = "招聘经理";
+                }
+                else if (item.RoleID == 7)
+                {
+                    um.RoleName = "应聘者";
+                }
+                else if (item.RoleID == 8)
+                {
+                    um.RoleName = "系统管理员";
+                }
+                dt.Add(um);
             }
-            return list2;
-        }
-        public int Row()
+            //获取总行数
+            List<users> list3 = db.users.OrderBy(e => e.Id).Where(e => e.Id > 0).ToList();
+            rows = list3.Count();
+            //获取总页数
+            double page = rows / 3.00;
+            int pages = int.Parse(Math.Ceiling(page).ToString());
+            Dictionary<string, object> di = new Dictionary<string, object>();
+            di["dt"] = dt;
+            di["rows"] = rows;
+            di["pages"] = pages;
+            return di;
+
+
+        
+
+        //int rows = 0;
+        //List<users> list = FenYe<int>(e => e.Id, e => e.Id > 0, ref rows, dqy, 2);
+        //List<usersModel> list2 = new List<usersModel>();
+        //foreach (users item in list)
+        //{
+        //    usersModel um = new usersModel()
+        //    {
+        //        Id = item.Id,
+        //        u_name = item.u_name,
+        //        u_true_name = item.u_true_name,
+        //        u_password = item.u_password
+        //    };
+        //    list2.Add(um);
+        //}
+        //return list2;
+    }
+    public int Row()
         {
             int rows = 0;
             List<users> list = FenYe<int>(e => e.Id, e => e.Id > 0, ref rows, 1, 2);

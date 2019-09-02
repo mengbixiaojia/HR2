@@ -18,7 +18,8 @@ namespace IDAL
        int login(usersModel us);
         List<usersModel> cxqb();
         int Row();
-        List<usersModel> fenye(int dqy);
+        //List<usersModel> fenye(int dqy);
+        Dictionary<string, object> Fenye(int pageIndex);
         DataTable SelectJS(int Uid);
     }
 }

@@ -269,26 +269,28 @@ namespace DAL
                 check_status = st.check_status,
                 register = st.register,
                 checker = st.checker,
+                //regist_time = st.regist_time,
                 regist_time = DateTime.Now,
+                //check_time = st.check_time
                 check_time = DateTime.Now
             };
             return Update(est);
         }
         public List<major_changeModel> firstSelect()
         {
-            var values = db.Database.SqlQuery<major_changeModel>($"select [first_kind_id],[first_kind_name] from [dbo].[major_change]").ToList();
+            var values = db.Database.SqlQuery<major_changeModel>($"select [first_kind_id],[first_kind_name] from [dbo].[config_file_first_kind]").ToList();
             return values;
         }
 
         public List<major_changeModel> secondSelect()
         {
-            var values = db.Database.SqlQuery<major_changeModel>($"select [second_kind_id],[second_kind_name] from [dbo].[major_change]").ToList();
+            var values = db.Database.SqlQuery<major_changeModel>($"select [second_kind_id],[second_kind_name] from [dbo].[config_file_second_kind]").ToList();
             return values;
         }
 
         public List<major_changeModel> thirdSelect()
         {
-            var values = db.Database.SqlQuery<major_changeModel>($"select [third_kind_id],[third_kind_name] from [dbo].[major_change]").ToList();
+            var values = db.Database.SqlQuery<major_changeModel>($"select [third_kind_id],[third_kind_name] from [dbo].[config_file_third_kind]").ToList();
             return values;
         }
         public List<major_changeModel> fenye(int dqy)
@@ -334,17 +336,19 @@ namespace DAL
                     check_status = item.check_status,
                     register = item.register,
                     checker = item.checker,
-                    regist_time = item.regist_time,
-                    check_time = item.check_time
+                    //regist_time = item.regist_time,
+                    //check_time = item.check_time,
+                    regist_time = DateTime.Now,
+                    check_time = DateTime.Now
                 };
                 list2.Add(mm);
             }
             return list2;
         }
-        public List<major_changeModel> fenye1(int dqy,major_changeModel mm,DateTime sj)
+        public List<major_changeModel> fenye1(int dqy,major_changeModel mm,DateTime time1,DateTime time2)
         {
             int rows = 0;
-            List<major_change> list = FenYe<int>(e => e.Id, e => e.first_kind_id.Equals(mm.first_kind_id)&&e.second_kind_id.Equals(mm.second_kind_id)&&e.third_kind_id.Equals(mm.third_kind_id)&&e.regist_time>=mm.regist_time&&e.regist_time<=sj, ref rows, dqy, 1);
+            List<major_change> list = FenYe<int>(e => e.Id, e => e.first_kind_id.Equals(mm.first_kind_id)&&e.second_kind_id.Equals(mm.second_kind_id)&&e.third_kind_id.Equals(mm.third_kind_id)&&e.regist_time>=time1&&e.regist_time<=time2, ref rows, dqy, 2);
             List<major_changeModel> list2 = new List<major_changeModel>();
             foreach (major_change item in list)
             {
@@ -384,8 +388,10 @@ namespace DAL
                     check_status = item.check_status,
                     register = item.register,
                     checker = item.checker,
-                    regist_time = item.regist_time,
-                    check_time = item.check_time
+                    //regist_time = item.regist_time,
+                    //check_time = item.check_time
+                    regist_time = DateTime.Now,
+                    check_time = DateTime.Now
                 };
                 list2.Add(mcm);
             }
@@ -394,7 +400,7 @@ namespace DAL
         public List<major_changeModel> fenye2(int dqy)
         {
             int rows = 0;
-            List<major_change> list = FenYe<int>(e => e.Id, e => e.Id > 0, ref rows, dqy, 1);
+            List<major_change> list = FenYe<int>(e => e.Id, e => e.Id > 0, ref rows, dqy, 2);
             List<major_changeModel> list2 = new List<major_changeModel>();
             foreach (major_change item in list)
             {

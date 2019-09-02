@@ -20,5 +20,9 @@ namespace IDAL
         int pages();
         List<RoleModel> fenye(int dqy);
         DataTable selectJSQX(object rid, object id);
+        DataTable selectQX(string rid, string pid);
+        int DeletePer(string rid);
+        int AddPer(string sql);
+        List<RoleModel> selectupdate(int id);
     }
 }

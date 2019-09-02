@@ -58,35 +58,35 @@ namespace UI.Controllers
         }
 
         // GET: right_list/Edit/5
-        public ActionResult right_list_information(int id)
-        {
-            RoleModel r = irb.SelectBy(id);
-           // r.RoleID = int.Parse(irb.MaxRoleID().ToString());
-            ViewData.Model = r;
-            return View();
-        }
+        //public ActionResult right_list_information(int id)
+        //{
+        //    RoleModel r = irb.SelectBy(id);
+        //   // r.RoleID = int.Parse(irb.MaxRoleID().ToString());
+        //    ViewData.Model = r;
+        //    return View();
+        //}
 
-        // POST: right_list/Edit/5
-        [HttpPost]
-        public ActionResult right_list_information(RoleModel r)
-        {
-            //RoleModel rm = new RoleModel()
-            //{
-            //    RoleID=r.RoleID,
-            //    RoleName=r.RoleName,
-            //    RoleExplain=r.RoleExplain,
-            //    IsOK=r.IsOK
-            //};
-            //根据Role做修改
-            if (irb.Update(r) > 0)
-            {
-                return Content("<script>alert('修改成功');window.location.href='/right_list/right_list'</script>");
-            }
-            else
-            {
-                return Content("<script>alert('修改失败');window.location.href='/right_list/right_list'</script>");
-            }
-        }
+        //// POST: right_list/Edit/5
+        //[HttpPost]
+        //public ActionResult right_list_information(RoleModel r)
+        //{
+        //    //RoleModel rm = new RoleModel()
+        //    //{
+        //    //    RoleID = r.RoleID,
+        //    //    RoleName = r.RoleName,
+        //    //    RoleExplain = r.RoleExplain,
+        //    //    IsOK = r.IsOK
+        //    //};
+        //    //根据Role做修改
+        //    if (irb.Update(r) > 0)
+        //    {
+        //        return Content("<script>alert('修改成功');window.location.href='/right_list/right_list'</script>");
+        //    }
+        //    else
+        //    {
+        //        return Content("<script>alert('修改失败');window.location.href='/right_list/right_list'</script>");
+        //    }
+        //}
 
         // GET: right_list/Delete/5
         public ActionResult Delete(int id)
@@ -105,12 +105,67 @@ namespace UI.Controllers
                 return Content("<script>alert('删除失败');window.location.href='/right_list/right_list'</script>");
             }
         }
-        public ActionResult er()
+        public ActionResult right_list_information(int id)
+        {
+            List<RoleModel> list = irb.selectupdate(id);
+            RoleModel r = new RoleModel()
+            {
+                //RoleID = list[0].RoleID,
+                RoleName = list[0].RoleName,
+                RoleExplain = list[0].RoleExplain,
+                IsOK = list[0].IsOK
+            };
+            int RoleID = list[0].RoleID;
+            ViewData["id"] = RoleID;
+            ViewData.Model = r;
+            return View();
+        }
+        public ActionResult ShowQX()
         {
             string id = Request["id"];
-            string Uid = Request["Uid"];
-            DataTable dt = irb.selectJSQX(1, id);
+            string RoleID = Request["RoleID"];
+            string f = "0";
+            DataTable dt;
+            if (id != null)
+            {
+                dt = irb.selectQX(RoleID, id);
+            }
+            else
+            {
+                dt = irb.selectQX(RoleID, f);
+            }
             return Content(JsonConvert.SerializeObject(dt));
+        }
+        public ActionResult RoleUpdate2()
+        {
+            string Rolemanager = Request["RoleManager"];
+            Dictionary<string, object> di = JsonConvert.DeserializeObject<Dictionary<string, object>>(Rolemanager);
+            RoleModel mm = new RoleModel()
+            {
+                RoleID = int.Parse(di["RoleID"].ToString()),
+                RoleName = di["RoleName"].ToString(),
+                RoleExplain = di["RoleExplain"].ToString(),
+                IsOK = di["IsOK"].ToString()
+            };
+            int i = irb.Update(mm);
+            return Content(JsonConvert.SerializeObject(i));
+
+        }
+        public ActionResult PerDelete()
+        {
+            string rid = Request["rid"];
+            int b = irb.DeletePer(rid);
+            return Content(JsonConvert.SerializeObject(b));
+
+        }
+        public ActionResult PerADD1()
+        {
+            string rid = Request["rid"];
+            string id = Request["dsd"];
+            string sql = string.Format("insert into [dbo].[PopedomRole]  values('{0}','{1}')", rid, id);
+            int c = irb.AddPer(sql);
+            return Content(JsonConvert.SerializeObject(c));
+
         }
     }
 }

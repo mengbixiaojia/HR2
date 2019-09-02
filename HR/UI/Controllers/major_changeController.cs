@@ -126,8 +126,8 @@ namespace UI.Controllers
                 salary_standard_id = listm[0].salary_standard_id,
                 salary_standard_name = listm[0].salary_standard_name,
                 salary_sum = listm[0].salary_sum,
-                //new_salary_standard_id = listm[0].new_salary_standard_id,
-                //new_salary_standard_name = listm[0].new_salary_standard_name,
+                new_salary_standard_id = listm[0].new_salary_standard_id,
+                new_salary_standard_name = listm[0].new_salary_standard_name,
                 new_salary_sum = listm[0].new_salary_sum,
                 change_reason = listm[0].change_reason,
                 check_reason = listm[0].check_reason,
@@ -143,15 +143,46 @@ namespace UI.Controllers
         [HttpPost]
         public ActionResult register(major_changeModel mcm)
         {
-                //修改操作
-                if (imb.Update(mcm) > 0)
-                {
-                    return Content("<script>alert('修改成功');window.location.href='/register_list/register_list'</script>");
-                }
-                else
-                {
-                    return Content("<script>alert('修改失败');window.location.href='/register_list/register_list'</script>");
-                }
+            config_file_second_kindModel csm = new config_file_second_kindModel
+            {
+                second_kind_id = mcm.new_second_kind_id
+            };
+            config_file_first_kindModel cfm = new config_file_first_kindModel
+            {
+                first_kind_id = mcm.new_first_kind_id
+            };
+            config_file_third_kindModel css = new config_file_third_kindModel
+            {
+                third_kind_id = mcm.new_third_kind_id
+            };
+            config_major_kindModel cff = new config_major_kindModel
+            {
+                major_kind_id = mcm.new_major_kind_id
+            };
+            config_majorModel cmm = new config_majorModel
+            {
+                major_id = mcm.new_major_id,
+                major_kind_id = mcm.new_major_kind_id
+            };
+            List<config_file_second_kindModel> lists = sb.SelectByName(csm);
+            List<config_file_first_kindModel> listf = ib.SelectByName(cfm);
+            List<config_file_third_kindModel> lis = isb.SelectByName(css);
+            List<config_major_kindModel> liss = ia.SelectByName(cff);
+            List<config_majorModel> litt = iii.SelectByName(cmm);
+            mcm.new_second_kind_name = lists[0].second_kind_name;
+            mcm.new_first_kind_name = listf[0].first_kind_name;
+            mcm.new_third_kind_name = lis[0].third_kind_name;
+            mcm.new_major_kind_name = liss[0].major_kind_name;
+            mcm.new_major_name = litt[0].major_name;
+            //修改操作
+            if (imb.Update(mcm) > 0)
+            {
+                return Content("<script>alert('修改成功');window.location.href='/major_change/register_list'</script>");
+            }
+            else
+            {
+                return Content("<script>alert('修改失败');window.location.href='/major_change/register_list'</script>");
+            }
         }
         private List<SelectListItem> FillDrop6()
         {
@@ -191,15 +222,15 @@ namespace UI.Controllers
 
         private List<SelectListItem> FillDrop4()
         {
-            List<major_changeModel> list2 = imb.fourSelect();
+            List<config_file_first_kindModel> list2 = ib.Select();
             List<SelectListItem> list = new List<SelectListItem>();
             list.Add(new SelectListItem { Text = "----------请选择----------", Value = "" });
-            foreach (major_changeModel item in list2)
+            foreach (config_file_first_kindModel item in list2)
             {
                 SelectListItem sl = new SelectListItem()
                 {
-                    Text = item.new_first_kind_name,
-                    Value = item.new_first_kind_id.ToString()
+                    Text = item.first_kind_name,
+                    Value = item.first_kind_id
                 };
                 list.Add(sl);
             }
@@ -286,15 +317,16 @@ namespace UI.Controllers
             {
                 dqy = int.Parse(Request["ye"]);
             }
-            DateTime time2 = DateTime.Parse(Request["time2"]);
+            //DateTime time2 = DateTime.Parse(Request["time2"].ToString());
             major_changeModel mc = new major_changeModel
             {
                 first_kind_id = Request["firstId"],
                 second_kind_id = Request["secondId"],
-                third_kind_id = Request["thirdId"],
-                regist_time = DateTime.Parse(Request["time1"])
-            };
-            List<major_changeModel> list = imb.fenye1(dqy,mc,time2);
+                third_kind_id = Request["thirdId"]
+        };
+            DateTime time1 = DateTime.Parse(Request["starttime"].ToString());
+            DateTime time2 = DateTime.Parse(Request["endtime"].ToString());
+            List<major_changeModel> list = imb.fenye1(dqy,mc,time1,time2);
             return Content(JsonConvert.SerializeObject(list));
         }
     }

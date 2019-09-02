@@ -77,8 +77,8 @@ namespace Model
 
         public System.String checker  {  get;set; }  
 
-        public System.DateTime regist_time  {  get;set; }  
+        public System.DateTime? regist_time  {  get;set; }  
 
-        public System.DateTime check_time  {  get;set; } 
+        public System.DateTime? check_time  {  get;set; } 
     }
 }

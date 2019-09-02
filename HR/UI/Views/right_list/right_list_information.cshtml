@@ -28,97 +28,166 @@
 </head>
 <body>
     <div>
-@using (Ajax.BeginForm("right_list_information", new AjaxOptions() { HttpMethod = "post" }))
-{
-        <form id="powerAction!doModifyRight" name="powerAction!doModifyRight" action="success.html" method="post">
-            <table width="100%">
-                <tr>
-                    <td>
-                        <font color="black">您正在做的业务是：人力资源--权限管理--编辑角色</font>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="right">
-                        <input id="Submit1" type="submit" value="保存" class="BUTTON_STYLE1" v-on:click="QS"/>
-                        <input id="Submit1" type="button" value="返回" class="BUTTON_STYLE1" />
-                    </td>
-                </tr>
-            </table>
-            <table width="100%" border="1" cellpadding=3 cellspacing=1
-                   bordercolorlight=#848284 bordercolordark=#eeeeee
-                   class="TABLE_STYLE1">
-                <tr>
-                    <td class="TD_STYLE1">角色编号</td>
-                    <td class="TD_STYLE2">
-              @Html.TextBox("RoleID", Model.RoleID, new { @class = "INPUT_STYLE1", @readonly = "readonly" })
-                    </td>
-                    <td class="TD_STYLE1">角色名称</td>
-                    <td class="TD_STYLE2">
-              @Html.TextBox("RoleName", Model.RoleName,new { @class = "INPUT_STYLE1"})
-                    </td>
-                </tr>
-                <tr>
-                    <td class="TD_STYLE1">角色说明</td>
-                    <td class="TD_STYLE2">
-                       @Html.TextBox("RoleExplain", Model.RoleExplain, new { @class = "INPUT_STYLE1"})
-                    </td>
-                    <td class="TD_STYLE1">角色是否可用</td>
-                    <td class="TD_STYLE2">
-                    @Html.RadioButton("IsOK", "是")@Html.Label("是") @Html.RadioButton("IsOK", "否")@Html.Label("否")
-                    </td>
-                </tr>
-            </table>
-            <hr />
-            <ul id="tt"></ul> 
-        </form>
-}
-    </div>
-    @*<script type="text/javascript">
-        var vm=new Vue({
-        methods:{
-            //修改
-                QS: function () {
-                    //修改角色权限表的数据
-                    //关键点：获取所有的权限ID
-                    var fid = "";
-                    var rid = $("#UP").text();
-                    //获取打全勾
-                    var nodes = $('#tt').tree('getChecked');
-                    for (var i = 0; i < nodes.length; i++) {
-                        fid += nodes[i].id + ",";
-                    }
-                    //console.info(nodes);
-                    //获取打半勾
-                    var nodes1 = $('#tt').tree('getChecked', 'indeterminate');
-                    for (var i = 0; i < nodes1.length; i++) {
-                        fid += nodes1[i].id + ",";
-                    }
-                    fid = fid.substring(0, fid.length - 1);
-                    var list = fid.split(",");
-                    var arr = new Array();
-                    for (var i = 0; i < list.length; i++) {
-                        arr[i] = { a: list[i] };
-                    }
-                    //发送ajax
-                    $.ajax({
-                        url: "Handler3.ashx",
-                        type: "post",
-                        data: "fid=" + JSON.stringify(arr) + "&rid=" + rid,
-                        success: function (zhi) {
-                            if (zhi == "ok") {
-                                alert("修改成功!");
-                                window.location.reload();
-                            } else {
-                                alert("修改失败!");
-                            }
-                        }
-                    });
-                }
-        },
-            created: function () {
-                this.load();
+        <script type="text/javascript">
+        $(function () {
+            CreateTree();
+
+            var hidRadio = $("#hidSex").val();
+            var radios = document.getElementsByName("IsOK");
+            if (hidRadio == "是") {
+                radios[0].checked = true;
+            } else {
+                radios[1].checked = true;
             }
+
+
+            $("#Button1").click(function () {
+                //alert($("#rid").text());
+                //alert($("#RoleName").val());
+                //alert($("#RoleExplain").val());
+                //alert($("input[name='IsOK']:checked").val());
+                var rid=$("#rid").text();
+                //alert(rid);
+                var RoleManager={
+                    RoleID:$("#rid").text(),
+                    RoleName:$("#RoleName").val(),
+                    RoleExplain:$("#RoleExplain").val(),
+                    IsOK:$("input[name='IsOK']:checked").val()
+                }
+                //根据角色id修改角色表
+                $.ajax({
+                    url: "/right_list/RoleUpdate2",
+                    type: "post",
+                    data: "RoleManager=" +JSON.stringify(RoleManager),
+                    success: function (xgjg) {
+                        var i = eval("(" + xgjg + ")");
+                        if(i>0){
+                            //根据角色id删除角色权限表
+                            $.ajax({
+                                url: "/right_list/PerDelete",
+                                type: "post",
+                                data: "rid=" +rid,
+                                success: function (scjg) {
+                                    var b = eval("(" + scjg + ")");
+                                    if(b>=0){
+                                        //新增此角色下权限（角色权限表）
+                                        var nodes = $('#tt').tree('getChecked');
+                                        for(var i=0;i<nodes.length;i++){
+                                            $.ajax({
+                                                //先增父
+                                                url: "/right_list/PerADD1",
+                                                type: "post",
+                                                data: "rid=" + rid+ "&dsd=" + nodes[i]["id"],
+                                                success: function (xzjg1) {
+                                                    var jg3 = eval("(" + xzjg1 + ")");
+                                                    if (jg3 > 0) {
+
+                                                    }
+                                                }
+                                                })
+                                        }
+                                        var nodes1 = $('#tt').tree('getChecked', 'indeterminate');
+                                        for (var i = 0; i < nodes1.length; i++) {
+                                            //增加子
+                                            $.ajax({
+                                                url: "/right_list/PerADD1",
+                                                type: "post",
+                                                data: "rid=" +rid + "&dsd=" + nodes1[i]["id"],
+                                                success: function (xzjg2) {
+                                                    var jg4 = eval("(" + xzjg2 + ")");
+                                                    if (jg4 > 0) {
+
+                                                    }
+                                                }
+                                            });
+
+                                        }
+                                        alert("修改成功!!!");
+                                        window.location.href = '/right_list/right_list';
+                                    }
+                                }
+                                })
+
+
+                        }
+                    }
+
+
+                    })
+
+
+
+            })
+            $("#But").click(function () {
+                window.location.href = '/right_list/right_list';
+            })
         })
-    </script>*@
+
+        function CreateTree() {
+            $('#tt').tree({
+                url: '/right_list/ShowQX?RoleID=' + @ViewData["id"],
+                checkbox: true,
+                onLoadSuccess: function (node, data) {
+                    var t = $(this);//t代表的是树控件
+                    for (var i = 0; i < data.length; i++) {
+                        var d = data[i];
+
+                        if (d.state == "closed") {
+                            //根节点
+                            $(t).tree("expandAll");//展开所有节点
+                        }
+                    }
+                }
+            });
+        }
+
+        </script>
+        <table width="100%">
+            <tr>
+                <td>
+                    <font color="black">您正在做的业务是：人力资源--权限管理--编辑角色</font>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    <input type="submit" id="Button1" value="&#20445;&#23384;" class="BUTTON_STYLE1" />
+
+                    <input type="button" id="But" value="返回" class="BUTTON_STYLE1"
+                           onclick="history.back()">
+                </td>
+            </tr>
+        </table>
+        <table width="100%" border="1" cellpadding=3 cellspacing=1
+               bordercolorlight=#848284 bordercolordark=#eeeeee
+               class="TABLE_STYLE1">
+            <tr>
+                <td class="TD_STYLE1">角色编号</td>
+                <td class="TD_STYLE2">
+                    @*@Html.LabelFor(model => model.RoleID, new { htmlAttributes = new { @class = "TD_STYLE2", @readonly ="readonly" } })*@
+                    @Html.Label("RoleID", ViewData["id"].ToString(), new { @readonly = "readonly", @id = "rid" })
+                </td>
+                <td class="TD_STYLE1">角色名称</td>
+                <td class="TD_STYLE2">
+                    @Html.TextBoxFor(model => model.RoleName, new { @class = "INPUT_STYLE2", @id = "RoleName" })
+                </td>
+            </tr>
+            <tr>
+                <td class="TD_STYLE1">角色说明</td>
+                <td class="TD_STYLE2">
+                    @Html.TextBoxFor(model => model.RoleExplain, new { @class = "INPUT_STYLE2", @id = "RoleExplain" })
+
+                </td>
+                <td class="TD_STYLE1">角色是否可用</td>
+                <td class="TD_STYLE2">
+                    <input type="hidden" id="hidSex" value="@Model.IsOK" />
+                    <input type="radio" name="IsOK" value="是" />是<input type="radio" name="IsOK" value="否" />否
+
+                </td>
+            </tr>
+        </table>
+            @*权限角色表树控件*@
+            <ul id="tt"></ul> 
+    </div>
+    
 </body>
 </html>

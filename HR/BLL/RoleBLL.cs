@@ -62,5 +62,24 @@ namespace BLL
         {
             return irb.selectJSQX(rid, id);
         }
+
+        public DataTable selectQX(string rid, string pid)
+        {
+            return irb.selectQX(rid, pid);
+        }
+
+        public int DeletePer(string rid)
+        {
+            return irb.DeletePer(rid);
+        }
+
+        public int AddPer(string sql)
+        {
+            return irb.AddPer(sql);
+        }
+        public List<RoleModel> selectupdate(int id)
+        {
+            return irb.selectupdate(id);
+        }
     }
 }

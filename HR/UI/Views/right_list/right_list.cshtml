@@ -63,16 +63,16 @@
                 <td class="TD_STYLE2">{{item.RoleExplain}}</td>
                 <td class="TD_STYLE2">{{item.IsOK}}</td>
                 <td class="TD_STYLE2">
-                    <a v-on:click="Up" v-bind:href="['/right_list/right_list_information/'+item.RoleID]"><img src="../../images/bt_edit.gif" title="编辑" style="cursor:pointer;" /></a>
+                    <a v-bind:href="['/right_list/right_list_information/'+item.RoleID]"><img src="../../images/bt_edit.gif" title="编辑" style="cursor:pointer;" /></a>
                     <a v-bind:href="['/right_list/Delete/'+item.RoleID]" onclick="return confirm('是否确定删除')"><img src="../../images/bt_del.gif" title="删除" style="cursor:pointer;" /></a>
                 </td>
             </tr>
         </table>
         <p style="text-align:center;">
-            <input type="image" v-on:click="first" img src="~/images/first.gif" />&nbsp;&nbsp;
-            <input type="image" v-on:click="prev" img src="~/images/back.gif" />&nbsp;&nbsp;
-            <input type="image" v-on:click="next" img src="~/images/next.gif" />&nbsp;&nbsp;
-            <input type="image" v-on:click="last" img src="~/images/last.gif" />
+            <input type="image" v-on:click="first" img src="~/images/images/first.gif" />&nbsp;&nbsp;
+            <input type="image" v-on:click="prev" img src="~/images/images/back.gif" />&nbsp;&nbsp;
+            <input type="image" v-on:click="next" img src="~/images/images/next.gif" />&nbsp;&nbsp;
+            <input type="image" v-on:click="last" img src="~/images/images/last.gif" />
         </p>
     </div>
     <script type="text/javascript">
@@ -124,28 +124,6 @@
                 last: function () {
                     ye = pages;
                     this.load();
-                },
-                //显示
-                Up: function (uid) {
-                   // $("#UP").text(uid);
-                    $('#tt').tree({
-                        url:'/right_list/er',
-                        checkbox: true,
-                        onLoadSuccess: function (node, data) {
-                            console.info(data);
-                            if (data != null) {
-                                //遍历节点数据
-                                for (var i = 0; i < data.length; i++) {
-                                    var dt = data[i];//取某个节点数据
-                                    if (dt.state == "closed")//判断是否是根节点
-                                    {
-                                        //展开数控件
-                                        $("#tt").tree("expandAll")
-                                    }
-                                }
-                            }
-                        }
-                    });
                 },
             },
             created: function () {

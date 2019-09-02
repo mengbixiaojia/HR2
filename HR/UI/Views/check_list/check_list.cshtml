@@ -1,0 +1,176 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>check_list</title>
+    <link href="~/css/table.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/vue.js"></script>
+</head>
+
+<body>
+    <div id="div1"> 
+            <table width="100%">
+                <tr>
+                    <td>
+                        <font color="black">您正在做的业务是：人力资源--调动管理--调动审核列表</font>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        当前待复核的调动人数:@ViewData["zs"]
+                        例
+                    </td>
+                </tr>
+            </table>
+            <table width="100%" border="1" cellpadding=0 cellspacing=1
+                   bordercolorlight=#848284 bordercolordark=#eeeeee
+                   class="TABLE_STYLE1">
+                <tr height="21">
+                    <td width="19%" class="TD_STYLE1">
+                        I级机构
+                    </td>
+                    <td width="19%" class="TD_STYLE1">
+                        II级机构
+                    </td>
+                    <td width="19%" class="TD_STYLE1">
+                        Ⅲ级机构
+                    </td>
+                    <td width="19%" class="TD_STYLE1">
+                        薪酬标准
+                    </td>
+                    <td width="19%" class="TD_STYLE1">
+                        名字
+                    </td>
+                    <td width="5%" class="TD_STYLE1">
+                        审核
+                    </td>
+                </tr>
+                <tr v-for="(item,index) in dt">
+                    <td class="TD_STYLE2">{{item.first_kind_name}}</td>
+                    <td class="TD_STYLE2">{{item.second_kind_name}}</td>
+                    <td class="TD_STYLE2">{{item.third_kind_name}}</td>
+                    <td class="TD_STYLE2">{{item.salary_standard_name}}</td>
+                    <td class="TD_STYLE2">{{item.human_name}}</td>
+                    <td class="TD_STYLE2">
+                        <a v-bind:href="['/check_list/check/'+item.Id]">审核</a>
+                    </td>
+                </tr>
+            </table>
+                <p>
+                    <div align="center" style="font-size: 18px;color: gray">
+                        &nbsp;&nbsp;总数：
+                        <font style="color: maroon;font-weight: bold;">@ViewData["zs"]</font>
+                        例
+                        &nbsp;&nbsp;&nbsp;
+                        每页显示 <font style="color: maroon;font-weight: bold;">2</font>
+                        条
+                        &nbsp;&nbsp;&nbsp;
+                        当前第 <font style="color: maroon;font-weight: bold;">{{dqy}}</font>
+                        页
+                        &nbsp;&nbsp;&nbsp;共
+                        <font style="color: maroon;font-weight: bold;">@ViewData["page"]</font>
+                        页
+                        <a style="color: navy;font-weight: bold" v-on:click="first">首页</a>
+
+                        <a style="color: navy;font-weight: bold"
+                           v-on:click="prev">上一页</a>
+
+                        <a style="color: navy;font-weight: bold"
+                          v-on:click="next">下一页</a>
+
+                        <a style="color: navy;font-weight: bold"
+                          v-on:click="last">末页</a>
+                        &nbsp;&nbsp;&nbsp;跳到第
+                        <input id=page type=text value="1" class=input1 size=1>
+                        页&nbsp;&nbsp;
+                        <input type="image" v-on:click="go" src="../../images/go.bmp" width=18 height=18 border=0>
+                    </div>
+                    </div>
+        <script type="text/javascript">
+        var ye = 1;
+        var pages=@ViewData["page"];
+        var vm = new Vue({
+            el: "#div1",
+            data: {
+                dt:null,
+                dqy:ye
+            },
+            methods: {
+                load: function () {
+                    var t = this;
+                    $.ajax({
+                        url: "/check_list/Index2",
+                        type: "post",
+                        data: "ye="+ye,
+                        success: function (msg) {
+                            var dd = eval("(" + msg + ")");
+                            t.dt = dd;
+                        }
+                    });
+                },
+                //第一页
+                first: function () {
+                    ye = 1;
+                    this.dqy=ye;
+                    this.load();
+                },
+                //上一页
+                prev: function () {
+                    if (ye > 1) {
+                        ye--;
+                        this.dqy=ye;
+                    } else {
+                        ye = 1;
+                        this.dqy=ye;
+                    }
+                    this.load();
+                },
+                //下一页
+                next: function () {
+                    if (ye < pages) {
+                        ye++;
+                        this.dqy=ye;
+                    } else {
+                        ye = pages;
+                        this.dqy=ye;
+                    }
+                    this.load();
+                },
+                //最后一页
+                last: function () {
+                    ye = pages;
+                    this.dqy=ye;
+                    this.load();
+                },
+                go: function () {
+                    dq = $("#page").val();
+                    if (pages >= dq) {
+                        ye=dq;
+                        this.dqy=ye;
+                        this.load();
+                        $("#currPage").val("");
+                    } else {
+                        alert("没有这么多页!");
+                        $("#currPage").val("");
+                    }
+                }
+            },
+            created: function () {
+                this.load();
+            }
+        })
+               </script>
+            </body>
+        </html>

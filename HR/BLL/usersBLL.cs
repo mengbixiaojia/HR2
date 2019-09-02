@@ -43,9 +43,9 @@ namespace BLL
         {
             return ist.Row();
         }
-        public List<usersModel> fenye(int dqy)
+        public Dictionary<string, object> Fenye(int pageIndex)
         {
-            return ist.fenye(dqy);
+            return ist.Fenye(pageIndex);
         }
 
         int IusersBLL.login(usersModel us)

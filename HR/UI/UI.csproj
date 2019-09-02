@@ -175,6 +175,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Common\HtmlExtend.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\check_listController.cs" />
     <Compile Include="Controllers\config_file_first_kindController.cs" />
     <Compile Include="Controllers\config_file_second_kindController.cs" />
     <Compile Include="Controllers\config_file_third_kindController.cs" />
@@ -302,6 +303,7 @@
     <Content Include="images\foot-bg.jpg" />
     <Content Include="images\go.bmp" />
     <Content Include="images\green.swf" />
+    <Content Include="images\images\back.gif" />
     <Content Include="images\images\bonus.gif" />
     <Content Include="images\images\bonus1.gif" />
     <Content Include="images\images\config.gif" />
@@ -312,8 +314,10 @@
     <Content Include="images\images\export1.gif" />
     <Content Include="images\images\file.gif" />
     <Content Include="images\images\file1.gif" />
+    <Content Include="images\images\first.gif" />
     <Content Include="images\images\helpProgram.gif" />
     <Content Include="images\images\helpProgram1.gif" />
+    <Content Include="images\images\last.gif" />
     <Content Include="images\images\major_change.gif" />
     <Content Include="images\images\major_change1.gif" />
     <Content Include="images\images\mod_image\bonus.gif" />
@@ -399,6 +403,7 @@
     <Content Include="images\images\mod_image\training_check_list.gif" />
     <Content Include="images\images\mod_image\training_query_locate.gif" />
     <Content Include="images\images\mod_image\training_register_locate.gif" />
+    <Content Include="images\images\next.gif" />
     <Content Include="images\images\nseererp_hr.jpg" />
     <Content Include="images\images\salary.gif" />
     <Content Include="images\images\salary1.gif" />
@@ -1123,6 +1128,8 @@
     <Content Include="Views\major_change\register_list.cshtml" />
     <Content Include="Views\major_change\register_locate.cshtml" />
     <Content Include="Views\right_list\right_list_information.cshtml" />
+    <Content Include="Views\check_list\check_list.cshtml" />
+    <Content Include="Views\check_list\check.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
