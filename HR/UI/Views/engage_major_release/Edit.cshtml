@@ -159,8 +159,7 @@
                         变更人
                     </td>
                     <td class="TD_STYLE2">
-                        @Html.EditorFor(model => model.changer, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                        @Html.ValidationMessageFor(model => model.changer, "", new { @class = "text-danger" })
+                        @Html.DropDownList("changer",ViewData["user"] as IEnumerable<SelectListItem>)
                     </td>
                     <td class="TD_STYLE1">
                         变更时间

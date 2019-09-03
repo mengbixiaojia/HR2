@@ -19,6 +19,7 @@
     <script src="~/Scripts/calendar-ch.js"></script>
     <script src="~/Scripts/locate.js"></script>
     <script src="~/Scripts/vue.js"></script>
+    <script src="~/Scripts/DatePicker/WdatePicker.js"></script>
     <script type="text/javascript">
  			window.onload=check;
 		function tick() {
@@ -248,7 +249,7 @@
                     截止日期
                 </td>
                 <td class="TD_STYLE2">
-                    @Html.EditorFor(model => model.deadline, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
+                    @Html.EditorFor(model => model.deadline, new { htmlAttributes = new { @class = "INPUT_STYLE2",@onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d'})"} })
                     @Html.ValidationMessageFor(model => model.deadline, "", new { @class = "text-danger" })
                 </td>
             </tr>

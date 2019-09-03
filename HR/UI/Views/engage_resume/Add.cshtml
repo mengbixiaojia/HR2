@@ -51,12 +51,32 @@
             document.getElementById("nowTime").value = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate() + " " + timeString;
             window.setTimeout("tick();", 1000);
         }
-
         //load事件
         function check() {
             //获得系统当前时间的方法
             tick();
         }
+        $(function () {
+            $("#sfz").blur(function () {
+                //获取身份证
+                var sfz = $("#sfz").val();
+                //定义出生日期,性别,年龄
+                var birthday, currDate, month, date, age, sex;
+                //一:出生日期
+                birthday = sfz.substring(6, 10) + "-" + sfz.substring(10, 12) + "-" + sfz.substring(12, 14);
+                //二:计算年龄
+                currDate = new Date();
+                month = currDate.getMonth() + 1;
+                date = currDate.getDate();
+                age = currDate.getFullYear() - sfz.substring(6, 10) - 1;
+                //判断年龄
+                if (sfz.substring(10, 12) < month || (sfz.substring(10, 12) == month && sfz.substring(12, 14) <= date)) {
+                    age++;
+                }
+                $("#age").val(age);
+                $("#birthday").val(birthday);
+            })
+        })
     </script>
 </head>
 <body>
@@ -87,7 +107,6 @@
                 <td class="TD_STYLE2">
                     <input type="hidden" value="01" id="humanMajorKindId" name="engageResume.humanMajorKindId" />
                     @Html.DropDownList("human_major_kind_id", ViewData["yj"] as IEnumerable<SelectListItem>)
-                    @Html.ValidationMessageFor(model => model.human_major_kind_name, "", new { @class = "text-danger" })
                 </td>
                 <td class="TD_STYLE1">
                     职位名称
@@ -96,14 +115,12 @@
 
                     <input type="hidden" value="02" name="engageResume.humanMajorId" />
                     @Html.DropDownList("human_major_id", ViewData["jj"] as IEnumerable<SelectListItem>)
-                    @Html.ValidationMessageFor(model => model.human_major_name, "", new { @class = "text-danger" })
                 </td>
                 <td width="11%" class="TD_STYLE1">
                     招聘类型
                 </td>
                 <td class="TD_STYLE2" colspan="2">
                     @Html.DropDownList("engage_type", ViewData["ej"] as IEnumerable<SelectListItem>)
-                    @Html.ValidationMessageFor(model => model.engage_type, "", new { @class = "text-danger" })
                 </td>
                 <td rowspan="6">
                     &nbsp;
@@ -115,7 +132,6 @@
                 </td>
                 <td class="TD_STYLE2">
                     @Html.EditorFor(model => model.register, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                    @Html.ValidationMessageFor(model => model.register, "", new { @class = "text-danger" })
                 </td>
                 <td class="TD_STYLE1">
                     性别
@@ -131,7 +147,6 @@
                 </td>
                 <td colspan="2" class="TD_STYLE2">
                     @Html.EditorFor(model => model.human_email, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                    @Html.ValidationMessageFor(model => model.human_email, "", new { @class = "text-danger" })
                 </td>
             </tr>
             <tr>
@@ -140,21 +155,18 @@
                 </td>
                 <td class="TD_STYLE2">
                     @Html.EditorFor(model => model.human_telephone, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                    @Html.ValidationMessageFor(model => model.human_telephone, "", new { @class = "text-danger" })
                 </td>
                 <td class="TD_STYLE1">
                     家庭电话
                 </td>
                 <td class="TD_STYLE2">
                     @Html.EditorFor(model => model.human_homephone, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                    @Html.ValidationMessageFor(model => model.human_homephone, "", new { @class = "text-danger" })
                 </td>
                 <td class="TD_STYLE1">
                     手机
                 </td>
                 <td colspan="2" class="TD_STYLE2">
                     @Html.EditorFor(model => model.human_mobilephone, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                    @Html.ValidationMessageFor(model => model.human_mobilephone, "", new { @class = "text-danger" })
                 </td>
             </tr>
             <tr>
@@ -163,7 +175,6 @@
                 </td>
                 <td colspan="3" class="TD_STYLE2">
                     @Html.EditorFor(model => model.human_address, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                    @Html.ValidationMessageFor(model => model.human_address, "", new { @class = "text-danger" })
                 </td>
 
                 <td class="TD_STYLE1">
@@ -171,7 +182,6 @@
                 </td>
                 <td colspan="2" class="TD_STYLE2">
                     @Html.EditorFor(model => model.human_postcode, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                    @Html.ValidationMessageFor(model => model.human_postcode, "", new { @class = "text-danger" })
                 </td>
             </tr>
 
@@ -194,14 +204,12 @@
                 </td>
                 <td class="TD_STYLE2">
                     @Html.EditorFor(model => model.human_birthplace, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                    @Html.ValidationMessageFor(model => model.human_birthplace, "", new { @class = "text-danger" })
                 </td>
                 <td class="TD_STYLE1">
                     生日
                 </td>
                 <td width="13%" colspan="2" class="TD_STYLE2">
-                    @Html.EditorFor(model => model.human_birthday, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                    @Html.ValidationMessageFor(model => model.human_birthday, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.human_birthday, new { htmlAttributes = new { @class = "INPUT_STYLE2", @id = "birthday" } })
                 </td>
 
             </tr>
@@ -252,22 +260,19 @@
                     身份证号码
                 </td>
                 <td class="TD_STYLE2">
-                    @Html.EditorFor(model => model.human_idcard, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                    @Html.ValidationMessageFor(model => model.human_idcard, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.human_idcard, new { htmlAttributes = new { @class = "INPUT_STYLE2", @id = "sfz" } })
                 </td>
                 <td class="TD_STYLE1">
                     年龄
                 </td>
                 <td class="TD_STYLE2">
-                    @Html.EditorFor(model => model.human_age, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                    @Html.ValidationMessageFor(model => model.human_age, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.human_age, new { htmlAttributes = new { @class = "INPUT_STYLE2", @id = "age" } })
                 </td>
                 <td class="TD_STYLE1">
                     毕业院校
                 </td>
                 <td class="TD_STYLE2">
                     @Html.EditorFor(model => model.human_college, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                    @Html.ValidationMessageFor(model => model.human_college, "", new { @class = "text-danger" })
                 </td>
 
                 <td class="TD_STYLE1">
@@ -318,7 +323,6 @@
                 </td>
                 <td class="TD_STYLE2">
                     @Html.EditorFor(model => model.demand_salary_standard, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                    @Html.ValidationMessageFor(model => model.demand_salary_standard, "", new { @class = "text-danger" })
                 </td>
                 <td class="TD_STYLE1">
                     注册时间

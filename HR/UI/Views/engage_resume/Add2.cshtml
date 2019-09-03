@@ -50,13 +50,11 @@
             document.getElementById("nowTime").value = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate() + " " + timeString;
             window.setTimeout("tick();", 1000);
         }
-
         //load事件
         function check() {
             //获得系统当前时间的方法
             tick();
         }
-
     </script>
     <script type="text/javascript">
         $(function () {
@@ -93,6 +91,25 @@
                         };
                     }
                 });
+            })
+            $("#sfz").blur(function () {
+                //获取身份证
+                var sfz = $("#sfz").val();
+                //定义出生日期,性别,年龄
+                var birthday, currDate, month, date, age, sex;
+                //一:出生日期
+                birthday = sfz.substring(6, 10) + "-" + sfz.substring(10, 12) + "-" + sfz.substring(12, 14);
+                //二:计算年龄
+                currDate = new Date();
+                month = currDate.getMonth() + 1;
+                date = currDate.getDate();
+                age = currDate.getFullYear() - sfz.substring(6, 10) - 1;
+                //判断年龄
+                if (sfz.substring(10, 12) < month || (sfz.substring(10, 12) == month && sfz.substring(12, 14) <= date)) {
+                    age++;
+                }
+                $("#age").val(age);
+                $("#birthday").val(birthday);
             })
         })
     </script>
@@ -236,8 +253,7 @@
                     生日
                 </td>
                 <td width="13%" colspan="2" class="TD_STYLE2">
-                    @Html.EditorFor(model => model.human_birthday, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                    @Html.ValidationMessageFor(model => model.human_birthday, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.human_birthday, new { htmlAttributes = new { @class = "INPUT_STYLE2" , @id = "birthday" } })
                 </td>
 
             </tr>
@@ -280,30 +296,25 @@
 
                     </select>
                 </td>
-
-
             </tr>
             <tr>
                 <td class="TD_STYLE1">
                     身份证号码
                 </td>
                 <td class="TD_STYLE2">
-                    @Html.EditorFor(model => model.human_idcard, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                    @Html.ValidationMessageFor(model => model.human_idcard, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.human_idcard, new { htmlAttributes = new { @class = "INPUT_STYLE2", @id = "sfz" } })
                 </td>
                 <td class="TD_STYLE1">
                     年龄
                 </td>
                 <td class="TD_STYLE2">
-                    @Html.EditorFor(model => model.human_age, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                    @Html.ValidationMessageFor(model => model.human_age, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.human_age, new { htmlAttributes = new { @class = "INPUT_STYLE2", @id = "age" } })
                 </td>
                 <td class="TD_STYLE1">
                     毕业院校
                 </td>
                 <td class="TD_STYLE2">
                     @Html.EditorFor(model => model.human_college, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                    @Html.ValidationMessageFor(model => model.human_college, "", new { @class = "text-danger" })
                 </td>
 
                 <td class="TD_STYLE1">

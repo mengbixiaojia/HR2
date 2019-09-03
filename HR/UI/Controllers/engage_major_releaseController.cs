@@ -18,6 +18,7 @@ namespace UI.Controllers
         Iconfig_major_kindBLL ia = IocCreate.Createconfig_major_kindBLL();
         Iconfig_majorBLL iii = IocCreate.Createconfig_majorBLL();
         Iengage_major_releaseBLL re = IocCreate.Createengage_major_releaseBLL();
+        IusersBLL iub = IocCreate.CreateusersBLL();
         // GET: engage_major_release
         public ActionResult Index()
         {
@@ -130,7 +131,18 @@ namespace UI.Controllers
                 Id = id
             };
             engage_major_releaseModel cm = re.SelectBy(emrm);
-            cm.changer = Session["us"].ToString();
+            List<usersModel> list = iub.Select();
+            List<SelectListItem> user = new List<SelectListItem>();
+            for (int i = 0; i < list.Count; i++)
+            {
+                SelectListItem sl = new SelectListItem()
+                {
+                    Text = list[i].u_name.ToString(),
+                    Value = list[i].Id.ToString()
+                };
+                user.Add(sl);
+            }
+            ViewData["user"] = user;
             return View(cm);
         }
 
