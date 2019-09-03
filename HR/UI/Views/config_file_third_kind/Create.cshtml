@@ -1,0 +1,132 @@
+﻿@model Model.config_file_third_kindModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+    <link href="~/css/table.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var sid = $("#bb").val();
+            $.ajax({
+                url: "/config_file_third_kind/SeByy",
+                type: "post",
+                data: "sid=" + sid,
+                success: function (msg) {
+                    $("#cc option").remove();
+                    var data = eval("(" + msg + ")");
+                    for (var i = 0; i < data.length; i++) {
+                        var $items = $("<option value='" + data[i]["second_kind_id"] + "'>" + data[i]["second_kind_name"] + "</option>");
+                        $("#cc").append($items);
+                    };
+                }
+            });
+
+            $("#bb").change(function () {
+                var sid = $("#bb").val();
+                $.ajax({
+                    url: "/config_file_third_kind/SeByy",
+                    type: "post",
+                    data: "sid=" + sid,
+                    success: function (msg) {
+                        $("#cc option").remove();
+                        var data = eval("(" + msg + ")");
+                        for (var i = 0; i < data.length; i++) {
+                            var $items = $("<option value='" + data[i]["second_kind_id"] + "'>" + data[i]["second_kind_name"] + "</option>");
+                            $("#cc").append($items);
+                        };
+                    }
+                });
+            })
+        })
+    </script>
+</head>
+<body>
+    @using (Ajax.BeginForm("Create", new AjaxOptions() { HttpMethod = "Post" }))
+    {
+        <table width="100%">
+            <tr>
+                <td>
+                    <font color="black">
+                        您正在做的业务是：人力资源--客户化设置--人力资源档案管理设置--III级机构设置--III级机构添加
+                    </font>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    <input type="submit" value="提交" class="BUTTON_STYLE1">
+                    <input type="button" value="返回" class="BUTTON_STYLE1">
+                </td>
+            </tr>
+        </table>
+        <table width="100%" border="1" cellpadding=0 cellspacing=1
+               bordercolorlight=#848284 bordercolordark=#eeeeee
+               class="TABLE_STYLE1">
+            <tr>
+                <td width="19%" class="TD_STYLE1">
+                    I级机构名称
+                </td>
+                <td width="81%" class="TD_STYLE2">
+                    @Html.DropDownList("first_kind_id", ViewData["yj"] as IEnumerable<SelectListItem> ,new { @Id="bb"})
+                    @Html.ValidationMessageFor(model => model.first_kind_name, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td width="19%" class="TD_STYLE1">
+                    II级机构名称
+                </td>
+                <td width="81%" class="TD_STYLE2">
+                    <select name="second_kind_id" id="cc" class="TD_STYLE1">
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td width="19%" class="TD_STYLE1">
+                    III级机构编号
+                </td>
+                <td width="81%" class="TD_STYLE2">
+                    @Html.TextBox("third_kind_id", Model.third_kind_id, new { @class = "INPUT_STYLE1",@readonly= "readonly"})
+                    @Html.ValidationMessageFor(model => model.third_kind_id, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td class="TD_STYLE1">
+                    III级机构名称
+                </td>
+                <td class="TD_STYLE2">
+                    @Html.TextBox("third_kind_name", Model.third_kind_name, new { @class = "INPUT_STYLE1"})
+                    @Html.ValidationMessageFor(model => model.third_kind_name, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td class="TD_STYLE1">
+                    销售责任人编号（多个编号之间请用"半角逗号"加"一个空格"隔开，如", "）
+                </td>
+                <td class="TD_STYLE2">
+                    @Html.TextArea("third_kind_sale_id", Model.third_kind_sale_id, new { @class = "INPUT_STYLE1", rows = "4", cols = "120" })
+                    @Html.ValidationMessageFor(model => model.third_kind_sale_id, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td class="TD_STYLE1">
+                    是否为零售店（是/否）
+                </td>
+                <td class="TD_STYLE2">
+                    @Html.RadioButton("third_kind_is_retail", "是")@Html.Label("是") @Html.RadioButton("third_kind_is_retail", "否")@Html.Label("否")
+                </td>
+            </tr>
+        </table>
+
+
+    }
+</body>
+</html>

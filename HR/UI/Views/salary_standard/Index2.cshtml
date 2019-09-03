@@ -1,0 +1,200 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <title>Index2</title>
+    <link href="~/css/table.css" rel="stylesheet" />
+    <script src="~/Scripts/vue.js"></script>
+</head>
+<body>
+    <div id="divsss">
+        <table width="100%">
+            <tr>
+                <td>
+                    <font color="black">您正在做的业务是:人力资源管理--薪酬标准管理--薪酬标准登记复核</font>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    当前等待复核的薪酬标准总数:
+                    12
+                    例
+                </td>
+            </tr>
+        </table>
+        <table width="100%" border="1" cellpadding=0 cellspacing=1
+               bordercolorlight=#848284 bordercolordark=#eeeeee
+               class="TABLE_STYLE1">
+            <tr>
+                <td width="18%" class="TD_STYLE1">
+                    <span>薪酬标准编号</span>
+                </td>
+                <td width="19%" class="TD_STYLE1">
+                    <span>薪酬标准名称</span>
+                </td>
+                <td width="16%" class="TD_STYLE1">
+                    <span>制定人</span>
+                </td>
+                <td width="30%" class="TD_STYLE1">
+                    <span>登记时间</span>
+                </td>
+                <td width="13%" class="TD_STYLE1">
+                    薪酬总额
+                </td>
+                <td width="4%" class="TD_STYLE1">
+                    复核
+                </td>
+            </tr>
+
+
+            <tr class="TD_STYLE2" v-for="(item,i) in rows">
+                <td>
+                    {{item.standard_id }}
+
+                </td>
+                <td>
+                   {{item.standard_name}}
+
+                </td>
+                <td>
+                  {{item.designer }}
+
+                </td>
+                <td>
+                   {{item.regist_time }}
+
+                </td>
+                <td>
+                    &nbsp;
+                  {{item.salary_sum }}
+
+                </td>   
+                <td>
+                    <a v-bind:href="['../salary_standard/UPID/'+item.Id]">复 核</a>
+                </td>
+            </tr>
+
+
+
+        </table>
+
+
+        <html>
+        <head>
+        </head>
+        <body>
+            <p>
+                <div align="center" style="font-size: 18px;color: gray">
+                    &nbsp;&nbsp;总数：
+                    <font style="color: maroon;font-weight: bold;">@ViewData["Row"]</font>
+                    例
+                    &nbsp;&nbsp;&nbsp;
+                    每页显示 <font style="color: maroon;font-weight: bold;">2</font>
+                    条
+                    &nbsp;&nbsp;&nbsp;
+                    当前第 <font style="color: maroon;font-weight: bold;" id="dq"></font>
+                    页
+                    &nbsp;&nbsp;&nbsp;共
+                    <font style="color: maroon;font-weight: bold;">@ViewData["Pages"]</font>
+                    页
+                    <a style="color: navy;font-weight: bold" href="javascript:doPage(1)" id="first">首页</a>
+
+                    <a style="color: navy;font-weight: bold"
+                       href="javascript:doPage(0)"id="prev">上一页</a>
+
+                    <a style="color: navy;font-weight: bold"
+                       href="javascript:doPage(2)"id="next">下一页</a>
+
+                    <a style="color: navy;font-weight: bold"
+                       href="javascript:doPage(2)" id="last">末页</a>
+                    &nbsp;&nbsp;&nbsp;跳到第
+                    <input id="wb" type=text value="1" class=input1 size=1 >
+                    页&nbsp;&nbsp;
+                    <input type="image" onclick="dopagebybutton()" src="../../images/go.bmp" width=18 height=18 border=0 id="tz">
+                    <input type="hidden" name="page.startPage" id="startpage" value="1">
+                </div>
+          
+
+
+        </body>
+    </html>
+        <script type="text/javascript">
+            var currentPage = 1;//当前页
+            var pages=@ViewData["Pages"];
+                    var vm = new Vue({
+                        el: "#divsss",
+                        data: {
+                            rows:null,
+                        },
+                        methods: {
+                            load: function () {
+                                var v = this;
+                                $.ajax({
+                                    url: "../salary_standard/FenYe",
+                                    type: "post",
+                                    data: "currentPage=" + currentPage,
+                                    success: function (msg) {
+                                        var data = eval("(" + msg + ")");
+                                        v.rows = data;
+                                        $("#dq").text(currentPage);
+                                    }
+                                })
+                            },
+                          
+                        }
+
+                    });
+                    vm.load();
+                    $("#first").click(function () {
+                        currentPage = 1;
+                        vm.load();
+                    })
+                    $("#tz").click(function () {
+                        var zhi = $("#wb").val();
+                        if (zhi > pages) {
+                            alert("不能大于总页数!");
+                        } else {
+                            currentPage = zhi;
+                            vm.load();
+                        }
+                    })
+                    $("#prev").click(function () {
+                        if (currentPage > 1) {
+                            currentPage--;
+                        } else {
+                            currentPage = 1;
+                        }
+                        vm.load();
+                    })
+                    $("#next").click(function () {
+                        if (currentPage < pages) {
+                            currentPage++;
+                        } else {
+                            currentPage = pages;
+                        }
+                        vm.load();
+                    })
+                    $("#last").click(function () {
+                        currentPage = pages;
+                        vm.load();
+                    });
+
+        </script>
+</div>
+
+
+
+</body>
+</html>
