@@ -1,0 +1,148 @@
+﻿@model Model.config_majorModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SelectBy</title>
+    <script src="~/javascript/comm/comm.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/javascript/vue.js"></script>
+    <script src="~/javascript/select.js"></script>
+    <script src="~/DatePicker/WdatePicker.js"></script>
+    <link href="~/css/cwcalendar.css" rel="stylesheet" />
+    <link href="~/css/table.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet"
+          href="../../css/table.css" type="text/css">
+    <script>
+        $(function () {
+            $.ajax({
+                url: "/engage_resume/SelectBy2",
+                type: "post",
+                data: "",
+                success: function (msg) {
+                    $("#ee option").remove();
+                    var data = eval("(" + msg + ")");
+                    for (var i = 0; i < data.length; i++) {
+                        var $items = $("<option value='" + data[i]["major_kind_id"] + "'>" + data[i]["major_kind_name"] + "</option>");
+                        $("#ee").append($items);
+                    };
+                }
+            });
+
+            $("#ee").change(function () {
+                var qid = $("#ee").val();
+                $.ajax({
+                    url: "/engage_major_release/SeByyyy",
+                    type: "post",
+                    data: "qid=" + qid,
+                    success: function (msg) {
+                        $("#ff option").remove();
+                        var data = eval("(" + msg + ")");
+                        for (var i = 0; i < data.length; i++) {
+                            var $items = $("<option value='" + data[i]["major_id"] + "'>" + data[i]["major_name"] + "</option>");
+                            $("#ff").append($items);
+                        };
+                    }
+                });
+            });
+
+            $("#dj").click(function () {
+                var qid = $("#ee").val();
+                var pid = $("#ff").val();
+                var guan = $("#gg").val();
+                var start = $("#start").val();
+                var end = $("#end").val();
+                $.ajax({
+                    url: "/engage_resume/SelectBy3",
+                    type: "post",
+                    data: "qid=" + qid + "&pid=" + pid + "&guan=" + guan + "&start=" + start + "&end=" + end,
+                    success: function (msg) {
+
+                    }
+                });
+            });
+        })
+
+    </script>
+</head>
+<body>
+    <div id="div1">
+        <form id="recruitAction!findEngageResume?a=list" name="resumeChooseForm" action="/HR_Fist/recruit/recruitAction!findEngageResume?a=list" method="post">
+            <input type="hidden" name="engageResume.humanMajorKindName"
+                   id="majorKindName" />
+            <input type="hidden" name="engageResume.humanMajorName"
+                   id="majorName" />
+            <input type="hidden" name="engageResume.checkStatus"
+                   value="false" />
+
+            <table width="100%">
+                <tr>
+                    <td>
+                        <font color="black">您正在做的业务是：人力资源--招聘管理--简历管理--简历筛选 </font>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+
+                        <input type="button" id="dj" value="开始" class="BUTTON_STYLE1">
+                    </td>
+                </tr>
+            </table>
+            <table width="100%" border="1" cellpadding=0 cellspacing=1
+                   bordercolorlight=#848284 bordercolordark=#eeeeee
+                   class="TABLE_STYLE1">
+
+                <tr>
+                    <td class="TD_STYLE1" width="30%">
+                        请选择职位分类
+                    </td>
+                    <td class="TD_STYLE2" width="30%">
+                        <select name="engageResume.humanMajorKindId" id="ee" multiple="multiple" style="width: 290;height: 100" class="SELECT_STYLE2">
+                            <option></option>
+                        </select>
+                        <select id="ff" name="major_id" multiple="multiple" style="width: 290px;height: 100px"></select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="TD_STYLE1" width="30%">
+                        请输入关键字
+                    </td>
+                    <td width="84%">
+                        <input type="text" name="utilBean.primarKey" value="" id="gg"
+                               class="INPUT_STYLE2" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="TD_STYLE1" width="30%">
+                        请输入登记时间
+                    </td>
+                    <td width="84%" class="TD_STYLE2">
+                        <input type="hidden" name="utilBean.datePropertyName" value="registTime" />
+
+                        <input type="text" name="utilBean.startDate" id="start" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'end\')}'})"
+                               style="width: 14%" class="INPUT_STYLE2">
+                        至
+                        <input type="text" name="utilBean.endDate" id="end"
+                               style="width: 14%" class="INPUT_STYLE2" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'start\')}'})">
+                        （YYYY-MM-DD）
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <script type="text/javascript">
+     
+    </script>
+</body>
+</html>

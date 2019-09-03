@@ -16,9 +16,10 @@ namespace IBLL
         List<usersModel> Select();
        List<usersModel> SelectBy(usersModel st);
         int login(usersModel us);
-        List<usersModel> cxqb();
         int Row();
-        List<usersModel> fenye(int dqy);
+        //List<usersModel> fenye(int dqy);
+        DataTable SelectJS(int Uid);
+        Dictionary<string, object> Fenye(int pageIndex);
     }
 }
 

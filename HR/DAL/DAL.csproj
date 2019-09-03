@@ -32,11 +32,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\作业\net\MVC\HR\EFEntity\bin\Debug\EntityFramework.dll</HintPath>
+      <HintPath>..\..\..\..\下载文件\HR\DAL\bin\Debug\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\作业\net\MVC\HR\EFEntity\bin\Debug\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\..\..\..\下载文件\HR\DAL\bin\Debug\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -63,6 +63,7 @@
     <Compile Include="engage_interviewDAL.cs" />
     <Compile Include="engage_major_releaseDAL.cs" />
     <Compile Include="engage_resumeDAL.cs" />
+    <Compile Include="human_fileDAL.cs" />
     <Compile Include="major_changeDAL.cs" />
     <Compile Include="PopedomRoleDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

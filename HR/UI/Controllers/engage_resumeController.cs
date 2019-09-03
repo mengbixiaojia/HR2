@@ -15,7 +15,8 @@ namespace UI.Controllers
         Iengage_major_releaseBLL sb = IocCreate.Createengage_major_releaseBLL();
         Iengage_resumeBLL ss = IocCreate.Createengage_resumeBLL();
         Iconfig_major_kindBLL re = IocCreate.Createconfig_major_kindBLL();
-        Iconfig_majorBLL iii = IocCreate.Createconfig_majorBLL();
+        Ihuman_fileBLL rr = IocCreate.Createhuman_fileBLL();
+        Iengage_interviewBLL ieb = IocCreate.Createengage_interviewBLL();
         // GET: engage_resume
         public ActionResult Add(int id)
         {
@@ -99,42 +100,300 @@ namespace UI.Controllers
             ViewData["jj"] = listy;
             return View();
         }
+        public ActionResult Index()
+        {
+            ViewData["rows"] = ss.rows();
+            ViewData["page"] = ss.page();
+            return View();
+        }
+        //public ActionResult Index2()
+        //{
+        //    int dqy = 1;
+        //    String Qid = Session["Qid"].ToString();
+        //    String Pid = Session["Pid"].ToString();
+        //    String Guan = Session["Guan"].ToString();
+        //    String Start = Session["Start"].ToString();
+        //    String End = Session["End"].ToString();
+        //    String Zt = "待复核";
+        //    if (Qid == "null")
+        //    {
+        //        Qid = "";
+        //    }
+        //    if (Pid == "null")
+        //    {
+        //        Pid = "";
+        //    }
+        //    List<engage_resumeModel> list = ss.SeBy(dqy, Qid, Pid, Guan, Start, End, Zt);
+        //    return Content(JsonConvert.SerializeObject(list));
+        //}
 
+        public ActionResult Index3()
+        {
+            ViewData["rows"] = ss.rows();
+            ViewData["page"] = ss.page();
+            return View();
+        }
+
+        //public ActionResult Index4()
+        //{
+        //    int dqy = 1;
+        //    String Qid = Session["Qid"].ToString();
+        //    String Pid = Session["Pid"].ToString();
+        //    String Guan = Session["Guan"].ToString();
+        //    String Start = Session["Start"].ToString();
+        //    String End = Session["End"].ToString();
+        //    String Zt = "通过";
+        //    if (Qid == "null")
+        //    {
+        //        Qid = "";
+        //    }
+        //    if (Pid == "null")
+        //    {
+        //        Pid = "";
+        //    }
+        //    List<engage_resumeModel> list = ss.SeByy(dqy, Qid, Pid, Guan, Start, End, Zt);
+        //    return Content(JsonConvert.SerializeObject(list));
+        //}
+
+        [HttpGet]
         public ActionResult SelectBy()
         {
-            List<config_major_kindModel> list = re.majorKindSelect();
-            List<SelectListItem> liss = new List<SelectListItem>();
-            for (int i = 0; i < list.Count; i++)
-            {
-                SelectListItem sl = new SelectListItem()
-                {
-                    Text = list[i].major_kind_name.ToString(),
-                    Value = list[i].major_kind_id.ToString()
-                };
-                liss.Add(sl);
-            }
-            ViewData["jj"] = liss;
-            config_majorModel ctm = new config_majorModel();
-            return View(ctm);
+            return View();
         }
 
         public ActionResult SelectBy2()
         {
-            Select();
+            List<config_major_kindModel> list = re.majorKindSelect();
+            return Content(JsonConvert.SerializeObject(list));
+        }
+
+        public ActionResult SelectBy3()
+        {
+            Session["Qid"] = Request["qid"];
+            Session["Pid"] = Request["pid"];
+            Session["Guan"] = Request["guan"];
+            Session["Start"] = Request["start"];
+            Session["End"] = Request["end"];
+            return JavaScript("alert('查询成功');window.location.href='Index'");
+        }
+
+        [HttpGet]
+        public ActionResult SelectByy()
+        {
             return View();
         }
 
-        public ActionResult Select()
+        public ActionResult SelectByy2()
         {
-            String qid = Request["qid"];
-            String pid = Request["pid"];
+            Session["Qid"] = Request["qid"];
+            Session["Pid"] = Request["pid"];
+            Session["Guan"] = Request["guan"];
+            Session["Start"] = Request["start"];
+            Session["End"] = Request["end"];
+            return JavaScript("alert('查询成功');window.location.href='Index3'");
+        }
+
+        public ActionResult Update(int id)
+        {
+
+            engage_resumeModel sd = new engage_resumeModel()
+            {
+                Id = short.Parse(id.ToString())
+            };
+            List<engage_resumeModel> list = ss.SelectBy(sd);
+            List<SelectListItem> listyj = new List<SelectListItem>();
+            SelectListItem sl = new SelectListItem()
+            {
+                Text = list[0].human_major_kind_name.ToString(),
+                Value = list[0].human_major_kind_id.ToString()
+            };
+            listyj.Add(sl);
+
+            List<SelectListItem> listy = new List<SelectListItem>();
+            SelectListItem si = new SelectListItem()
+            {
+                Text = list[0].human_major_name.ToString(),
+                Value = list[0].human_major_id.ToString()
+            };
+            listy.Add(si);
+
+            List<SelectListItem> lista = new List<SelectListItem>();
+            SelectListItem sa = new SelectListItem()
+            {
+                Text = list[0].engage_type.ToString(),
+                Value = list[0].engage_type.ToString()
+            };
+            lista.Add(sa);
+            engage_resumeModel ctm = new engage_resumeModel();
+            ViewData["yj"] = listyj;
+            ViewData["jj"] = listy;
+            ViewData["ej"] = lista;
+
+            engage_resumeModel st = new engage_resumeModel()
+            {
+                Id = list[0].Id,
+                human_name = list[0].human_name,
+                engage_type = list[0].engage_type,
+                human_address = list[0].human_address,
+                human_postcode = list[0].human_postcode,
+                human_major_kind_id = list[0].human_major_kind_id,
+                human_major_kind_name = list[0].human_major_kind_name,
+                human_major_id = list[0].human_major_id,
+                human_major_name = list[0].human_major_name,
+                human_telephone = list[0].human_telephone,
+                human_homephone = list[0].human_homephone,
+                human_mobilephone = list[0].human_mobilephone,
+                human_email = list[0].human_email,
+                human_hobby = list[0].human_hobby,
+                human_specility = list[0].human_specility,
+                human_sex = list[0].human_sex,
+                human_religion = list[0].human_religion,
+                human_party = list[0].human_party,
+                human_nationality = list[0].human_nationality,
+                human_race = list[0].human_race,
+                human_birthday = list[0].human_birthday,
+                human_age = list[0].human_age,
+                human_educated_degree = list[0].human_educated_degree,
+                human_educated_years = list[0].human_educated_years,
+                human_educated_major = list[0].human_educated_major,
+                human_college = list[0].human_college,
+                human_idcard = list[0].human_idcard,
+                human_birthplace = list[0].human_birthplace,
+                demand_salary_standard = list[0].demand_salary_standard,
+                human_history_records = list[0].human_history_records,
+                remark = list[0].remark,
+                regist_time = list[0].regist_time,
+                check_time = list[0].check_time,
+                pass_check_time = list[0].pass_check_time,
+                pass_regist_time = list[0].pass_regist_time,
+                test_check_time = list[0].test_check_time,
+                recomandation = list[0].recomandation,
+                checker = list[0].checker,
+
+            };
+            return View(st);
+        }
+        // POST: Student/Edit/5
+        [HttpPost]
+        public ActionResult Update(engage_resumeModel u)
+        {
+            engage_interviewModel eim = new engage_interviewModel
+            {
+                human_name = u.human_name,
+                human_major_id = u.human_major_id,
+                human_major_kind_id = u.human_major_kind_id,
+                human_major_kind_name = u.human_major_kind_name,
+                human_major_name = u.human_major_name
+            };
+            // TODO: Add update logic here
+            if (ss.Update(u) > 0)
+            {
+                return JavaScript("alert('推荐成功');window.location.href='/engage_resume/SelectBy'");
+            }
+            else
+            {
+
+                ViewBag.dt = u;
+            }
             return View();
         }
-        public ActionResult SeByyyy()
+
+        public ActionResult Update2(int id)
         {
-            String Id = Request["qid"];
-            List<config_majorModel> list = iii.SeBy(Id);
-            return Content(JsonConvert.SerializeObject(list));
+
+            engage_resumeModel sd = new engage_resumeModel()
+            {
+                Id = short.Parse(id.ToString())
+            };
+            List<engage_resumeModel> list = ss.SelectBy(sd);
+            List<SelectListItem> listyj = new List<SelectListItem>();
+            SelectListItem sl = new SelectListItem()
+            {
+                Text = list[0].human_major_kind_name.ToString(),
+                Value = list[0].human_major_kind_id.ToString()
+            };
+            listyj.Add(sl);
+
+            List<SelectListItem> listy = new List<SelectListItem>();
+            SelectListItem si = new SelectListItem()
+            {
+                Text = list[0].human_major_name.ToString(),
+                Value = list[0].human_major_id.ToString()
+            };
+            listy.Add(si);
+
+            List<SelectListItem> lista = new List<SelectListItem>();
+            SelectListItem sa = new SelectListItem()
+            {
+                Text = list[0].engage_type.ToString(),
+                Value = list[0].engage_type.ToString()
+            };
+            lista.Add(sa);
+            engage_resumeModel ctm = new engage_resumeModel();
+            ViewData["yj"] = listyj;
+            ViewData["jj"] = listy;
+            ViewData["ej"] = lista;
+
+            engage_resumeModel st = new engage_resumeModel()
+            {
+                Id = list[0].Id,
+                human_name = list[0].human_name,
+                engage_type = list[0].engage_type,
+                human_address = list[0].human_address,
+                human_postcode = list[0].human_postcode,
+                human_major_kind_id = list[0].human_major_kind_id,
+                human_major_kind_name = list[0].human_major_kind_name,
+                human_major_id = list[0].human_major_id,
+                human_major_name = list[0].human_major_name,
+                human_telephone = list[0].human_telephone,
+                human_homephone = list[0].human_homephone,
+                human_mobilephone = list[0].human_mobilephone,
+                human_email = list[0].human_email,
+                human_hobby = list[0].human_hobby,
+                human_specility = list[0].human_specility,
+                human_sex = list[0].human_sex,
+                human_religion = list[0].human_religion,
+                human_party = list[0].human_party,
+                human_nationality = list[0].human_nationality,
+                human_race = list[0].human_race,
+                human_birthday = list[0].human_birthday,
+                human_age = list[0].human_age,
+                human_educated_degree = list[0].human_educated_degree,
+                human_educated_years = list[0].human_educated_years,
+                human_educated_major = list[0].human_educated_major,
+                human_college = list[0].human_college,
+                human_idcard = list[0].human_idcard,
+                human_birthplace = list[0].human_birthplace,
+                demand_salary_standard = list[0].demand_salary_standard,
+                human_history_records = list[0].human_history_records,
+                remark = list[0].remark,
+                regist_time = list[0].regist_time,
+                check_time = list[0].check_time,
+                pass_check_time = list[0].pass_check_time,
+                pass_regist_time = list[0].pass_regist_time,
+                test_check_time = list[0].test_check_time,
+                recomandation = list[0].recomandation,
+                checker = list[0].checker,
+
+            };
+            return View(st);
+        }
+        // POST: Student/Edit/5
+        [HttpPost]
+        public ActionResult Update2(engage_resumeModel u)
+        {
+
+            // TODO: Add update logic here
+            if (ss.Update(u) > 0)
+            {
+                return JavaScript("alert('推荐成功');window.location.href='/engage_resume/SelectBy'");
+            }
+            else
+            {
+
+                ViewBag.dt = u;
+            }
+            return View();
         }
     }
 }

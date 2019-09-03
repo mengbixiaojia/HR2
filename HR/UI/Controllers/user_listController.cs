@@ -20,9 +20,9 @@ namespace UI.Controllers
             ViewData["zs"] = iub.Row();
             return View();
         }
-        public ActionResult Index2()
+        public ActionResult Index2(int id)
         {
-            List<usersModel> list = iub.cxqb();
+            Dictionary<string, object> list = iub.Fenye(id);
             return Content(JsonConvert.SerializeObject(list));
         }
         // GET: user_list/Create

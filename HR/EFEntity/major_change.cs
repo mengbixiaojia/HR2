@@ -71,14 +71,14 @@ namespace EFEntity
 
         public System.String check_reason { get; set; }  
 
-        public System.Int16 check_status { get; set; }  
+        public System.Int32 check_status { get; set; }  
 
         public System.String register { get; set; }  
 
         public System.String checker { get; set; }  
 
-        public System.DateTime regist_time { get; set; }  
+        public System.DateTime? regist_time { get; set; }  
 
-        public System.DateTime check_time { get; set; } 
+        public System.DateTime? check_time { get; set; } 
     }
 }

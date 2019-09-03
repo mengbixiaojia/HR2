@@ -50,6 +50,7 @@
     <Compile Include="Iengage_interviewDAL.cs" />
     <Compile Include="Iengage_major_releaseDAL.cs" />
     <Compile Include="Iengage_resumeDAL.cs" />
+    <Compile Include="Ihuman_fileDAL.cs" />
     <Compile Include="Imajor_changeDAL.cs" />
     <Compile Include="IPopedomRoleDAL.cs" />
     <Compile Include="IRoleDAL.cs" />

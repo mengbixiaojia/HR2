@@ -48,14 +48,12 @@
                 <tr>
                     <td class="TD_STYLE1">角色是否可用</td>
                     <td colspan="3" class="TD_STYLE2">
-                        <select name="sysRole.roleFlag">
-                            <option value="true">是</option>
-                            <option value="false">否</option>
-                        </select>
+                        @Html.RadioButton("IsOK", "是")@Html.Label("是") @Html.RadioButton("IsOK", "否")@Html.Label("否")
                     </td>
                 </tr>
             </table>
         </form>
+}
     </div>
 </body>
 </html>

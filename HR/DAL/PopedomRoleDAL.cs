@@ -87,14 +87,12 @@ namespace DAL
             if (id != null)
             {
                 //查询子级
-                sql = string.Format(@"select q.[id],[text],[PopAddress],[state] from [dbo].[Popedoms] q where q.FID='{0}'", id);
+                sql = string.Format(@"select * from [dbo].[Popedoms] q inner join [dbo].[PopedomRole] qr on q.id=qr.Pid where qr.uid='{0}' and q.Fid='{1}'", uid, id);
             }
             else
             {
                 //查询父级
-                sql = string.Format(@"select q.[id],[text],[PopAddress],[state]
-        from [dbo].[Popedoms] q
-        where q.FID=0", uid);
+                sql = string.Format(@"select * from [dbo].[Popedoms] q inner join [dbo].[PopedomRole] qr on q.id=qr.Pid where qr.uid='{0}' and q.Fid='0'", uid);
             }
             return DBHelper.SelectTable(sql);
         }

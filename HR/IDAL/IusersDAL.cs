@@ -12,12 +12,13 @@ namespace IDAL
     {
         int Add(usersModel st);
         int Del(usersModel st);
-         int Update(usersModel st);
+        int Update(usersModel st);
         List<usersModel> Select();
-       List<usersModel> SelectBy(usersModel st);
-       int login(usersModel us);
-        List<usersModel> cxqb();
+        List<usersModel> SelectBy(usersModel st);
+        int login(usersModel us);
         int Row();
-        List<usersModel> fenye(int dqy);
+        //List<usersModel> fenye(int dqy);
+        Dictionary<string, object> Fenye(int pageIndex);
+        DataTable SelectJS(int Uid);
     }
 }

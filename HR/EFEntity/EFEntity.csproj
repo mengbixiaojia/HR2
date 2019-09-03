@@ -66,6 +66,7 @@
     <Compile Include="engage_interview.cs" />
     <Compile Include="engage_major_release.cs" />
     <Compile Include="engage_resume.cs" />
+    <Compile Include="human_file.cs" />
     <Compile Include="MyDBContext.cs" />
     <Compile Include="PopedomRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

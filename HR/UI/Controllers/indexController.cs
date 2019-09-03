@@ -95,8 +95,9 @@ namespace UI.Controllers
         [HttpPost]
         public ActionResult yi()
         {
+            string id = Request["RoleID"];
             string i = Request["id"];
-            DataTable dt = iprb.selectRoleJ(1, i);
+            DataTable dt = iprb.selectRoleJ(id, i);
             return Content(JsonConvert.SerializeObject(dt));
         }
     }

@@ -8,12 +8,30 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Runtime.Remoting.Messaging;
+using System.Data.Entity.Infrastructure;
 
 namespace DAL
 {
-    public class usersDAL:DaoBase<users>,IusersDAL
+    public class usersDAL : DaoBase<users>, IusersDAL
     {
         static MyDBContext db = CreateDbContext();
+        private Boolean RemoveHoldingEntityInContext(users entity)
+        {
+            var objContext = ((IObjectContextAdapter)db).ObjectContext;
+            var objSet = objContext.CreateObjectSet<users>();
+            var entityKey = objContext.CreateEntityKey(objSet.EntitySet.Name, entity);
+            Object foundEntity;
+            var exists = objContext.TryGetObjectByKey(entityKey, out foundEntity);
+
+            if (exists)
+            {
+                objContext.Detach(foundEntity);
+            }
+
+            return (exists);
+
+        }
+
         private static MyDBContext CreateDbContext()
         {
             //从当前请求的线程取值
@@ -32,14 +50,14 @@ namespace DAL
             List<usersModel> list2 = new List<usersModel>();
             foreach (var item in list)
             {
-               usersModel sd = new usersModel()
+                usersModel sd = new usersModel()
                 {
-                    Id =item.Id,
-                    u_name=item.u_name,
-                   u_true_name=item.u_true_name,
-                   u_password=item.u_password,
-                   RoleID=item.RoleID
-               };
+                    Id = item.Id,
+                    u_name = item.u_name,
+                    u_true_name = item.u_true_name,
+                    u_password = item.u_password,
+                    RoleID = item.RoleID
+                };
                 list2.Add(sd);
             }
             return list2;
@@ -99,23 +117,18 @@ namespace DAL
             };
             return Update(est);
         }
-        public List<usersModel> fenye(int dqy)
+        public Dictionary<string, object> Fenye(int pageIndex)
         {
-            int rows = 0;
-            List<users> list = FenYe<int>(e => e.Id, e => e.Id > 0, ref rows, dqy, 2);
-            List<usersModel> list2 = new List<usersModel>();
-            foreach (users item in list)
-            {
-                usersModel um = new usersModel()
-                {
-                    Id = item.Id,
-                    u_name = item.u_name,
-                    u_true_name = item.u_true_name,
-                    u_password = item.u_password
-                };
-                list2.Add(um);
-            }
-            return list2;
+            List<usersModel> list = db.Database.SqlQuery<usersModel>($"select [Id],[u_name],[u_true_name],[u_password],(select [RoleName] from [dbo].[Role] where RoleID = u.RoleID)as RoleName  from [dbo].[users] u").ToList();
+            List<usersModel> list2 = list.Skip((pageIndex - 1) * 3).Take(3).ToList();
+            int rows = list.Count();
+            double page = rows / 3.00;
+            int pages = int.Parse(Math.Ceiling(page).ToString());
+            Dictionary<string, object> di = new Dictionary<string, object>();
+            di["dt"] = list2;
+            di["rows"] = rows;
+            di["pages"] = pages;
+            return di;
         }
         public int Row()
         {
@@ -123,18 +136,13 @@ namespace DAL
             List<users> list = FenYe<int>(e => e.Id, e => e.Id > 0, ref rows, 1, 2);
             return rows;
         }
-        public List<usersModel> cxqb()
-        {
-            var values=db.Database.SqlQuery<usersModel>($"select [Id],[u_name],[u_true_name],(select [RoleName] from [dbo].[Role] r where (r.[RoleID]=u.[RoleID]))as name,[u_password] from [dbo].[users] u").ToList();
-            return values;
-        }
         public int login(usersModel us)
         {
             users u = new users();
-            List<users> list = SelectBy(e => e.u_true_name.Equals(us.u_true_name) && e.u_password.Equals(us.u_password));
+            List<users> list = SelectBy(e => e.u_name.Equals(us.u_name) && e.u_password.Equals(us.u_password));
             foreach (users item in list)
             {
-                if(item==null || item.Equals(""))
+                if (item == null || item.Equals(""))
                 {
                     return 0;
                 }
@@ -144,6 +152,12 @@ namespace DAL
                 }
             }
             return 0;
+        }
+        //根据Uid查询角色
+        public DataTable SelectJS(int Uid)
+        {
+            string sql = string.Format(@"select [RoleID],u_true_name,(select  RoleName from Role r where (u.RoleID=r.[RoleID]))as RoleName from [dbo].[users] u  where id={0}", Uid);
+            return DBHelper.SelectTable(sql);
         }
     }
 }

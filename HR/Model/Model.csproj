@@ -51,6 +51,7 @@
     <Compile Include="engage_interviewModel.cs" />
     <Compile Include="engage_major_releaseModel.cs" />
     <Compile Include="engage_resumeModel.cs" />
+    <Compile Include="human_fileModel.cs" />
     <Compile Include="major_changeModel.cs" />
     <Compile Include="PopedomRoleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

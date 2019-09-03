@@ -18,5 +18,6 @@ namespace Model
 
         public System.String u_password  {  get;set; }
         public System.String name { get; set; }
+        public string RoleName { get; set; }
     }
 }

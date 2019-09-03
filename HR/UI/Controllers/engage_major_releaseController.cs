@@ -130,7 +130,7 @@ namespace UI.Controllers
                 Id = id
             };
             engage_major_releaseModel cm = re.SelectBy(emrm);
-            cm.register = Session["us"].ToString();
+            cm.changer = Session["us"].ToString();
             return View(cm);
         }
 

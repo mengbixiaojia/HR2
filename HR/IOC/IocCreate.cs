@@ -192,5 +192,17 @@ namespace IOC
             UnityContainer ioc = GetBLLSeciton();
             return ioc.Resolve<Iengage_interviewBLL>("engage_interviewBLL");
         }
+        public static Ihuman_fileDAL Createhuman_fileDAL()
+        {
+            UnityContainer ioc = new UnityContainer();
+            ioc.RegisterType<Ihuman_fileDAL, human_fileDAL>();
+            return ioc.Resolve<Ihuman_fileDAL>();
+        }
+
+        public static Ihuman_fileBLL Createhuman_fileBLL()
+        {
+            UnityContainer ioc = GetBLLSeciton();
+            return ioc.Resolve<Ihuman_fileBLL>("human_fileBLL");
+        }
     }
 }

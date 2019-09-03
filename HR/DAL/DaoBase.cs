@@ -93,10 +93,6 @@ namespace DAL
             return list;
 
         }
-        //public object login(usersModel u)
-        //{
-        //    var values = db.Database.SqlQuery<T>($"select * from users where u_name='{u.u_name}' and u_password='{u.u_password}'").ToList();
-        //    return values.Count();
-        //}
+
     }
 }

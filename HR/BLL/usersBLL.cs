@@ -11,9 +11,9 @@ using System.Data;
 
 namespace BLL
 {
-    public class usersBLL:IusersBLL
+    public class usersBLL : IusersBLL
     {
-      IusersDAL ist = IocCreate.CreateusersDAL();
+        IusersDAL ist = IocCreate.CreateusersDAL();
 
         public List<usersModel> SelectBy(usersModel st)
         {
@@ -43,19 +43,17 @@ namespace BLL
         {
             return ist.Row();
         }
-        public List<usersModel> fenye(int dqy)
+        public Dictionary<string, object> Fenye(int pageIndex)
         {
-            return ist.fenye(dqy);
+            return ist.Fenye(pageIndex);
         }
-
         int IusersBLL.login(usersModel us)
         {
             return ist.login(us);
         }
-
-        public List<usersModel> cxqb()
+        public DataTable SelectJS(int Uid)
         {
-            return ist.cxqb();
+            return ist.SelectJS(Uid);
         }
     }
 }

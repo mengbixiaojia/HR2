@@ -22,6 +22,6 @@ namespace Model
 
         public System.String major_name  {  get;set; }  
 
-        public System.Int16 test_amount  {  get;set; } 
+        public System.Int32 test_amount  {  get;set; } 
     }
 }

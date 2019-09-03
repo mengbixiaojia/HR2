@@ -175,6 +175,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Common\HtmlExtend.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\check_listController.cs" />
     <Compile Include="Controllers\config_file_first_kindController.cs" />
     <Compile Include="Controllers\config_file_second_kindController.cs" />
     <Compile Include="Controllers\config_file_third_kindController.cs" />
@@ -1129,6 +1130,15 @@
     <Content Include="Views\engage_resume\Add.cshtml" />
     <Content Include="Views\engage_interview\Index.cshtml" />
     <Content Include="Views\engage_resume\Add2.cshtml" />
+    <Content Include="Views\major_change\register.cshtml" />
+    <Content Include="Views\major_change\register_list.cshtml" />
+    <Content Include="Views\major_change\register_locate.cshtml" />
+    <Content Include="Views\right_list\right_list_information.cshtml" />
+    <Content Include="Views\check_list\check.cshtml" />
+    <Content Include="Views\check_list\check_list.cshtml" />
+    <Content Include="Views\engage_resume\Index.cshtml" />
+    <Content Include="Views\engage_resume\SelectBy.cshtml" />
+    <Content Include="Views\engage_resume\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

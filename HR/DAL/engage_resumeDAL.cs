@@ -346,5 +346,51 @@ namespace DAL
             };
             return Update(est);
         }
+        public List<engage_resumeModel> SeBy(int dqy, String Qid, String Pid, String Guan, String Start, String End, String Zt)
+        {
+            int rows = 0;
+            List<engage_resume> list;
+            if (Start == "" && End == "")
+            {
+                list = FenYe(e => e.Id, e => e.human_major_kind_id.Contains(Qid) && e.check_status.Equals(Zt) && e.human_major_id.Contains(Pid) && (e.human_name.Contains(Guan) || e.human_telephone.Contains(Guan) || e.human_idcard.Contains(Guan) || e.human_history_records.Contains(Guan)), ref rows, dqy, 3);
+            }
+            else
+            {
+                DateTime start = Convert.ToDateTime(Start);
+                DateTime end = Convert.ToDateTime(End);
+                list = FenYe(e => e.Id, e => e.human_major_kind_id.Contains(Qid) && e.human_major_id.Contains(Pid) && (e.human_name.Contains(Guan) || e.human_telephone.Contains(Guan) || e.human_idcard.Contains(Guan) || e.human_history_records.Contains(Guan)) && e.regist_time >= start && e.regist_time <= end, ref rows, dqy, 3);
+            }
+            List<engage_resumeModel> list2 = new List<engage_resumeModel>();
+            foreach (var item in list)
+            {
+                engage_resumeModel sd = new engage_resumeModel()
+                {
+                    Id = item.Id,
+                    human_major_kind_id = item.human_major_kind_id,
+                    human_major_id = item.human_major_id,
+                    human_name = item.human_name,
+                    human_sex = item.human_sex,
+                    human_major_kind_name = item.human_major_kind_name,
+                    human_major_name = item.human_major_name,
+                    human_telephone = item.human_telephone,
+                    check_status = item.check_status,
+                };
+                list2.Add(sd);
+            }
+            return list2;
+        }
+        public int Row()
+        {
+            int rows = 0;
+            List<engage_resume> list = FenYe<int>(e => e.Id, e => e.Id > 0, ref rows, 1, 3);
+            return rows;
+        }
+        public int Pages()
+        {
+            int rows = 0;
+            List<engage_resume> list = FenYe<int>(e => e.Id, e => e.Id > 0, ref rows, 1, 3);
+            double page = rows / 3.00;
+            return int.Parse(Math.Ceiling(page).ToString());
+        }
     }
 }
