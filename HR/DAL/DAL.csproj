@@ -32,15 +32,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\..\..\..\..\作业\net\MVC\HR\EFEntity\bin\Debug\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\..\..\..\..\作业\net\MVC\HR\EFEntity\bin\Debug\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\..\..\..\软件\log4net-2.0.8-bin-newkey\log4net-2.0.8\bin\net-cp\4.0\release\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -55,11 +52,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="config_file_first_kindDAL.cs" />
     <Compile Include="config_file_second_kindDAL.cs" />
+    <Compile Include="config_file_third_kindDAL.cs" />
+    <Compile Include="config_majorDAL.cs" />
+    <Compile Include="config_major_kindDAL.cs" />
     <Compile Include="config_public_charDAL.cs" />
     <Compile Include="DaoBase.cs" />
     <Compile Include="DBHelper.cs" />
+    <Compile Include="major_changeDAL.cs" />
+    <Compile Include="PopedomRoleDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoleDAL.cs" />
+    <Compile Include="salary_standardDAL.cs" />
+    <Compile Include="salary_standard_detailsDAL.cs" />
+    <Compile Include="usersDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EFEntity\EFEntity.csproj">

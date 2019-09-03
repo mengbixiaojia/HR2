@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace Model
 {
-   public class config_public_charModel
+    public class config_public_charModel
     {
         public int Id { get; set; }
-        public string attribute_kind { get; set; }//属性的种类
-        public string attribute_name { get; set; }//属性的名称 
+
+        [Required(ErrorMessage = "种类不能为空")]
+        public string attribute_kind { get; set; }
+
+        [Required(ErrorMessage = "名称不能为空")]
+        public string attribute_name { get; set; }
     }
 }

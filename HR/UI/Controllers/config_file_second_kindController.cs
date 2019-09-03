@@ -13,7 +13,7 @@ namespace UI.Controllers
 {
     public class config_file_second_kindController : Controller
     {
-        config_file_second_kindIBLL st = IocCreate.Createconfig_file_second_kindBLL();
+        Iconfig_file_second_kindBLL st = IocCreate.Createconfig_file_second_kindBLL();
         // GET: config_file_second_kind
         public ActionResult Index()
         {
@@ -22,7 +22,7 @@ namespace UI.Controllers
         public ActionResult Select()
         {
 
-            List<config_file_second_kindModel> list = st.config_file_second_kindsel();
+            List<config_file_second_kindModel> list = st.Select();
             return Content(JsonConvert.SerializeObject(list));
         }
         [HttpPost]
@@ -31,7 +31,7 @@ namespace UI.Controllers
             {
                 Id=id
             };
-            if (st.config_file_second_kindDele(ss) > 0) {
+            if (st.Del(ss) > 0) {
 
                 return Content("OK");
             }
@@ -43,19 +43,33 @@ namespace UI.Controllers
         }
         [HttpGet]
         public ActionResult Update(int id) {
-            config_file_second_kindModel d = st.config_file_second_kindBYID(id);
+            config_file_second_kindModel cm = new config_file_second_kindModel
+            {
+                Id = id
+            };
+            List<config_file_second_kindModel> list = st.SelectBy(cm);
+            config_file_second_kindModel d = new config_file_second_kindModel
+            {
+                Id = list[0].Id,
+                first_kind_id = list[0].first_kind_id,
+                first_kind_name = list[0].first_kind_name,
+                second_kind_id = list[0].second_kind_id,
+                second_kind_name = list[0].second_kind_name,
+                second_salary_id = list[0].second_salary_id,
+                second_sale_id = list[0].second_sale_id
+            };
             ViewData.Model = d;
             return View();
 
         }
         [HttpPost]
         public ActionResult Update(config_file_second_kindModel s) {
-            if (st.config_file_second_kindUP(s) > 0)
+            if (st.Update(s) > 0)
             {
                 return RedirectToAction("Index");
             }
             else {
-                return Content("<script>alert('新增失败')</script>");
+                return Content("<script>alert('修改失败')</script>");
             }
 
        
@@ -81,13 +95,13 @@ namespace UI.Controllers
         }
         [HttpPost]
         public ActionResult Add (config_file_second_kindModel s){
-            DataTable d = st.SelectId(s.first_kind_id.ToString());
+            DataTable d = st.SelectType(s.first_kind_id.ToString());
             foreach (DataRow item in d.Rows)
             {
                 s.first_kind_name = item["first_kind_name"].ToString();
 
             }
-            if (st.config_file_second_kindAdd(s) > 0)
+            if (st.Add(s) > 0)
             {
                 return Redirect("Index");
             }

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace EFEntity
 {
-    public class config_public_char
+   public class config_major_kind
     {
         public int Id { get; set; }
-        public string attribute_kind{ get; set; }
-        public string attribute_name { get; set; }
+        public string major_kind_id { get; set; }
+        public string major_kind_name { get; set; }
     }
 }
