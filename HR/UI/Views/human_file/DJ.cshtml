@@ -1,0 +1,455 @@
+﻿@model Model.human_fileModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DJ</title>
+    <link href="~/css/table.css" rel="stylesheet" />
+    <link href="~/css/cwcalendar.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/comm/comm.js"></script>
+    <script src="~/Scripts/comm/list.js"></script>
+    <script src="~/Scripts/select.js"></script>
+    <script src="~/Scripts/calendar-ch.js"></script>
+    <script src="~/Scripts/locate.js"></script>
+    <script src="~/Scripts/vue.js"></script>
+    <script src="~/Scripts/DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript">
+ 			window.onload=check;
+		function tick() {
+			var now = new Date();
+			var hours, minutes, seconds, noon;
+			var intHours, intMinutes, intSeconds;
+			intHours = now.getHours();
+			intMinutes = now.getMinutes();
+			intSeconds = now.getSeconds();
+			if (intHours < 24) {
+				hours = intHours+":";
+				noon = "A.M.";
+			} else {
+				intHours = intHours - 24;
+				hours = intHours + ":";
+				noon = "P.M.";
+			}
+			if (intMinutes < 10) {
+				minutes = "0"+intMinutes+":";
+			} else {
+				minutes = intMinutes+":";
+			}
+			if (intSeconds < 10) {
+				seconds = "0"+intSeconds+" ";
+			} else {
+				seconds = intSeconds+" ";
+			}
+			timeString = hours+minutes+seconds;
+			var now = new Date();
+		  	document.getElementById("nowTime").value=now.getFullYear()+"-"+(now.getMonth()+1)+"-"+now.getDate()+" "+timeString;
+			window.setTimeout("tick();", 1000);
+		}
+		//load事件
+		function check() {
+		    //获得系统当前时间的方法
+		    tick();
+		}
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            var sid = $("#bb").val();
+            var bid = $("#cc").val();
+            $.ajax({
+                url: "/engage_major_release/SeByy",
+                type: "post",
+                data: "sid=" + sid,
+                success: function (msg) {
+                    $("#cc option").remove();
+                    var $qxz = $("<option>--请选择--</option>");
+                    $("#cc").append($qxz);
+                    var data = eval("(" + msg + ")");
+                    for (var i = 0; i < data.length; i++) {
+                        var $items = $("<option value='" + data[i]["second_kind_id"] + "'>" + data[i]["second_kind_name"] + "</option>");
+                        $("#cc").append($items);
+                    };
+                }
+            });
+            $("#bb").change(function () {
+                var sid = $("#bb").val();
+                $.ajax({
+                    url: "/engage_major_release/SeByy",
+                    type: "post",
+                    data: "sid=" + sid,
+                    success: function (msg) {
+                        $("#cc option").remove();
+                        var $qxz = $("<option>--请选择--</option>");
+                        $("#cc").append($qxz);
+                        $("#dd option").remove();
+                        var $qxz1 = $("<option>--请选择--</option>");
+                        $("#dd").append($qxz1);
+                        var data = eval("(" + msg + ")");
+                        for (var i = 0; i < data.length; i++) {
+                            var $items = $("<option value='" + data[i]["second_kind_id"] + "'>" + data[i]["second_kind_name"] + "</option>");
+                            $("#cc").append($items);
+                        };
+                    }
+                });
+            });
+            var bid = $("#cc").val();
+            $.ajax({
+                url: "/engage_major_release/SeByyy",
+                type: "post",
+                data: "bid=" + bid,
+                success: function (msg) {
+                    $("#dd option").remove();
+                    var $qxz = $("<option>--请选择--</option>");
+                    $("#dd").append($qxz);
+                    var data = eval("(" + msg + ")");
+                    for (var i = 0; i < data.length; i++) {
+                        var $items = $("<option value='" + data[i]["third_kind_id"] + "'>" + data[i]["third_kind_name"] + "</option>");
+                        $("#dd").append($items);
+                    };
+                }
+            });
+            $("#cc").click(function () {
+                var bid = $("#cc").val();
+                $.ajax({
+                    url: "/engage_major_release/SeByyy",
+                    type: "post",
+                    data: "bid=" + bid,
+                    success: function (msg) {
+                        $("#dd option").remove();
+                        var $qxz = $("<option>--请选择--</option>");
+                        $("#dd").append($qxz);
+                        var data = eval("(" + msg + ")");
+                        for (var i = 0; i < data.length; i++) {
+                            var $items = $("<option value='" + data[i]["third_kind_id"] + "'>" + data[i]["third_kind_name"] + "</option>");
+                            $("#dd").append($items);
+                        };
+                    }
+                });
+            })
+            var qid = $("#ee").val();
+            $.ajax({
+                url: "/engage_major_release/SeByyyy",
+                type: "post",
+                data: "qid=" + qid,
+                success: function (msg) {
+                    $("#ff option").remove();
+                    var $qxz = $("<option>--请选择--</option>");
+                    $("#ff").append($qxz);
+                    var data = eval("(" + msg + ")");
+                    for (var i = 0; i < data.length; i++) {
+                        var $items = $("<option value='" + data[i]["major_id"] + "'>" + data[i]["major_name"] + "</option>");
+                        $("#ff").append($items);
+                    };
+                }
+            });
+            $("#ee").change(function () {
+                var qid = $("#ee").val();
+                $.ajax({
+                    url: "/engage_major_release/SeByyyy",
+                    type: "post",
+                    data: "qid=" + qid,
+                    success: function (msg) {
+                        $("#ff option").remove();
+                        var $qxz = $("<option>--请选择--</option>");
+                        $("#ff").append($qxz);
+                        var data = eval("(" + msg + ")");
+                        for (var i = 0; i < data.length; i++) {
+                            var $items = $("<option value='" + data[i]["major_id"] + "'>" + data[i]["major_name"] + "</option>");
+                            $("#ff").append($items);
+                        };
+                    }
+                });
+            })
+            var MyDate = new Date();
+            var year = MyDate.getFullYear();
+            var month = MyDate.getMonth() + 1;
+            var Day = MyDate.getDate();
+            var h = MyDate.getHours();
+            var m = MyDate.getMinutes();
+            var s = MyDate.getSeconds();
+            var Number = "bt" + year + month + Day + h + m + s;
+            window.onload = function () {
+                $("#hid").val(Number);
+            }
+        })
+    </script>
+</head>
+<body>
+    @using (Ajax.BeginForm("Add", new AjaxOptions() { HttpMethod = "Post" }))
+    {
+        <table width="100%">
+            <tr>
+                <td>
+                    <font color="black">您正在做的业务是：人力资源--人力资源档案管理--人力资源档案登记 </font>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    <input type="submit" value="提交" class="BUTTON_STYLE1" />
+                    <input type="reset" value="清除" class="BUTTON_STYLE1" />
+                </td>
+            </tr>
+        </table>
+        @Html.HiddenFor(model=>model.human_id);
+        <table width="100%" border="1" cellpadding=3 cellspacing=1 bordercolorlight=#848284 bordercolordark=#eeeeee class="TABLE_STYLE1">
+            <tr>
+                <td class="TD_STYLE1" width="11%">
+                    I级机构
+                </td>
+                <td width="14%" class="TD_STYLE2">
+                    @Html.DropDownList("first_kind_id", ViewData["yj"] as IEnumerable<SelectListItem>, "--请选择--", new { @Id = "bb", @class = "SELECT_STYLE1" })
+                </td>
+                <td width="11%" class="TD_STYLE1">
+                    II级机构
+                </td>
+                <td width="14%" class="TD_STYLE2">
+                    <select id="cc" name="second_kind_id" class="SELECT_STYLE1"></select>
+                </td>
+                <td width="11%" class="TD_STYLE1">
+                    III级机构
+                </td>
+                <td class="TD_STYLE2" colspan="2">
+                    <select id="dd" name="third_kind_id" class="SELECT_STYLE1"></select>
+                </td>
+                <td rowspan="5" style="text-align: center;"></td>
+            </tr>
+            <tr>
+                <td class="TD_STYLE1">
+                    职位分类
+                </td>
+                <td class="TD_STYLE2">
+                    @Html.HiddenFor(model => model.human_major_kind_id, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.human_major_kind_name, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                </td>
+                <td class="TD_STYLE1">
+                    职位名称
+                </td>
+                <td class="TD_STYLE2">
+                    @Html.HiddenFor(model => model.human_major_id, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.hunma_major_name, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                </td>
+                <td class="TD_STYLE1">
+                    职称
+                </td>
+                <td colspan="2" class="TD_STYLE2">
+                    @Html.DropDownList("human_pro_designation", ViewData["zzcc"] as IEnumerable<SelectListItem>, new { @class = "SELECT_STYLE1" })
+                </td>
+            </tr>
+            <tr>
+                <td class="TD_STYLE1">
+                    姓名
+                </td>
+                <td class="TD_STYLE2">
+                    @Html.EditorFor(model => model.human_name, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                </td>
+                <td class="TD_STYLE1">
+                    性别
+                </td>
+                <td class="TD_STYLE2">
+                    @Html.EditorFor(model => model.human_sex, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                </td>
+                <td class="TD_STYLE1">
+                    EMAIL
+                </td>
+                <td colspan="2" class="TD_STYLE2">
+                    @Html.EditorFor(model => model.human_email, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                </td>
+            </tr>
+            <tr>
+                <td class="TD_STYLE1">
+                    电话
+                </td>
+                <td class="TD_STYLE2">
+                    @Html.EditorFor(model => model.human_telephone, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                </td>
+                <td class="TD_STYLE1">
+                    QQ
+                </td>
+                <td class="TD_STYLE2">
+                    @Html.EditorFor(model => model.human_qq, new { htmlAttributes = new { @class = "INPUT_STYLE2"} })
+                </td>
+                <td class="TD_STYLE1">
+                    手机
+                </td>
+                <td colspan="2" class="TD_STYLE2">
+                    @Html.EditorFor(model => model.human_mobilephone, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                </td>
+            </tr>
+            <tr>
+                <td class="TD_STYLE1">
+                    住址
+                </td>
+                <td colspan="3" class="TD_STYLE2">
+                    @Html.EditorFor(model => model.human_address, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                </td>
+                <td class="TD_STYLE1">
+                    邮编
+                </td>
+                <td colspan="2" class="TD_STYLE2">
+                    @Html.EditorFor(model => model.human_postcode, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                </td>
+            </tr>
+            <tr>
+                <td class="TD_STYLE1">
+                    国籍
+                </td>
+                <td class="TD_STYLE2">
+                    @Html.EditorFor(model => model.human_nationality, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                </td>
+                <td class="TD_STYLE1">
+                    出生地
+                </td>
+                <td class="TD_STYLE2">
+                    @Html.EditorFor(model => model.human_birthplace, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                </td>
+                <td class="TD_STYLE1">
+                    生日
+                </td>
+                <td width="13%" class="TD_STYLE2">
+                    @Html.EditorFor(model => model.human_birthday, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                </td>
+                <td width="11%" class="TD_STYLE1">
+                    民族
+                </td>
+                <td class="TD_STYLE2" width="14%">
+                    @Html.EditorFor(model => model.human_race, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                </td>
+            </tr>
+            <tr>
+                <td class="TD_STYLE1">
+                    宗教信仰
+                </td>
+                <td class="TD_STYLE2">
+                    @Html.EditorFor(model => model.human_religion, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                </td>
+                <td class="TD_STYLE1">
+                    政治面貌
+                </td>
+                <td class="TD_STYLE2">
+                    @Html.EditorFor(model => model.human_party, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                </td>
+                <td class="TD_STYLE1">
+                    身份证号码
+                </td>
+                <td class="TD_STYLE2">
+                    @Html.EditorFor(model => model.human_id_card, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                </td>
+                <td class="TD_STYLE1">
+                    社会保障号码
+                </td>
+                <td class="TD_STYLE2">
+                    @Html.EditorFor(model => model.human_society_security_id, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
+                </td>
+            </tr>
+            <tr>
+                <td class="TD_STYLE1">
+                    年龄
+                </td>
+                <td class="TD_STYLE2">
+                    @Html.EditorFor(model => model.human_age, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                </td>
+                <td class="TD_STYLE1">
+                    学历
+                </td>
+                <td class="TD_STYLE2">
+                    @Html.EditorFor(model => model.human_educated_degree, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                </td>
+                <td class="TD_STYLE1">
+                    教育年限
+                </td>
+                <td class="TD_STYLE2">
+                    @Html.EditorFor(model => model.human_educated_years, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                </td>
+                <td class="TD_STYLE1">
+                    学历专业
+                </td>
+                <td class="TD_STYLE2">
+                    @Html.EditorFor(model => model.human_educated_major, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                </td>
+            </tr>
+            <tr>
+                <td class="TD_STYLE1">
+                    薪酬标准
+                </td>
+                <td class="TD_STYLE2">
+                    @Html.DropDownList("salary_standard_id", ViewData["fxz"] as IEnumerable<SelectListItem>, new { @class = "SELECT_STYLE1" })
+                </td>
+                <td class="TD_STYLE1">
+                    开户行
+                </td>
+                <td class="TD_STYLE2">
+                    @Html.EditorFor(model => model.human_bank, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
+                </td>
+                <td class="TD_STYLE1">
+                    帐号
+                </td>
+                <td class="TD_STYLE2">
+                    @Html.EditorFor(model => model.human_account, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
+                </td>
+                <td class="TD_STYLE1">
+                    登记人
+                </td>
+                <td class="TD_STYLE2">
+                    @Html.EditorFor(model => model.register, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
+                </td>
+            </tr>
+            <tr>
+                <td class="TD_STYLE1">
+                    建档时间
+                </td>
+                <td class="TD_STYLE2">
+                    @Html.EditorFor(model => model.regist_time, new { htmlAttributes = new { @class = "INPUT_STYLE2", id = "create_time", @readonly = "readonly" } })
+                </td>
+                <td class="TD_STYLE1">
+                    特长
+                </td>
+                <td class="TD_STYLE2">
+                    @Html.EditorFor(model => model.human_speciality, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                </td>
+                <td class="TD_STYLE1">
+                    爱好
+                </td>
+                <td class="TD_STYLE2">
+                    @Html.EditorFor(model => model.human_hobby, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                </td>
+                <td class="TD_STYLE1">
+                    &nbsp;
+                </td>
+                <td class="TD_STYLE2">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td class="TD_STYLE1">
+                    个人履历
+                </td>
+                <td colspan="7" class="TD_STYLE2">
+                    @Html.TextAreaFor(model => model.human_histroy_records, new { @class = "TEXTAREA_STYLE1", @rows = "4" })
+                </td>
+            </tr>
+            <tr>
+                <td class="TD_STYLE1">
+                    家庭关系信息
+                </td>
+                <td colspan="7" class="TD_STYLE2">
+                    @Html.TextAreaFor(model => model.human_family_membership, new { @class = "TEXTAREA_STYLE1", @rows = "4" })
+                </td>
+            </tr>
+            <tr>
+                <td class="TD_STYLE1">
+                    备注
+                </td>
+                <td colspan="7" class="TD_STYLE2">
+                    @Html.TextAreaFor(model => model.remark, new { @class = "TEXTAREA_STYLE1", @readonly = "readonly", @rows = "4" })
+                </td>
+            </tr>
+        </table>
+
+    }
+</body>
+</html>

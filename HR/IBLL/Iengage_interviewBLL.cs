@@ -13,7 +13,7 @@ namespace IBLL
         int Del(engage_interviewModel st);
         int Update(engage_interviewModel st);
         List<engage_interviewModel> Select();
-            List<engage_interviewModel> SelectBy(engage_interviewModel st);
+        List<engage_interviewModel> SelectBy(engage_interviewModel st);
     }
 }
 

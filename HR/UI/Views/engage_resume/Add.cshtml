@@ -131,7 +131,7 @@
                     姓名
                 </td>
                 <td class="TD_STYLE2">
-                    @Html.EditorFor(model => model.register, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
+                    @Html.EditorFor(model => model.human_name, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
                 </td>
                 <td class="TD_STYLE1">
                     性别
@@ -330,7 +330,7 @@
                 <td class="TD_STYLE2">
                     <input type="text" name="regist_time"
                            id="nowTime" readonly="readonly"
-                           class="INPUT_STYLE2">
+                           class="INPUT_STYLE2" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'start\')}'})">
                 </td>
 
             </tr>

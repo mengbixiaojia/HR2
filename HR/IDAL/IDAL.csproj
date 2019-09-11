@@ -54,8 +54,10 @@
     <Compile Include="Imajor_changeDAL.cs" />
     <Compile Include="IPopedomRoleDAL.cs" />
     <Compile Include="IRoleDAL.cs" />
+    <Compile Include="Isalary_standard_detailsDAL.cs" />
     <Compile Include="IusersDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="salary_standardIDAL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">

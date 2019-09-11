@@ -18,6 +18,10 @@ namespace BLL
         {
             return ist.SelectBy(st);
         }
+        public List<engage_resumeModel> ByID(int id)
+        {
+            return ist.ByID(id);
+        }
 
         public int Add(engage_resumeModel st)
         {
@@ -49,6 +53,30 @@ namespace BLL
         public int page()
         {
             return ist.page();
+        }
+
+        public Dictionary<string, object> SeBy(int dqy, string Qid, string Pid, string Guan, string Start, string End, string Zt)
+        {
+            return ist.SeBy(dqy, Qid, Pid, Guan, Start, End, Zt);
+        }
+
+        public Dictionary<string, object> SeByy(int dqy, string Qid, string Pid, string Guan, string Start, string End, string Zt)
+        {
+            return ist.SeByy(dqy, Qid, Pid, Guan, Start, End, Zt);
+        }
+
+        public Dictionary<string, object> Fenye(int dqy)
+        {
+            return ist.Fenye(dqy);
+        }
+        public Dictionary<string, object> Fenye1(int dqy)
+        {
+            return ist.Fenye1(dqy);
+        }
+
+        public Dictionary<string, object> interviewDJ(int dqy)
+        {
+            return ist.interviewDJ(dqy);
         }
     }
 }

@@ -14,6 +14,8 @@ namespace IBLL
         int Update(human_fileModel st);
         List<human_fileModel> Select();
             List<human_fileModel> SelectBy(human_fileModel st);
+        Dictionary<string, object> Fenye(int dqy);
+        List<human_fileModel> SelectById(human_fileModel st);
     }
 }
 

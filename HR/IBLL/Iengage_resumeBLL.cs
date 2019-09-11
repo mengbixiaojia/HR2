@@ -17,6 +17,12 @@ namespace IBLL
         List<engage_resumeModel> FenYeByZT(int dqy);
         int rows();
         int page();
+        List<engage_resumeModel> ByID(int id);
+        Dictionary<string, object> SeBy(int dqy, String Qid, String Pid, String Guan, String Start, String End, String Zt);
+        Dictionary<string, object> SeByy(int dqy, String Qid, String Pid, String Guan, String Start, String End, String Zt);
+        Dictionary<string, object> Fenye(int dqy);
+        Dictionary<string, object> Fenye1(int dqy);
+        Dictionary<string, object> interviewDJ(int dqy);
     }
 }
 

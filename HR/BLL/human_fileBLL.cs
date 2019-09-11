@@ -38,5 +38,14 @@ namespace BLL
         {
             return ist.Update(st);
         }
+        public Dictionary<string, object> Fenye(int dqy)
+        {
+            return ist.Fenye(dqy);
+        }
+
+        public List<human_fileModel> SelectById(human_fileModel st)
+        {
+            return ist.SelectById(st);
+        }
     }
 }

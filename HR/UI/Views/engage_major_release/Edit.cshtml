@@ -150,8 +150,7 @@
                         截止日期
                     </td>
                     <td class="TD_STYLE2">
-                        <input type="text" name="deadline"
-                               class="INPUT_STYLE2" onclick="aa('emajorRelease.deadline')" value="2012-11-15">
+                        @Html.TextBoxFor(model => model.deadline, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
                     </td>
                 </tr>
                 <tr>

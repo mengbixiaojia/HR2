@@ -13,7 +13,7 @@ namespace Model
 
         public System.String human_name  {  get;set; }  
 
-        public System.Int16 interview_amount  {  get;set; }  
+        public System.Int32 interview_amount  {  get;set; }  
 
         public System.String human_major_kind_id  {  get;set; }  
 
@@ -41,11 +41,11 @@ namespace Model
 
         public System.String checker  {  get;set; }  
 
-        public System.DateTime registe_time  {  get;set; }  
+        public System.DateTime? registe_time  {  get;set; }  
 
-        public System.DateTime check_time  {  get;set; }  
+        public System.DateTime? check_time  {  get;set; }  
 
-        public System.Int16 resume_id  {  get;set; }  
+        public System.Int32 resume_id  {  get;set; }  
 
         public System.String result  {  get;set; }  
 
@@ -53,8 +53,8 @@ namespace Model
 
         public System.String check_comment  {  get;set; }  
 
-        public System.Int16 interview_status  {  get;set; }  
+        public System.Int32 interview_status  {  get;set; }  
 
-        public System.Int16 check_status  {  get;set; } 
+        public System.Int32 check_status  {  get;set; } 
     }
 }

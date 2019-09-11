@@ -54,8 +54,10 @@
     <Compile Include="Imajor_changeBLL.cs" />
     <Compile Include="IPopedomRoleBLL.cs" />
     <Compile Include="IRoleBLL.cs" />
+    <Compile Include="Isalary_standard_detailsBLL.cs" />
     <Compile Include="IusersBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="salary_standardIBLL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">

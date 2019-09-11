@@ -1,0 +1,411 @@
+﻿@model Model.engage_resumeModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CX</title>
+    <link href="~/css/table.css" rel="stylesheet" />
+    <link href="~/css/cwcalendar.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/comm/comm.js"></script>
+    <script src="~/Scripts/comm/list.js"></script>
+    <script src="~/Scripts/select.js"></script>
+    <script src="~/Scripts/calendar-ch.js"></script>
+    <script src="~/Scripts/locate.js"></script>
+    <script type="text/javascript">
+        function tick() {
+            var now = new Date();
+            var hours, minutes, seconds, noon;
+            var intHours, intMinutes, intSeconds;
+            intHours = now.getHours();
+            intMinutes = now.getMinutes();
+            intSeconds = now.getSeconds();
+            if (intHours < 24) {
+                hours = intHours + ":";
+                noon = "A.M.";
+            } else {
+                intHours = intHours - 24;
+                hours = intHours + ":";
+                noon = "P.M.";
+            }
+            if (intMinutes < 10) {
+                minutes = "0" + intMinutes + ":";
+            } else {
+                minutes = intMinutes + ":";
+            }
+            if (intSeconds < 10) {
+                seconds = "0" + intSeconds + " ";
+            } else {
+                seconds = intSeconds + " ";
+            }
+            timeString = hours + minutes + seconds;
+            var now = new Date();
+        }
+
+        //load事件
+        function check() {
+            //获得系统当前时间的方法
+            tick();
+        }
+
+        function tosubmit() {
+            document.fm.submit();
+        }
+
+    </script>
+</head>
+<body>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    <form method="post" action="/human_file/DJ">
+        <div class="form-horizontal">
+            <table width="100%">
+                <tr>
+                    <td>
+                        <font color="black">您正在做的业务是：人力资源--招聘管理--录用管理--录用申请  </font>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <input type="submit" value="人力资源登记" class="BUTTON_STYLE1">
+                        <input type="button" value="返回" class="BUTTON_STYLE1">
+                    </td>
+                </tr>
+            </table>
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.interview_status)
+            <table width="100%" border="1" cellpadding=0 cellspacing=1
+                   bordercolorlight=#848284 bordercolordark=#eeeeee
+                   class="TABLE_STYLE1">
+                <tr>
+                    <td class="TD_STYLE1" width="11%">
+                        职位分类
+                    </td>
+                    <td width="14%" class="TD_STYLE2">
+                        @Html.HiddenFor(model => model.human_major_kind_id, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.human_major_kind_name, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td width="11%" class="TD_STYLE1">
+                        职位名称
+                    </td>
+                    <td width="14%" class="TD_STYLE2">
+                        @Html.HiddenFor(model => model.human_major_id, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.human_major_name, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td width="11%" class="TD_STYLE1">
+                        招聘类型
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.engage_type, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td width="10%" rowspan="6" colspan="2" align="center"></td>
+                </tr>
+                <tr>
+                    <td class="TD_STYLE1">
+                        姓名
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.human_name, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td class="TD_STYLE1">
+                        性别
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.human_sex, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td class="TD_STYLE1">
+                        EMAIL
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.human_email, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="TD_STYLE1">
+                        电话号码
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.human_telephone, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td class="TD_STYLE1">
+                        家庭电话
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.human_homephone, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td class="TD_STYLE1">
+                        手机
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.human_mobilephone, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="TD_STYLE1">
+                        住址
+                    </td>
+                    <td colspan="3" class="TD_STYLE2">
+                        @Html.EditorFor(model => model.human_address, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td class="TD_STYLE1">
+                        邮编
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.human_postcode, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="TD_STYLE1">
+                        国籍
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.human_nationality, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td class="TD_STYLE1">
+                        出生地
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.human_birthplace, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td class="TD_STYLE1">
+                        生日
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.human_birthday, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td width="11%" class="TD_STYLE1">
+                        民族
+                    </td>
+                    <td class="TD_STYLE2" width="14%">
+                        @Html.EditorFor(model => model.human_race, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td class="TD_STYLE1">
+                        宗教信仰
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.human_religion, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td class="TD_STYLE1">
+                        政治面貌
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.human_party, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="TD_STYLE1">
+                        身份证号码
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.human_idcard, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td class="TD_STYLE1">
+                        年龄
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.human_age, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td class="TD_STYLE1">
+                        毕业学校
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.human_college, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td class="TD_STYLE1" width="10%">
+                        学历
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.human_educated_degree, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="TD_STYLE1">
+                        教育年限
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.human_educated_years, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td class="TD_STYLE1">
+                        学历专业
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.human_educated_major, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td class="TD_STYLE1">
+                        薪酬要求
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.demand_salary_standard, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td class="TD_STYLE1">
+                        注册时间
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.regist_time, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="TD_STYLE1">
+                        特长
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.human_specility, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td class="TD_STYLE1">
+                        爱好
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.human_hobby, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td class="TD_STYLE1">
+                        <span style="font-size: 10.5pt; font-family: 宋体;"></span>
+                        推荐人
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.checker, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td class="TD_STYLE1">
+                        <span style="font-size: 10.5pt; font-family: 宋体;"></span>
+                        推荐时间
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.check_time, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="TD_STYLE1">
+                        个人履历
+                    </td>
+                    <td colspan="7" class="TD_STYLE2">
+                        @Html.TextAreaFor(model => model.human_history_records, new { @class = "TEXTAREA_STYLE1", @readonly = "readonly", @rows = "4" })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="TD_STYLE1">
+                        备注
+                    </td>
+                    <td colspan="7" class="TD_STYLE2">
+                        @Html.TextAreaFor(model => model.remark, new { @class = "TEXTAREA_STYLE1", @readonly = "readonly", @rows = "4" })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="TD_STYLE1">
+                        筛选推荐意见
+                    </td>
+                    <td class="TD_STYLE2" colspan="7">
+                        @Html.TextAreaFor(model => model.recomandation, new { @class = "TEXTAREA_STYLE1", @readonly = "readonly", @rows = "4" })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="TD_STYLE1">
+                        面试次数
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.interview_amount, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td class="TD_STYLE1">
+                        形象评价
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.image_degree, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+
+                    </td>
+                    <td class="TD_STYLE1">
+                        口才评价
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.native_language_degree, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+
+                    </td>
+                    <td class="TD_STYLE1">
+                        外语口语能力
+                    </td>
+                    <td class="TD_STYLE1">
+                        @Html.EditorFor(model => model.foreign_language_degree, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="TD_STYLE1">
+                        应变能力
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.response_speed_degree, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+
+                    </td>
+                    <td class="TD_STYLE1">
+                        EQ
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.EQ_degree, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td class="TD_STYLE1">
+                        IQ
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.IQ_degree, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td class="TD_STYLE1">
+                        综合素质
+                    </td>
+                    <td class="TD_STYLE1">
+                        @Html.EditorFor(model => model.multi_quality_degree, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="TD_STYLE1">
+                        面试人
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.pass_register, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td class="TD_STYLE1">
+                        面试时间
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.pass_regist_time, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td class="TD_STYLE1">
+                        筛选人
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.pass_checker, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                    <td class="TD_STYLE1">
+                        筛选时间
+                    </td>
+                    <td class="TD_STYLE2">
+                        @Html.EditorFor(model => model.pass_check_time, new { htmlAttributes = new { @class = "INPUT_STYLE2", @readonly = "readonly" } })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="TD_STYLE1">
+                        录用申请审核意见
+                    </td>
+                    <td class="TD_STYLE2" colspan="7">
+                        @Html.TextAreaFor(model => model.pass_checkComment, new { @class = "TEXTAREA_STYLE1", @readonly = "readonly", @rows = "4" })
+                    </td>
+                </tr>
+                <tr>
+                    <td class="TD_STYLE1">
+                        录用申请审批审核意见
+                    </td>
+                    <td class="TD_STYLE2" colspan="7">
+                        @Html.TextAreaFor(model => model.pass_passComment, new { @class = "TEXTAREA_STYLE1", @readonly = "readonly", @rows = "4" })
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+        </form>
+</body>
+</html>

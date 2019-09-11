@@ -30,5 +30,7 @@ namespace EFEntity
         public DbSet<config_file_second_kind> config_file_second_kind { get; set; }
         public DbSet<engage_major_release> engage_major_release { get; set; }
         public DbSet<major_change> major_change { get; set; }
+        public DbSet<salary_standard> salary_standard { get; set; }
+        public DbSet<salary_standard_details> salary_standard_details { get; set; }
     }
 }

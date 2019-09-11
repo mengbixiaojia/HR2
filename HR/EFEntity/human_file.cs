@@ -71,11 +71,11 @@ namespace EFEntity
 
         public System.String human_birthplace { get; set; }  
 
-        public System.Int16 human_age { get; set; }  
+        public System.Int32 human_age { get; set; }  
 
         public System.String human_educated_degree { get; set; }  
 
-        public System.Int16 human_educated_years { get; set; }  
+        public System.Int32 human_educated_years { get; set; }  
 
         public System.String human_educated_major { get; set; }  
 
@@ -95,13 +95,13 @@ namespace EFEntity
 
         public System.Decimal paid_salary_sum { get; set; }  
 
-        public System.Int16 major_change_amount { get; set; }  
+        public System.Int32 major_change_amount { get; set; }  
 
-        public System.Int16 bonus_amount { get; set; }  
+        public System.Int32 bonus_amount { get; set; }  
 
-        public System.Int16 training_amount { get; set; }  
+        public System.Int32 training_amount { get; set; }  
 
-        public System.Int16 file_chang_amount { get; set; }  
+        public System.Int32 file_chang_amount { get; set; }  
 
         public System.String human_histroy_records { get; set; }  
 
@@ -111,7 +111,7 @@ namespace EFEntity
 
         public System.String attachment_name { get; set; }  
 
-        public System.Int16 check_status { get; set; }  
+        public System.Int32 check_status { get; set; }  
 
         public System.String register { get; set; }  
 
@@ -131,6 +131,6 @@ namespace EFEntity
 
         public System.DateTime? recovery_time { get; set; }  
 
-        public System.Boolean human_file_status { get; set; } 
+        public System.Int32 human_file_status { get; set; } 
     }
 }

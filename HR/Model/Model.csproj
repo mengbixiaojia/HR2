@@ -56,6 +56,8 @@
     <Compile Include="PopedomRoleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoleModel.cs" />
+    <Compile Include="salary_standardModel.cs" />
+    <Compile Include="salary_standard_detailsModel.cs" />
     <Compile Include="usersModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

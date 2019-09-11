@@ -51,11 +51,11 @@ namespace EFEntity
 
         public System.DateTime? human_birthday { get; set; }  
 
-        public System.Int16 human_age { get; set; }  
+        public System.Int32 human_age { get; set; }  
 
         public System.String human_educated_degree { get; set; }  
 
-        public System.Int16 human_educated_years { get; set; }  
+        public System.Int32 human_educated_years { get; set; }  
 
         public System.String human_educated_major { get; set; }  
 
@@ -77,7 +77,7 @@ namespace EFEntity
 
         public System.String attachment_name { get; set; }  
 
-        public System.Int16 check_status { get; set; }  
+        public System.Int32 check_status { get; set; }  
 
         public System.String register { get; set; }  
 
@@ -87,11 +87,11 @@ namespace EFEntity
 
         public System.DateTime? check_time { get; set; }  
 
-        public System.Int16 interview_status { get; set; }  
+        public System.Int32 interview_status { get; set; }  
 
         public System.Double total_points { get; set; }  
 
-        public System.Int16 test_amount { get; set; }  
+        public System.Int32 test_amount { get; set; }  
 
         public System.String test_checker { get; set; }  
 
@@ -105,7 +105,7 @@ namespace EFEntity
 
         public System.DateTime? pass_check_time { get; set; }  
 
-        public System.Int16 pass_check_status { get; set; }  
+        public System.Int32 pass_check_status { get; set; }  
 
         public System.String pass_checkComment { get; set; }  
 

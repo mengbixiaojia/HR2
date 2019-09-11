@@ -9,19 +9,16 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>SelectBy</title>
-    <script src="~/javascript/comm/comm.js"></script>
+    <script src="~/Scripts/comm/comm.js"></script>
     <script src="~/Scripts/jquery-1.10.2.js"></script>
     <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-    <script src="~/javascript/vue.js"></script>
-    <script src="~/javascript/select.js"></script>
-    <script src="~/DatePicker/WdatePicker.js"></script>
+    <script src="~/Scripts/vue.js"></script>
+    <script src="~/Scripts/select.js"></script>
+    <script src="~/Scripts/DatePicker/WdatePicker.js"></script>
     <link href="~/css/cwcalendar.css" rel="stylesheet" />
     <link href="~/css/table.css" rel="stylesheet" />
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link rel="stylesheet"
-          href="../../css/table.css" type="text/css">
+    <link rel="stylesheet"href="../../css/table.css" type="text/css">
     <script>
         $(function () {
             $.ajax({
@@ -30,6 +27,8 @@
                 data: "",
                 success: function (msg) {
                     $("#ee option").remove();
+                    var $qxz = $("<option>--请选择--</option>");
+                    $("#ee").append($qxz);
                     var data = eval("(" + msg + ")");
                     for (var i = 0; i < data.length; i++) {
                         var $items = $("<option value='" + data[i]["major_kind_id"] + "'>" + data[i]["major_kind_name"] + "</option>");
@@ -46,6 +45,8 @@
                     data: "qid=" + qid,
                     success: function (msg) {
                         $("#ff option").remove();
+                        var $qxz = $("<option>--请选择--</option>");
+                        $("#ff").append($qxz);
                         var data = eval("(" + msg + ")");
                         for (var i = 0; i < data.length; i++) {
                             var $items = $("<option value='" + data[i]["major_id"] + "'>" + data[i]["major_name"] + "</option>");
@@ -71,20 +72,11 @@
                 });
             });
         })
-
     </script>
 </head>
 <body>
     <div id="div1">
-        <form id="recruitAction!findEngageResume?a=list" name="resumeChooseForm" action="/HR_Fist/recruit/recruitAction!findEngageResume?a=list" method="post">
-            <input type="hidden" name="engageResume.humanMajorKindName"
-                   id="majorKindName" />
-            <input type="hidden" name="engageResume.humanMajorName"
-                   id="majorName" />
-            <input type="hidden" name="engageResume.checkStatus"
-                   value="false" />
-
-            <table width="100%">
+           <table width="100%">
                 <tr>
                     <td>
                         <font color="black">您正在做的业务是：人力资源--招聘管理--简历管理--简历筛选 </font>
@@ -92,7 +84,6 @@
                 </tr>
                 <tr>
                     <td align="right">
-
                         <input type="button" id="dj" value="开始" class="BUTTON_STYLE1">
                     </td>
                 </tr>
@@ -107,9 +98,11 @@
                     </td>
                     <td class="TD_STYLE2" width="30%">
                         <select name="engageResume.humanMajorKindId" id="ee" multiple="multiple" style="width: 290;height: 100" class="SELECT_STYLE2">
-                            <option></option>
+                            <option>--请选择--</option>
                         </select>
-                        <select id="ff" name="major_id" multiple="multiple" style="width: 290px;height: 100px"></select>
+                        <select id="ff" name="major_id" multiple="multiple" style="width: 290px;height: 100px">
+                            <option>--请选择--</option>
+                        </select>
                     </td>
                 </tr>
 
@@ -139,10 +132,6 @@
                     </td>
                 </tr>
             </table>
-        </form>
     </div>
-    <script type="text/javascript">
-     
-    </script>
 </body>
 </html>

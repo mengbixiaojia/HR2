@@ -113,9 +113,9 @@ namespace UI.Controllers
                 }
                 else
                 {
-                    return Content("<script>alert('新增失败');window.location='Create'</script>");
+                    return View(em);
                 }
-                return View(em);
+                
             }
             catch
             {
@@ -138,7 +138,7 @@ namespace UI.Controllers
                 SelectListItem sl = new SelectListItem()
                 {
                     Text = list[i].u_name.ToString(),
-                    Value = list[i].Id.ToString()
+                    Value = list[i].u_name.ToString()
                 };
                 user.Add(sl);
             }

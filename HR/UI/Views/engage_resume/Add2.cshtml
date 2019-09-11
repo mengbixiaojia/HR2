@@ -167,8 +167,7 @@
                     姓名
                 </td>
                 <td class="TD_STYLE2">
-                    @Html.EditorFor(model => model.register, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                    @Html.ValidationMessageFor(model => model.register, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.human_name, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
                 </td>
                 <td class="TD_STYLE1">
                     性别
@@ -184,7 +183,6 @@
                 </td>
                 <td colspan="2" class="TD_STYLE2">
                     @Html.EditorFor(model => model.human_email, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                    @Html.ValidationMessageFor(model => model.human_email, "", new { @class = "text-danger" })
                 </td>
             </tr>
             <tr>
@@ -193,21 +191,18 @@
                 </td>
                 <td class="TD_STYLE2">
                     @Html.EditorFor(model => model.human_telephone, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                    @Html.ValidationMessageFor(model => model.human_telephone, "", new { @class = "text-danger" })
                 </td>
                 <td class="TD_STYLE1">
                     家庭电话
                 </td>
                 <td class="TD_STYLE2">
                     @Html.EditorFor(model => model.human_homephone, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                    @Html.ValidationMessageFor(model => model.human_homephone, "", new { @class = "text-danger" })
                 </td>
                 <td class="TD_STYLE1">
                     手机
                 </td>
                 <td colspan="2" class="TD_STYLE2">
                     @Html.EditorFor(model => model.human_mobilephone, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                    @Html.ValidationMessageFor(model => model.human_mobilephone, "", new { @class = "text-danger" })
                 </td>
             </tr>
             <tr>
@@ -216,7 +211,6 @@
                 </td>
                 <td colspan="3" class="TD_STYLE2">
                     @Html.EditorFor(model => model.human_address, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                    @Html.ValidationMessageFor(model => model.human_address, "", new { @class = "text-danger" })
                 </td>
 
                 <td class="TD_STYLE1">
@@ -224,7 +218,6 @@
                 </td>
                 <td colspan="2" class="TD_STYLE2">
                     @Html.EditorFor(model => model.human_postcode, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                    @Html.ValidationMessageFor(model => model.human_postcode, "", new { @class = "text-danger" })
                 </td>
             </tr>
 
@@ -247,7 +240,6 @@
                 </td>
                 <td class="TD_STYLE2">
                     @Html.EditorFor(model => model.human_birthplace, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                    @Html.ValidationMessageFor(model => model.human_birthplace, "", new { @class = "text-danger" })
                 </td>
                 <td class="TD_STYLE1">
                     生日
@@ -365,7 +357,6 @@
                 </td>
                 <td class="TD_STYLE2">
                     @Html.EditorFor(model => model.demand_salary_standard, new { htmlAttributes = new { @class = "INPUT_STYLE2" } })
-                    @Html.ValidationMessageFor(model => model.demand_salary_standard, "", new { @class = "text-danger" })
                 </td>
                 <td class="TD_STYLE1">
                     注册时间
@@ -373,7 +364,7 @@
                 <td class="TD_STYLE2">
                     <input type="text" name="regist_time"
                            id="nowTime" readonly="readonly"
-                           class="INPUT_STYLE2">
+                           class="INPUT_STYLE2" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'start\')}'})">
                 </td>
 
             </tr>

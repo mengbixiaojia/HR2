@@ -185,10 +185,12 @@
     <Compile Include="Controllers\engage_interviewController.cs" />
     <Compile Include="Controllers\engage_major_releaseController.cs" />
     <Compile Include="Controllers\engage_resumeController.cs" />
+    <Compile Include="Controllers\human_fileController.cs" />
     <Compile Include="Controllers\indexController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\major_changeController.cs" />
     <Compile Include="Controllers\right_listController.cs" />
+    <Compile Include="Controllers\salary_standardController.cs" />
     <Compile Include="Controllers\user_listController.cs" />
     <Compile Include="Filter\ErrorFilterAttribute.cs" />
     <Compile Include="Filter\LoginFilterAttribute.cs" />
@@ -284,6 +286,8 @@
     <Content Include="Bin\Unity.ServiceLocation.dll" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\style.css" />
+    <Content Include="Content\webuploader.css" />
     <Content Include="Controllers\bin\IBLL.dll" />
     <Content Include="Controllers\bin\Model.dll" />
     <Content Include="css\cwcalendar.css" />
@@ -1060,6 +1064,7 @@
     <Content Include="Scripts\jquery-easyui-1.3.5\themes\metro\validatebox.css" />
     <Content Include="Scripts\jquery-easyui-1.3.5\themes\metro\window.css" />
     <Content Include="Scripts\jquery.easyui.min.js" />
+    <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.messager.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -1075,8 +1080,11 @@
     <Content Include="Scripts\select.js" />
     <Content Include="Scripts\selectAll.js" />
     <Content Include="Scripts\time.js" />
+    <Content Include="Scripts\upload.js" />
+    <Content Include="Scripts\Uploader.swf" />
     <Content Include="Scripts\user_add.js" />
     <Content Include="Scripts\vue.js" />
+    <Content Include="Scripts\webuploader.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1120,8 +1128,8 @@
     <Content Include="Views\config_file_second_kind\Add.cshtml" />
     <Content Include="Views\config_file_second_kind\Index.cshtml" />
     <Content Include="Views\config_file_second_kind\Update.cshtml" />
-    <Content Include="Views\config_major\major.cshtml" />
-    <Content Include="Views\config_major\major_add.cshtml" />
+    <Content Include="Views\engage_interview\config_major\major.cshtml" />
+    <Content Include="Views\engage_interview\config_major\major_add.cshtml" />
     <Content Include="Views\config_major_kind\major_kind_add.cshtml" />
     <Content Include="Views\config_major_kind\profession_design.cshtml" />
     <Content Include="Views\index\Index.cshtml" />
@@ -1142,7 +1150,6 @@
     <Content Include="Views\engage_major_release\Edit.cshtml" />
     <Content Include="Views\Shared\Login.cshtml" />
     <Content Include="Views\engage_resume\Add.cshtml" />
-    <Content Include="Views\engage_interview\Index.cshtml" />
     <Content Include="Views\engage_resume\Add2.cshtml" />
     <Content Include="Views\major_change\register.cshtml" />
     <Content Include="Views\major_change\register_list.cshtml" />
@@ -1153,6 +1160,27 @@
     <Content Include="Views\engage_resume\Index.cshtml" />
     <Content Include="Views\engage_resume\SelectBy.cshtml" />
     <Content Include="Views\engage_resume\Update.cshtml" />
+    <Content Include="Views\salary_standard\Index.cshtml" />
+    <Content Include="Views\salary_standard\Index2.cshtml" />
+    <Content Include="Views\salary_standard\Index3.cshtml" />
+    <Content Include="Views\salary_standard\tjSelect.cshtml" />
+    <Content Include="Views\salary_standard\UPID.cshtml" />
+    <Content Include="Views\engage_resume\LYSQ.cshtml" />
+    <Content Include="Views\engage_resume\LYSP.cshtml" />
+    <Content Include="Views\engage_resume\LYCX.cshtml" />
+    <Content Include="Views\engage_resume\SQ.cshtml" />
+    <Content Include="Views\engage_resume\SP.cshtml" />
+    <Content Include="Views\engage_resume\CX.cshtml" />
+    <Content Include="Views\engage_interview\Index.cshtml" />
+    <Content Include="Views\engage_resume\SelectByy.cshtml" />
+    <Content Include="Views\engage_interview\Add.cshtml" />
+    <Content Include="Views\engage_interview\DJ.cshtml" />
+    <Content Include="Views\engage_interview\Edit.cshtml" />
+    <Content Include="Views\human_file\DJ.cshtml" />
+    <Content Include="Views\human_file\WJSC.cshtml" />
+    <Content Include="Views\human_file\Index.cshtml" />
+    <Content Include="Views\human_file\Update.cshtml" />
+    <Content Include="Views\human_file\CX.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1162,8 +1190,7 @@
     <Folder Include="Scripts\input_control\" />
     <Folder Include="Scripts\media\" />
     <Folder Include="Scripts\print_page\" />
-    <Folder Include="Scripts\table\" />
-    <Folder Include="Scripts\tree\" />
+    <Folder Include="Scripts\tree\table\" />
     <Folder Include="Scripts\winopen\" />
   </ItemGroup>
   <ItemGroup>
@@ -1178,6 +1205,10 @@
     <ProjectReference Include="..\BLL\BLL.csproj">
       <Project>{8b13ce44-0f48-4241-a2c6-6af6c8ff9423}</Project>
       <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{8455ab12-29fb-479d-964d-e3d8a13f2fbc}</Project>
+      <Name>Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\IBLL\IBLL.csproj">
       <Project>{4ecd5b75-f429-4625-a238-9bb9183229e9}</Project>

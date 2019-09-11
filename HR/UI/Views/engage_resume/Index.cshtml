@@ -9,14 +9,13 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
-    <script src="~/javascript/comm/comm.js"></script>
+    <script src="~/Scripts/comm/comm.js"></script>
     <script src="~/Scripts/jquery-1.10.2.js"></script>
-    <script src="~/javascript/vue.js"></script>
+    <script src="~/Scripts/vue.js"></script>
     <link href="~/css/cwcalendar.css" rel="stylesheet" />
     <link href="~/css/table.css" rel="stylesheet" />
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link rel="stylesheet"
-          href="../../css/table.css" type="text/css">
+    <link rel="stylesheet" href="../../css/table.css" type="text/css">
 </head>
 <body>
     <div id="div1">
@@ -71,23 +70,25 @@
                 <td>{{item.human_major_kind_name }}</td>
                 <td>{{item.human_major_name }}</td>
                 <td>{{item.human_telephone  }}</td>
-                <td>{{item.check_status }}</td>
+                <td v-if="item.check_status==0">待复核</td>
                 <td><a v-bind:href="['/engage_resume/Update/'+item.Id]">复核</a></td>
             </tr>
         </table>
         <p>
-            &nbsp;&nbsp;总数：@ViewData["rows"] 例 &nbsp;&nbsp;&nbsp;当前第{{ye}}页 /每页显示 3 条 &nbsp;&nbsp;&nbsp;共 @ViewData["page"] 页 &nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;总数：{{row}} 例 &nbsp;&nbsp;&nbsp;当前第{{pageNo}} 页 /每页显示 5 条 &nbsp;&nbsp;&nbsp;共 {{pagesCount}} 页 &nbsp;&nbsp;&nbsp;
             <a v-on:click="SYY">上一页</a> &nbsp;&nbsp;&nbsp;
             <a v-on:click="XYY">下一页</a> &nbsp;&nbsp;&nbsp;跳到第 <input name=page type=text class=input1 id="currPage" size=1> 页&nbsp;&nbsp;<input type="image" src="../../../images/go.bmp" v-on:click="go" width=18 height=18 border=0>
+        </p>
 </div>
     <script type="text/javascript">
         var dqy = 1;
-        var page=@ViewData["page"];
         var vm = new Vue({
             el: "#div1",
             data: {
                 dt: null,
-                ye: 1
+                pageNo: null,
+                row: null,
+                pagesCount: null
             },
             methods: {
                 load: function () {
@@ -98,34 +99,32 @@
                         data: "dqy=" + dqy,
                         success: function (msg) {
                             var dd = eval("(" + msg + ")");
-                            t.dt = dd;
+                            t.dt = dd.dt;
+                            t.row = dd.rows;
+                            t.pagesCount = dd.pages;
+                            t.pageNo = dqy;
                         }
                     });
                 },
                 SYY: function () {
                     if (dqy > 1) {
                         dqy--;
-                        this.ye--
                     } else {
-                        dqy = 1
-                        this.ye = 1
+                        dqy = 1;
                     }
                     this.load();
                 },
                 XYY: function () {
-                    if (dqy < page) {
+                    if (dqy < this.pagesCount) {
                         dqy++;
-                        this.ye++
                     } else {
-                        dqy = page
-                        this.ye = page
+                        dqy = this.pagesCount;
                     }
                     this.load();
                 },
                 go: function () {
                     dqy = $("#currPage").val();
-                    if (page >= dqy) {
-                        this.ye = dqy;
+                    if (pagesCount >= dqy) {
                         this.load();
                         $("#currPage").val("");
                     } else {
