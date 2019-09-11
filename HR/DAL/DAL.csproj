@@ -61,10 +61,12 @@
     <Compile Include="DaoBase.cs" />
     <Compile Include="DBHelper.cs" />
     <Compile Include="engage_major_releaseDAL.cs" />
+    <Compile Include="human_fileDAL.cs" />
     <Compile Include="major_changeDAL.cs" />
     <Compile Include="PopedomRoleDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoleDAL.cs" />
+    <Compile Include="salary_standardDAL.cs" />
     <Compile Include="usersDAL.cs" />
   </ItemGroup>
   <ItemGroup>

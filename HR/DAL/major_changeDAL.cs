@@ -269,8 +269,8 @@ namespace DAL
                 check_status = st.check_status,
                 register = st.register,
                 checker = st.checker,
-                //regist_time = st.regist_time,
-                regist_time = DateTime.Now,
+                regist_time = st.regist_time,
+                //regist_time = DateTime.Now,
                 //check_time = st.check_time
                 check_time = DateTime.Now
             };
@@ -279,18 +279,6 @@ namespace DAL
         public List<major_changeModel> firstSelect()
         {
             var values = db.Database.SqlQuery<major_changeModel>($"select [first_kind_id],[first_kind_name] from [dbo].[config_file_first_kind]").ToList();
-            return values;
-        }
-
-        public List<major_changeModel> secondSelect()
-        {
-            var values = db.Database.SqlQuery<major_changeModel>($"select [second_kind_id],[second_kind_name] from [dbo].[config_file_second_kind]").ToList();
-            return values;
-        }
-
-        public List<major_changeModel> thirdSelect()
-        {
-            var values = db.Database.SqlQuery<major_changeModel>($"select [third_kind_id],[third_kind_name] from [dbo].[config_file_third_kind]").ToList();
             return values;
         }
         public List<major_changeModel> fenye(int dqy)
@@ -345,58 +333,7 @@ namespace DAL
             }
             return list2;
         }
-        public List<major_changeModel> fenye1(int dqy,major_changeModel mm,DateTime time1,DateTime time2)
-        {
-            int rows = 0;
-            List<major_change> list = FenYe<int>(e => e.Id, e => e.first_kind_id.Equals(mm.first_kind_id)&&e.second_kind_id.Equals(mm.second_kind_id)&&e.third_kind_id.Equals(mm.third_kind_id)&&e.regist_time>=time1&&e.regist_time<=time2, ref rows, dqy, 2);
-            List<major_changeModel> list2 = new List<major_changeModel>();
-            foreach (major_change item in list)
-            {
-                major_changeModel mcm = new major_changeModel()
-                {
-                    Id = item.Id,
-                    first_kind_id = item.first_kind_id,
-                    first_kind_name = item.first_kind_name,
-                    second_kind_id = item.second_kind_id,
-                    second_kind_name = item.second_kind_name,
-                    third_kind_id = item.third_kind_id,
-                    third_kind_name = item.third_kind_name,
-                    major_kind_id = item.major_kind_id,
-                    major_kind_name = item.major_kind_name,
-                    major_id = item.major_id,
-                    major_name = item.major_name,
-                    new_first_kind_id = item.new_first_kind_id,
-                    new_first_kind_name = item.new_first_kind_name,
-                    new_second_kind_id = item.new_second_kind_id,
-                    new_second_kind_name = item.new_second_kind_name,
-                    new_third_kind_id = item.new_third_kind_id,
-                    new_third_kind_name = item.new_third_kind_name,
-                    new_major_kind_id = item.new_major_kind_id,
-                    new_major_kind_name = item.new_major_kind_name,
-                    new_major_id = item.new_major_id,
-                    new_major_name = item.new_major_name,
-                    human_id = item.human_id,
-                    human_name = item.human_name,
-                    salary_standard_id = item.salary_standard_id,
-                    salary_standard_name = item.salary_standard_name,
-                    salary_sum = item.salary_sum,
-                    new_salary_standard_id = item.new_salary_standard_id,
-                    new_salary_standard_name = item.new_salary_standard_name,
-                    new_salary_sum = item.new_salary_sum,
-                    change_reason = item.change_reason,
-                    check_reason = item.check_reason,
-                    check_status = item.check_status,
-                    register = item.register,
-                    checker = item.checker,
-                    //regist_time = item.regist_time,
-                    //check_time = item.check_time
-                    regist_time = DateTime.Now,
-                    check_time = DateTime.Now
-                };
-                list2.Add(mcm);
-            }
-            return list2;
-        }
+       
         public List<major_changeModel> fenye2(int dqy)
         {
             int rows = 0;
@@ -460,39 +397,75 @@ namespace DAL
             double page = rows / 2.00;
             return (int)Math.Ceiling(page);
         }
-
-        public List<major_changeModel> fourSelect()
+        public List<major_changeModel> atjcx(string yi, string er, string san, string si, string wu, string time1, string time2)
         {
-            var values = db.Database.SqlQuery<major_changeModel>($"select [new_first_kind_id],[new_first_kind_name] from [dbo].[major_change]").ToList();
-            return values;
+            List<major_change> list = new List<major_change>();
+            if (time1 == null && time2 == null)
+            {
+                list = SelectBy(e => e.new_first_kind_id.Contains(yi) && e.new_second_kind_id.Contains(er) && e.new_third_kind_id.Contains(san) && e.new_major_kind_id.Contains(si) && e.new_major_id.Contains(wu));
+            }
+            else if (time1==null && time2!=null)
+            {
+                DateTime time4 = DateTime.Parse(time2);
+                list = SelectBy(e => e.new_first_kind_id.Contains(yi) && e.new_second_kind_id.Contains(er) && e.new_third_kind_id.Contains(san) && e.new_major_kind_id.Contains(si) && e.new_major_id.Contains(wu) && e.regist_time <= time4);
+            }
+            else if (time2 == null && time1 != null)
+            {
+                DateTime time3 = DateTime.Parse(time1);
+                list = SelectBy(e => e.new_first_kind_id.Contains(yi) && e.new_second_kind_id.Contains(er) && e.new_third_kind_id.Contains(san) && e.new_major_kind_id.Contains(si) && e.new_major_id.Contains(wu) && e.regist_time >= time3);
+            }
+            else
+            {
+                DateTime time3 = DateTime.Parse(time1);
+                DateTime time4 = DateTime.Parse(time2);
+                list = SelectBy(e => e.new_first_kind_id.Contains(yi) && e.new_second_kind_id.Contains(er) && e.new_third_kind_id.Contains(san) && e.new_major_id.Contains(si) && e.new_major_kind_id.Contains(wu) && e.regist_time >= time3 && e.regist_time <= time4);
+            }
+            List<major_changeModel> list2 = new List<major_changeModel>();
+            foreach (var item in list)
+            {
+                major_changeModel sd = new major_changeModel()
+                {
+                    Id = item.Id,
+                    first_kind_id = item.first_kind_id,
+                    first_kind_name = item.first_kind_name,
+                    second_kind_id = item.second_kind_id,
+                    second_kind_name = item.second_kind_name,
+                    third_kind_id = item.third_kind_id,
+                    third_kind_name = item.third_kind_name,
+                    major_kind_id = item.major_kind_id,
+                    major_kind_name = item.major_kind_name,
+                    major_id = item.major_id,
+                    major_name = item.major_name,
+                    new_first_kind_id = item.new_first_kind_id,
+                    new_first_kind_name = item.new_first_kind_name,
+                    new_second_kind_id = item.new_second_kind_id,
+                    new_second_kind_name = item.new_second_kind_name,
+                    new_third_kind_id = item.new_third_kind_id,
+                    new_third_kind_name = item.new_third_kind_name,
+                    new_major_kind_id = item.new_major_kind_id,
+                    new_major_kind_name = item.new_major_kind_name,
+                    new_major_id = item.new_major_id,
+                    new_major_name = item.new_major_name,
+                    human_id = item.human_id,
+                    human_name = item.human_name,
+                    salary_standard_id = item.salary_standard_id,
+                    salary_standard_name = item.salary_standard_name,
+                    salary_sum = item.salary_sum,
+                    new_salary_standard_id = item.new_salary_standard_id,
+                    new_salary_standard_name = item.new_salary_standard_name,
+                    new_salary_sum = item.new_salary_sum,
+                    change_reason = item.change_reason,
+                    check_reason = item.check_reason,
+                    check_status = item.check_status,
+                    register = item.register,
+                    checker = item.checker,
+                    regist_time = item.regist_time,
+                    check_time = item.check_time
+                };
+                list2.Add(sd);
+            }
+            return list2;
+            //select * from [dbo].[major_change] where [new_first_kind_id] like '%1% ' and [new_second_kind_id] like '%% ' and [new_third_kind_id] like '%% 'and [new_major_kind_id] like '%% ' and [new_major_id] like '%% ' and [regist_time]>='' and regist_time<='2019-9-4'
         }
-
-        public List<major_changeModel> fiveSelect()
-        {
-            var values = db.Database.SqlQuery<major_changeModel>($"select [new_second_kind_id],[new_second_kind_name] from [dbo].[major_change]").ToList();
-            return values;
-        }
-
-        public List<major_changeModel> sixSelect()
-        {
-            var values = db.Database.SqlQuery<major_changeModel>($"select [new_third_kind_id],[new_third_kind_name] from [dbo].[major_change]").ToList();
-            return values;
-        }
-        public List<major_changeModel> sevenSelect()
-        {
-            var values = db.Database.SqlQuery<major_changeModel>($"select [new_major_kind_id],[new_major_kind_name] from [dbo].[major_change]").ToList();
-            return values;
-        }
-        public List<major_changeModel> eightSelect()
-        {
-            var values = db.Database.SqlQuery<major_changeModel>($"select [new_major_id],[new_major_name] from [dbo].[major_change]").ToList();
-            return values;
-        }
-        public List<major_changeModel> nineSelect()
-        {
-            var values = db.Database.SqlQuery<major_changeModel>($"select [new_salary_standard_id],[new_salary_standard_name] from [dbo].[major_change]").ToList();
-            return values;
-        }
-        
     }
 }

@@ -91,18 +91,26 @@ namespace UI.Controllers
         // GET: right_list/Delete/5
         public ActionResult Delete(int id)
         {
-            RoleModel rm = new RoleModel()
+            try
             {
-                RoleID = id
-            };
-            //根据ID做删除
-            if (irb.Del(rm) > 0)
-            {
-                return Content("<script>alert('删除成功');window.location.href='/right_list/right_list'</script>");
+                RoleModel rm = new RoleModel()
+                {
+                    RoleID = id
+                };
+                //根据ID做删除
+                if (irb.Del(rm) > 0)
+                {
+                    return Content("<script>alert('删除成功');window.location.href='/right_list/right_list'</script>");
+                }
+                else
+                {
+                    return Content("<script>alert('删除失败!');window.location.href='/right_list/right_list'</script>");
+                }
             }
-            else
+            catch (Exception)
             {
-                return Content("<script>alert('删除失败');window.location.href='/right_list/right_list'</script>");
+
+                return Content("<script>alert('此职位下有权限,不能删除,删除失败!');window.location.href='/right_list/right_list'</script>");
             }
         }
         public ActionResult right_list_information(int id)

@@ -79,7 +79,6 @@ namespace DAL
         {
 
             List<T> list = db.Set<T>().Select(e => e).Where(where).AsNoTracking().ToList();
-
             return list;
         }
 

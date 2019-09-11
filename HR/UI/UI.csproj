@@ -503,8 +503,11 @@
     <Content Include="Fakes\System.Net.Http.WebRequest.fakes" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\calendar-ch.js" />
+    <Content Include="Scripts\calendar\cal.js" />
+    <Content Include="Scripts\calendar\calendar-win2k-cold-1.css" />
     <Content Include="Scripts\comm\comm.js" />
     <Content Include="Scripts\comm\list.js" />
+    <Content Include="Scripts\comm\time.js" />
     <Content Include="Scripts\human_check.js" />
     <Content Include="Scripts\human_input_check.js" />
     <Content Include="Scripts\human_register.js" />
@@ -1130,11 +1133,13 @@
     <Content Include="Views\right_list\right_list_information.cshtml" />
     <Content Include="Views\check_list\check_list.cshtml" />
     <Content Include="Views\check_list\check.cshtml" />
+    <Content Include="Views\check_list\locate.cshtml" />
+    <Content Include="Views\check_list\list.cshtml" />
+    <Content Include="Views\check_list\detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Bin\roslyn\" />
-    <Folder Include="Scripts\calendar\" />
     <Folder Include="Scripts\easyui\" />
     <Folder Include="Scripts\input_control\" />
     <Folder Include="Scripts\media\" />

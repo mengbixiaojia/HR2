@@ -48,9 +48,11 @@
     <Compile Include="Iconfig_majorDAL.cs" />
     <Compile Include="Iconfig_major_kindDAL.cs" />
     <Compile Include="Iengage_major_releaseDAL.cs" />
+    <Compile Include="Ihuman_fileDAL.cs" />
     <Compile Include="Imajor_changeDAL.cs" />
     <Compile Include="IPopedomRoleDAL.cs" />
     <Compile Include="IRoleDAL.cs" />
+    <Compile Include="Isalary_standardDAL.cs" />
     <Compile Include="IusersDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -43,16 +43,6 @@ namespace BLL
         {
             return ist.firstSelect();
         }
-
-        public List<major_changeModel> secondSelect()
-        {
-            return ist.secondSelect();
-        }
-
-        public List<major_changeModel> thirdSelect()
-        {
-            return ist.thirdSelect();
-        }
         public int Row()
         {
             return ist.Row();
@@ -68,47 +58,18 @@ namespace BLL
             return ist.fenye(dqy);
         }
 
-        public List<major_changeModel> fourSelect()
-        {
-            return ist.fourSelect();
-        }
-
-        public List<major_changeModel> fiveSelect()
-        {
-            return ist.fiveSelect();
-        }
-
-        public List<major_changeModel> sixSelect()
-        {
-            return ist.sixSelect();
-        }
-
-        public List<major_changeModel> sevenSelect()
-        {
-            return ist.sevenSelect();
-        }
-
-        public List<major_changeModel> eightSelect()
-        {
-            return ist.eightSelect();
-        }
-
-        public List<major_changeModel> nineSelect()
-        {
-            return ist.nineSelect();
-        }
-
         public List<major_changeModel> SelectBy2(major_changeModel st)
         {
             return ist.SelectBy2(st);
-        }
-        public List<major_changeModel> fenye1(int dqy, major_changeModel mm, DateTime time1, DateTime time2)
-        {
-            return ist.fenye1(dqy, mm, time1,time2);
         }
         public List<major_changeModel> fenye2(int dqy)
         {
             return ist.fenye2(dqy);
         }
+        public List<major_changeModel> atjcx(string yi, string er, string san, string si, string wu, string time1, string time2)
+        {
+            return ist.atjcx(yi, er, san, si, wu, time1, time2);
+        }
+     
     }
 }

@@ -92,6 +92,19 @@ namespace IOC
             UnityContainer ioc = GetBLLSeciton();
             return ioc.Resolve<IRoleBLL>("RoleBLL");
         }
+        public static Isalary_standardDAL Createsalary_standardDAL()
+        {
+            UnityContainer ioc = new UnityContainer();
+            ioc.RegisterType<Isalary_standardDAL, salary_standardDAL>();
+            return ioc.Resolve<Isalary_standardDAL>();
+        }
+        public static Ihuman_fileDAL Createhuman_fileDAL()
+        {
+            UnityContainer ioc = new UnityContainer();
+            ioc.RegisterType<Ihuman_fileDAL, human_fileDAL>();
+            return ioc.Resolve<Ihuman_fileDAL>();
+        }
+
         private static UnityContainer GetBLLSeciton()
         {
             UnityContainer ioc = new UnityContainer();
@@ -167,6 +180,16 @@ namespace IOC
         {
             UnityContainer ioc = GetBLLSeciton();
             return ioc.Resolve<Iengage_major_releaseBLL>("engage_major_releaseBLL");
+        }
+        public static Isalary_standardBLL Createsalary_standardBLL()
+        {
+            UnityContainer ioc = GetBLLSeciton();
+            return ioc.Resolve<Isalary_standardBLL>("salary_standardBLL");
+        }
+        public static Ihuman_fileBLL Createhuman_fileBLL()
+        {
+            UnityContainer ioc = GetBLLSeciton();
+            return ioc.Resolve<Ihuman_fileBLL>("human_fileBLL");
         }
     }
 }

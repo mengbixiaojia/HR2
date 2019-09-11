@@ -81,7 +81,7 @@
                         页
                         &nbsp;&nbsp;&nbsp;共
                         <font style="color: maroon;font-weight: bold;">@ViewData["page"]</font>
-                        页
+                        页'
                         <a style="color: navy;font-weight: bold" v-on:click="first">首页</a>
 
                         <a style="color: navy;font-weight: bold"
@@ -154,6 +154,7 @@
                     this.dqy=ye;
                     this.load();
                 },
+                //跳转
                 go: function () {
                     dq = $("#page").val();
                     if (pages >= dq) {

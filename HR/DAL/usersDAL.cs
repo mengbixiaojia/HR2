@@ -116,89 +116,22 @@ namespace DAL
                 RoleID = st.RoleID
             };
             return Update(est);
-        }      
-            public Dictionary<string, object> Fenye(int pageIndex)
+        }
+        public Dictionary<string, object> Fenye(int pageIndex)
         {
-            int rows = 0;
-            List<users> list = FenYe<int>(e => e.Id, e => e.Id > 0, ref rows, pageIndex, 3);
-            List<usersModel> dt = new List<usersModel>();
-            foreach (users item in list)
-            {
-                usersModel um = new usersModel()
-                {
-                    Id = item.Id,
-                    u_name = item.u_name,
-                    u_password = item.u_password,
-                    u_true_name = item.u_true_name,
-                    RoleID = item.RoleID
-                };
-
-                if (item.RoleID == 1)
-                {
-                    um.RoleName = "人事专员";
-                }
-                else if (item.RoleID == 2)
-                {
-                    um.RoleName = "人事经理";
-                }
-                else if (item.RoleID == 3)
-                {
-                    um.RoleName = "薪酬专员";
-                }
-                else if (item.RoleID == 4)
-                {
-                    um.RoleName = "薪酬经理";
-                }
-                else if (item.RoleID == 5)
-                {
-                    um.RoleName = "招聘专员";
-                }
-                else if (item.RoleID == 6)
-                {
-                    um.RoleName = "招聘经理";
-                }
-                else if (item.RoleID == 7)
-                {
-                    um.RoleName = "应聘者";
-                }
-                else if (item.RoleID == 8)
-                {
-                    um.RoleName = "系统管理员";
-                }
-                dt.Add(um);
-            }
-            //获取总行数
-            List<users> list3 = db.users.OrderBy(e => e.Id).Where(e => e.Id > 0).ToList();
-            rows = list3.Count();
-            //获取总页数
+            List<usersModel> list = db.Database.SqlQuery<usersModel>($"select [Id],[u_name],[u_true_name],[u_password],(select [RoleName] from [dbo].[Role] where RoleID = u.RoleID)as RoleName  from [dbo].[users] u").ToList();
+            List<usersModel> list2 = list.Skip((pageIndex - 1) * 3).Take(3).ToList();
+            int rows = list.Count();
             double page = rows / 3.00;
             int pages = int.Parse(Math.Ceiling(page).ToString());
             Dictionary<string, object> di = new Dictionary<string, object>();
-            di["dt"] = dt;
+            di["dt"] = list2;
             di["rows"] = rows;
             di["pages"] = pages;
             return di;
+        }
 
-
-        
-
-        //int rows = 0;
-        //List<users> list = FenYe<int>(e => e.Id, e => e.Id > 0, ref rows, dqy, 2);
-        //List<usersModel> list2 = new List<usersModel>();
-        //foreach (users item in list)
-        //{
-        //    usersModel um = new usersModel()
-        //    {
-        //        Id = item.Id,
-        //        u_name = item.u_name,
-        //        u_true_name = item.u_true_name,
-        //        u_password = item.u_password
-        //    };
-        //    list2.Add(um);
-        //}
-        //return list2;
-    }
-    public int Row()
+        public int Row()
         {
             int rows = 0;
             List<users> list = FenYe<int>(e => e.Id, e => e.Id > 0, ref rows, 1, 2);

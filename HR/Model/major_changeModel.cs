@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -71,7 +72,7 @@ namespace Model
 
         public System.String check_reason  {  get;set; }  
 
-        public System.Int32 check_status  {  get;set; }  
+        public System.Int32 check_status  {  get;set; }
 
         public System.String register  {  get;set; }  
 

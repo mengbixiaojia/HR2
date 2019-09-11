@@ -16,7 +16,7 @@
         $(function () {
             var hidRadio = $("#hidSex").val();
             var radios = document.getElementsByName("check_status");
-            if (hidRadio == "通过") {
+            if (hidRadio == 1) {
                 radios[0].checked = true;
             } else {
                 radios[1].checked = true;
@@ -24,10 +24,13 @@
         })
         $(function(){
         $("#Button1").click(function () {
-            alert($("input[name='check_status']:checked").val());
+            //alert($("input[name='check_status']:checked").val());
         })
         $("#But").click(function () {
             window.location.href = '/check_list/check_list';
+        })
+        $(function () {
+            $("#fhr").val(localStorage.getItem("a"));
         })
         })
     </script>
@@ -82,18 +85,21 @@
                             原一级机构
                         </td>
                         <td class="TD_STYLE2">
+                            @Html.TextBox("first_kind_id", Model.first_kind_id, new { @class = "INPUT_STYLE2", @style = "display:none" })
                             @Html.TextBox("first_kind_name", Model.first_kind_name, new { @class = "INPUT_STYLE2", @readonly = "readonly" })
                         </td>
                         <td class="TD_STYLE1" width="8%">
                             原二级机构
                         </td>
                         <td class="TD_STYLE2" width="10%">
+                            @Html.TextBox("second_kind_id", Model.second_kind_id, new { @class = "INPUT_STYLE2", @style = "display:none" })
                             @Html.TextBox("second_kind_name", Model.second_kind_name, new { @class = "INPUT_STYLE2", @readonly = "readonly" })
                         </td>
                         <td class="TD_STYLE1" width="8%">
                             原三级机构
                         </td>
                         <td class="TD_STYLE2" width="10%">
+                            @Html.TextBox("third_kind_id", Model.third_kind_id, new { @class = "INPUT_STYLE2", @style = "display:none" })
                             @Html.TextBox("third_kind_name", Model.third_kind_name, new { @class = "INPUT_STYLE2", @readonly = "readonly" })
                         </td>
                         <td class="TD_STYLE1" width="8%"></td>
@@ -105,18 +111,21 @@
                             原职位分类
                         </td>
                         <td class="TD_STYLE2">
+                            @Html.TextBox("major_kind_id", Model.major_kind_id, new { @class = "INPUT_STYLE2", @style = "display:none" })
                             @Html.TextBox("major_kind_name", Model.major_kind_name, new { @class = "INPUT_STYLE2", @readonly = "readonly" })
                         </td>
                         <td class="TD_STYLE1" width="12%">
                             原职位名称
                         </td>
                         <td class="TD_STYLE2">
+                            @Html.TextBox("major_id", Model.major_id, new { @class = "INPUT_STYLE2", @style = "display:none" })
                             @Html.TextBox("major_name", Model.major_name, new { @class = "INPUT_STYLE2", @readonly = "readonly" })
                         </td>
                         <td class="TD_STYLE1">
                             原薪酬标准
                         </td>
                         <td class="TD_STYLE2">
+                            @Html.TextBox("salary_standard_id", Model.salary_standard_id, new { @class = "INPUT_STYLE2", @style = "display:none" })
                             @Html.TextBox("salary_standard_name", Model.salary_standard_name, "", new { @class = "INPUT_STYLE2", @readonly = "readonly" })
                         </td>
                         <td class="TD_STYLE1">
@@ -131,22 +140,22 @@
                             新一级机构名称
                         </td>
                         <td class="TD_STYLE2">
-                            @Html.TextBox("new_first_kind_id", Model.new_first_kind_id, "", new { @class = "INPUT_STYLE2", @readonly = "readonly" })
-                            @*@Html.DropDownList("new_first_kind_id", @ViewBag.dt4 as IEnumerable<SelectListItem>, new { @id = "bb", @style = "width:160px" })*@
+                            @Html.TextBox("new_first_kind_id", Model.new_first_kind_id, "", new { @class = "INPUT_STYLE2", @style="display:none" })
+                            @Html.TextBox("new_first_kind_name", Model.new_first_kind_name, "", new { @class = "INPUT_STYLE2", @readonly = "readonly" })
                         </td>
                         <td class="TD_STYLE1" width="12%">
                             新二级机构名称
                         </td>
                         <td class="TD_STYLE2">
-                            @Html.TextBox("new_second_kind_id", Model.new_second_kind_id, "", new { @class = "INPUT_STYLE2", @readonly = "readonly" })
-                            @*<select id="cc" name="new_second_kind_id" style="width:160px"></select>*@
+                            @Html.TextBox("new_second_kind_id", Model.new_second_kind_id, "", new { @class = "INPUT_STYLE2", @style = "display:none" })
+                            @Html.TextBox("new_second_kind_name", Model.new_second_kind_name, "", new { @class = "INPUT_STYLE2", @readonly = "readonly" })
                         </td>
                         <td class="TD_STYLE1" width="12%">
                             新三级机构名称
                         </td>
                         <td class="TD_STYLE2">
-                            @Html.TextBox("new_third_kind_id", Model.new_third_kind_id, "", new { @class = "INPUT_STYLE2", @readonly = "readonly" })
-                            @*<select id="dd" name="new_third_kind_id" style="width:160px"></select>*@
+                            @Html.TextBox("new_third_kind_id", Model.new_third_kind_id, "", new { @class = "INPUT_STYLE2", @style = "display:none" })
+                            @Html.TextBox("new_third_kind_name", Model.new_third_kind_name, "", new { @class = "INPUT_STYLE2", @readonly = "readonly" })
                         </td>
                         <td class="TD_STYLE1" width="8%"></td>
                         <td class="TD_STYLE2" width="10%"></td>
@@ -156,29 +165,28 @@
                             新职位分类
                         </td>
                         <td class="TD_STYLE2">
-                            @Html.TextBox("new_major_kind_id", Model.new_major_kind_id, "", new { @class = "INPUT_STYLE2", @readonly = "readonly" })
-                            @*@Html.DropDownList("new_major_kind_id", @ViewBag.dt7 as IEnumerable<SelectListItem>, new { @style = "width:160px" })*@
+                            @Html.TextBox("new_major_kind_id", Model.new_major_kind_id, "", new { @class = "INPUT_STYLE2", @style = "display:none" })
+                            @Html.TextBox("new_major_kind_name", Model.new_major_kind_name, "", new { @class = "INPUT_STYLE2", @readonly = "readonly" })
                         </td>
                         <td class="TD_STYLE1" width="12%">
                             新职位名称
                         </td>
                         <td class="TD_STYLE2">
-                            @Html.TextBox("new_major_id", Model.new_major_id, "", new { @class = "INPUT_STYLE2", @readonly = "readonly" })
-                            @*@Html.DropDownList("new_major_id", @ViewBag.dt8 as IEnumerable<SelectListItem>, new { @style = "width:160px" })*@
+                            @Html.TextBox("new_major_id", Model.new_major_id, "", new { @class = "INPUT_STYLE2", @style = "display:none" })
+                            @Html.TextBox("new_major_name", Model.new_major_name, "", new { @class = "INPUT_STYLE2", @readonly = "readonly" })
                         </td>
                         <td class="TD_STYLE1">
                             新薪酬标准
                         </td>
                         <td class="TD_STYLE2">
+                            @Html.TextBox("new_salary_standard_id", Model.new_salary_standard_id, "", new { @class = "INPUT_STYLE2", @style = "display:none" })
                             @Html.TextBox("new_salary_standard_name", Model.new_salary_standard_name, "", new { @class = "INPUT_STYLE2", @readonly = "readonly" })
-                            @*@Html.DropDownList("new_salary_standard_name", @ViewBag.dt9 as IEnumerable<SelectListItem>, "----------请选择----------", new { @style = "width:160px", @id = "xcbz" })*@
                         </td>
                         <td class="TD_STYLE1">
                             新薪酬总额
                         </td>
                         <td class="TD_STYLE2">
                             @Html.TextBox("new_salary_sum", Model.new_salary_sum, "", new { @class = "INPUT_STYLE2", @readonly = "readonly" })
-                            @*@Html.TextBox("new_salary_sum", Model.new_salary_sum, "0.00", new { @class = "INPUT_STYLE2", @readonly = "readonly", @id = "xze" })*@
                         </td>
                     </tr>
                     <tr>
@@ -192,7 +200,19 @@
                             登记时间
                         </td>
                         <td class="TD_STYLE2">
-                            <input type="text" name="majorChange.registTime" readonly="readonly"
+                            @Html.TextBox("regist_time", Model.regist_time, new { @class = "INPUT_STYLE2", @readonly = "readonly" })
+                        </td>
+                        <td class="TD_STYLE1">
+                            复核人
+                        </td>
+                        <td class="TD_STYLE2">
+                            @Html.TextBox("checker", Model.checker, new { @class = "INPUT_STYLE2", @readonly = "readonly", @id = "fhr" })
+                        </td>
+                        <td class="TD_STYLE1">
+                            复核时间
+                        </td>
+                        <td class="TD_STYLE2">
+                            <input type="text" name="check_time" readonly="readonly"
                                    id="Tdate" class="INPUT_STYLE2">
                             <SCRIPT type="text/javascript">
 					function time(){
@@ -240,10 +260,6 @@
  				var out=window.setInterval(time, 1000);
                             </SCRIPT>
                         </td>
-                        <td class="TD_STYLE1"></td>
-                        <td class="TD_STYLE2"></td>
-                        <td class="TD_STYLE1"></td>
-                        <td class="TD_STYLE2"></td>
                     </tr>
                     <tr>
                         <td class="TD_STYLE1">

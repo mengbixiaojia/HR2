@@ -42,7 +42,7 @@
                         调动
                     </td>
                 </tr>
-                <tr v-for="(item,index) in dt">
+                <tr v-for="(item,index) in rows">
                     <td class="TD_STYLE2">{{item.first_kind_name}}</td>
                     <td class="TD_STYLE2">{{item.second_kind_name}}</td>
                     <td class="TD_STYLE2">{{item.third_kind_name}}</td>
@@ -53,101 +53,90 @@
             </table>
                     <div align="center" style="font-size: 18px;color: gray">
                         &nbsp;&nbsp;总数:
-                        <font style="color: maroon;font-weight: bold;">@ViewData["zs"]</font>
+                        <font style="color: maroon;font-weight: bold;">{{row}}</font>
                         例
                         &nbsp;&nbsp;&nbsp;
                         每页显示 <font style="color: maroon;font-weight: bold;">2</font>
                         条
                         &nbsp;&nbsp;&nbsp;
-                        当前第 <font style="color: maroon;font-weight: bold;">{{dqy}}</font>
+                        当前第 <font style="color: maroon;font-weight: bold;">{{pageNo}}</font>
                         页
                         &nbsp;&nbsp;&nbsp;共
-                        <font style="color: maroon;font-weight: bold;">@ViewData["page"]</font>
+                        <font style="color: maroon;font-weight: bold;">{{pagesCount}}</font>
                         页
                         <a style="color: navy;font-weight: bold" v-on:click="first">首页</a>
 
                         <a style="color: navy;font-weight: bold"
-                           v-on:click="prev">上一页</a>
+                           v-on:click="back">上一页</a>
 
                         <a style="color: navy;font-weight: bold"
                            v-on:click="next">下一页</a>
 
                         <a style="color: navy;font-weight: bold"
                            v-on:click="last">末页</a>
-                        &nbsp;&nbsp;&nbsp;跳到第
-                        <input id="page" type=text value="1" class=input1 size=1>
-                        页&nbsp;&nbsp;
-                        <input type="image" v-on:click="go" src="../../images/go.bmp" width=18 height=18 border=0>
+                        &nbsp;&nbsp;&nbsp;跳到第 <input name="page" type="text" class="input1" id="currPage" v-model="cpage" size=1> 页&nbsp;&nbsp;<input type="image" src="../../../images/go.bmp" v-on:click="go" width="18" height="18" border="0">
          </div>
     </div>
     <script type="text/javascript">
-        var ye = 1;
-        var pages=@ViewData["page"];
+        var currentPage = 1;
         var vm = new Vue({
             el: "#div1",
             data: {
-                dt:null,
-                dqy:ye
+                rows: null,
+                cpage: null,
+                pageNo: null,
+                row: null,
+                pagesCount: null
             },
             methods: {
                 load: function () {
                     var t = this;
                     $.ajax({
-                        url: "/major_change/Index2",
+                        url: "/major_change/tjcx",
                         type: "post",
-                        data: "ye="+ye,
+                        data: "dqy=" + currentPage,
                         success: function (msg) {
                             var dd = eval("(" + msg + ")");
-                            t.dt = dd;
+                            t.rows = dd.dt;
+                            t.row = dd.rows;
+                            t.pagesCount = dd.pages;
+                            t.pageNo = currentPage;
                         }
                     });
                 },
-                //第一页
                 first: function () {
-                    ye = 1;
-                    this.dqy=ye;
+                    currentPage = 1;
                     this.load();
                 },
-                //上一页
-                prev: function () {
-                    if (ye > 1) {
-                        ye--;
-                        this.dqy=ye;
+                back: function () {
+                    if (currentPage > 1) {
+                        currentPage--;
                     } else {
-                        ye = 1;
-                        this.dqy=ye;
+                        currentPage = 1;
                     }
                     this.load();
                 },
-                //下一页
                 next: function () {
-                    if (ye < pages) {
-                        ye++;
-                        this.dqy=ye;
+                    if (currentPage < this.pagesCount) {
+                        currentPage++;
                     } else {
-                        ye = pages;
-                        this.dqy=ye;
+                        currentPage = this.pagesCount;
                     }
                     this.load();
                 },
-                //最后一页
                 last: function () {
-                    ye = pages;
-                    this.dqy=ye;
+                    currentPage = this.pagesCount;
                     this.load();
                 },
                 go: function () {
-                    dq = $("#page").val();
-                    if (pages >= dq) {
-                        ye=dq;
-                        this.dqy=ye;
+                    if (this.cpage <= this.pagesCount) {
+                        currentPage = this.cpage;
+                        $("#leftPage  p").remove();
                         this.load();
-                        $("#currPage").val("");
                     } else {
                         alert("没有这么多页!");
-                        $("#currPage").val("");
                     }
-                }
+                },
             },
             created: function () {
                 this.load();

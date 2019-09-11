@@ -3,7 +3,7 @@
 }
 
 <!DOCTYPE html>
-@model Model.major_changeModel
+@model Model.human_fileModel
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -26,7 +26,7 @@
                 data: "sid=" + sid,
                 success: function (msg) {
                     $("#cc option").remove();
-                    var $qxz = $("<option>----------请选择----------</option>");
+                    var $qxz = $("<option value=''>----------请选择----------</option>");
                     $("#cc").append($qxz);
                     var data = eval("(" + msg + ")");
                     for (var i = 0; i < data.length; i++) {
@@ -43,10 +43,10 @@
                     data: "sid=" + sid,
                     success: function (msg) {
                         $("#cc option").remove();
-                        var $qxz = $("<option>----------请选择----------</option>");
+                        var $qxz = $("<option value=''>----------请选择----------</option>");
                         $("#cc").append($qxz);
                         $("#dd option").remove();
-                        var $qxz1 = $("<option>----------请选择----------</option>");
+                        var $qxz1 = $("<option value=''>----------请选择----------</option>");
                         $("#dd").append($qxz1);
                         var data = eval("(" + msg + ")");
                         for (var i = 0; i < data.length; i++) {
@@ -63,7 +63,7 @@
                 data: "bid=" + bid,
                 success: function (msg) {
                     $("#dd option").remove();
-                    var $qxz = $("<option>----------请选择----------</option>");
+                    var $qxz = $("<option value=''>----------请选择----------</option>");
                     $("#dd").append($qxz);
                     var data = eval("(" + msg + ")");
                     for (var i = 0; i < data.length; i++) {
@@ -80,7 +80,7 @@
                     data: "bid=" + bid,
                     success: function (msg) {
                         $("#dd option").remove();
-                        var $qxz = $("<option>----------请选择----------</option>");
+                        var $qxz = $("<option value=''>----------请选择----------</option>");
                         $("#dd").append($qxz);
                         var data = eval("(" + msg + ")");
                         for (var i = 0; i < data.length; i++) {
@@ -89,6 +89,20 @@
                         };
                     }
                 });
+            });
+            $(document).on("click", "#cha", function () {
+                var yi = $('#bb option:selected').val();//选中的文本
+                var er = $("#cc option:selected").val();
+                var san = $("#dd option:selected").val();
+                var date_start = $("#date_start").val();
+                var date_end = $("#date_end").val();
+                $.ajax({
+                    url: "/major_change/atjcx",
+                    type: "post",
+                    data: "yi=" + yi + "&er=" + er + "&san=" + san + "&dateks=" + date_start + "&datejs=" + date_end,
+                    success: function (msg) {
+                    }
+                })
             })
         })
     </script>
@@ -98,12 +112,12 @@
             <table width="100%">
                 <tr>
                     <td>
-                        <font color="black">您正在做的业务是：人力资源--调动管理--调动登记查询 </font>
+                        <font color="black">您正在做的业务是：人力资源--调动管理--调动登记查询</font>
                     </td>
                 </tr>
                 <tr>
                     <td align="right">
-                        @Html.ActionLink("查询", "register_list")
+                        <input type="submit" value="查询" class="BUTTON_STYLE1" id="cha">
                     </td>
                 </tr>
             </table>

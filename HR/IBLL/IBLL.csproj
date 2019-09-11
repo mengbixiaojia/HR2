@@ -48,9 +48,11 @@
     <Compile Include="Iconfig_major_kindBLL.cs" />
     <Compile Include="Iconfig_public_charBLL.cs" />
     <Compile Include="Iengage_major_releaseBLL.cs" />
+    <Compile Include="Ihuman_fileBLL.cs" />
     <Compile Include="Imajor_changeBLL.cs" />
     <Compile Include="IPopedomRoleBLL.cs" />
     <Compile Include="IRoleBLL.cs" />
+    <Compile Include="Isalary_standardBLL.cs" />
     <Compile Include="IusersBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

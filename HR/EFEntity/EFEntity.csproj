@@ -56,6 +56,7 @@
     <Compile Include="Config\config_file_second_kindConfig.cs" />
     <Compile Include="Config\config_file_third_kindConfig.cs" />
     <Compile Include="Config\config_public_charConfig.cs" />
+    <Compile Include="Config\human_fileConfig.cs" />
     <Compile Include="Config\major_changeConfig.cs" />
     <Compile Include="Config\RoleConfig.cs" />
     <Compile Include="config_file_first_kind.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="config_file_third_kind.cs" />
     <Compile Include="config_public_char.cs" />
     <Compile Include="engage_major_release.cs" />
+    <Compile Include="human_file.cs" />
     <Compile Include="MyDBContext.cs" />
     <Compile Include="PopedomRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,6 +73,7 @@
     <Compile Include="config_major_kind.cs" />
     <Compile Include="major_change.cs" />
     <Compile Include="Role.cs" />
+    <Compile Include="salary_standard.cs" />
     <Compile Include="users.cs" />
   </ItemGroup>
   <ItemGroup>
