@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Model;
+using System.Collections;
+
 namespace IDAL
 {
   public  interface salary_standardIDAL
@@ -16,12 +18,14 @@ namespace IDAL
         int salary_standardAdd(salary_standardModel s);
 
         int Row();
-        int rows(string bh,string gjz,string sjq,string sjh);
+        int rows(string bh,string gjz,DateTime sjq,DateTime sjh);
         List<salary_standardModel> fenye(int dqy);
         List<salary_standardModel> Fenyecx(int dqy, string bh, string gjz, DateTime sjq, DateTime sjh);
         int Pages();
         int Pagescx();
         salary_standardModel SelectBYID(int id);
         int UP(salary_standardModel s);
+
+        ArrayList Salarystandard_query_locateLikeFenYe(ListFenYeModel l);
     }
 }

@@ -15,7 +15,7 @@
 </head>
 <body>
     <div id="divsss">
-       @using (Ajax.BeginForm("tjSelect", new AjaxOptions() { HttpMethod = "post", OnSuccess = "shou" }))
+       @using (Ajax.BeginForm("", new AjaxOptions() { HttpMethod = "post"}))
        {
         <input type="hidden" name="page.startPage" value="0">
         <table width="100%">
@@ -27,7 +27,7 @@
             <tr>
                 <td>
                     <div align="right">
-                        <input type="submit" v-on:click="cx" value="查询" class="BUTTON_STYLE1" />
+                        <input type="button" @*v-on:click="cx"*@ id="cx" value="查询"  />
                     </div>
                 </td>
             </tr>
@@ -69,7 +69,7 @@
         </table>
        }
     </div>
-    <script type="text/javascript">
+    @*<script type="text/javascript">
     var vm=new Vue({
         el: "#divsss",
         data: {
@@ -77,7 +77,7 @@
         },
         methods: {
             cx: function () {
-                alert($("#id").val());
+             
                // window.location.href = "../salary_standard/tjSelect";
                 localStorage.setItem("bh", $("#bh").val());
                 localStorage.setItem("gjz", $("#gjz").val());
@@ -87,6 +87,32 @@
         }
 
     })
+   
+    </script>*@
+
+    <script type="text/javascript">
+        $(function () {
+            var rl = 1;  //当前页
+            $(document).on("click", "#cx", function () {
+                var id = $("#bh").val();                 //获取输入的编号
+                var gjz = $("#gjz").val();              //获取输入的关键字
+                var endDate = $("#sjq").val();          //到止时间
+                var date_start = $("#sjh").val();
+                localStorage.setItem("bh", id);
+                localStorage.setItem("gjz",gjz);
+                localStorage.setItem("sjq", endDate);
+                localStorage.setItem("sjh", date_start);
+                //开始时间
+                if ( endDate!="") {
+                    window.location.href = '/salary_standard/tjSelect?id=' + id + "&gjz=" + gjz + "&rl=" + rl + "&endDate=" + endDate + "&date_start=" + date_start
+                    return;
+                } else {
+                    alert("不允许为空");
+                }
+            });
+
+        });
+
     </script>
 </body>
 </html>

@@ -27,6 +27,26 @@ namespace DAL
             return Add(ss);
         }
 
+        public List<salary_standard_detailsModel> Select()
+        {
+            List<salary_standard_details> list = SelectAll();
+            List<salary_standard_detailsModel> list2 = new List<salary_standard_detailsModel>();
+            foreach (salary_standard_details item in list)
+            {
+                salary_standard_detailsModel sm = new salary_standard_detailsModel()
+                {
+                    Id = item.Id,
+                    standard_id = item.standard_id,
+                    standard_name = item.standard_name,
+                    item_id = item.item_id,
+                    item_name = item.item_name,
+                    salary = item.salary
+                };
+                list2.Add(sm);
+            }
+            return list2;
+        }
+
         public int salaUP(salary_standard_detailsModel s)
         {
             salary_standard_details ss = new salary_standard_details()
@@ -62,23 +82,6 @@ namespace DAL
             return list;
         }
 
-        public List<salary_standard_detailsModel> Select()
-        {
-            List<salary_standard_details> list = SelectAll();
-            List<salary_standard_detailsModel> list2 = new List<salary_standard_detailsModel>();
-            foreach (var item in list)
-            {
-                salary_standard_detailsModel sd = new salary_standard_detailsModel()
-                {
-                    Id = item.Id,
-                    standard_id = item.standard_id,
-                    standard_name = item.standard_name,
-                    item_id = item.item_id,
-                    item_name = item.item_name
-                };
-                list2.Add(sd);
-            }
-            return list2;
-        }
+      
     }
 }

@@ -47,5 +47,15 @@ namespace BLL
         {
             return ist.SelectById(st);
         }
+
+        public Dictionary<string, object> Fenye(int dqy, string first, string second, string third, string major, string major_kind, string start, string end)
+        {
+            return ist.Fenye(dqy, first, second, third, major, major_kind, start, end);
+        }
+
+        public Dictionary<string, object> Fenye1(int dqy, string first, string second, string third, string major, string major_kind, string start, string end)
+        {
+            return ist.Fenye1(dqy, first, second, third, major, major_kind, start, end);
+        }
     }
 }

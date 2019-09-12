@@ -1160,11 +1160,6 @@
     <Content Include="Views\engage_resume\Index.cshtml" />
     <Content Include="Views\engage_resume\SelectBy.cshtml" />
     <Content Include="Views\engage_resume\Update.cshtml" />
-    <Content Include="Views\salary_standard\Index.cshtml" />
-    <Content Include="Views\salary_standard\Index2.cshtml" />
-    <Content Include="Views\salary_standard\Index3.cshtml" />
-    <Content Include="Views\salary_standard\tjSelect.cshtml" />
-    <Content Include="Views\salary_standard\UPID.cshtml" />
     <Content Include="Views\engage_resume\LYSQ.cshtml" />
     <Content Include="Views\engage_resume\LYSP.cshtml" />
     <Content Include="Views\engage_resume\LYCX.cshtml" />
@@ -1181,6 +1176,27 @@
     <Content Include="Views\human_file\Index.cshtml" />
     <Content Include="Views\human_file\Update.cshtml" />
     <Content Include="Views\human_file\CX.cshtml" />
+    <Content Include="Views\human_file\CXIndex.cshtml" />
+    <Content Include="Views\human_file\CXSelect.cshtml" />
+    <Content Include="Views\human_file\BG.cshtml" />
+    <Content Include="Views\human_file\SC.cshtml" />
+    <Content Include="Views\human_file\SC1.cshtml" />
+    <Content Include="Views\human_file\DEL.cshtml" />
+    <Content Include="Views\human_file\BGIndex.cshtml" />
+    <Content Include="Views\human_file\SCIndex.cshtml" />
+    <Content Include="Views\human_file\SCIndex1.cshtml" />
+    <Content Include="Views\human_file\BGSelect.cshtml" />
+    <Content Include="Views\human_file\SCSelect.cshtml" />
+    <Content Include="Views\human_file\SCSelect1.cshtml" />
+    <Content Include="Views\salary_standard\Index.cshtml" />
+    <Content Include="Views\salary_standard\Index2.cshtml" />
+    <Content Include="Views\salary_standard\Index3.cshtml" />
+    <Content Include="Views\salary_standard\Index4.cshtml" />
+    <Content Include="Views\salary_standard\SelectBG.cshtml" />
+    <Content Include="Views\salary_standard\tjSelect.cshtml" />
+    <Content Include="Views\salary_standard\UPBG.cshtml" />
+    <Content Include="Views\salary_standard\UPID.cshtml" />
+    <Content Include="Views\salary_standard\UPTJ.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

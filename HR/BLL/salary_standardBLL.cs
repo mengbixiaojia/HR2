@@ -7,6 +7,8 @@ using Model;
 using IOC;
 using IBLL;
 using IDAL;
+using System.Collections;
+
 namespace BLL
 {
     public class salary_standardBLL : salary_standardIBLL
@@ -38,9 +40,14 @@ namespace BLL
             return st.Row();
         }
 
-        public int rows(string bh, string gjz,string sjq,string sjh)
+        public int rows(string bh, string gjz,DateTime sjq,DateTime sjh)
         {
             return st.rows(bh, gjz,sjq,sjh);
+        }
+
+        public ArrayList Salarystandard_query_locateLikeFenYe(ListFenYeModel l)
+        {
+            return st.Salarystandard_query_locateLikeFenYe(l);
         }
 
         /// <summary>

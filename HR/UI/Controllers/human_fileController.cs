@@ -14,7 +14,6 @@ namespace UI.Controllers
 {
     public class human_fileController : Controller
     {
-
         Iconfig_file_first_kindBLL ib = IocCreate.Createconfig_file_first_kindBLL();
         Iconfig_file_third_kindBLL isb = IocCreate.CreateConfig_file_third_kindBLL();
         Iconfig_file_second_kindBLL sb = IocCreate.Createconfig_file_second_kindBLL();
@@ -515,17 +514,18 @@ namespace UI.Controllers
         {
             hfm.check_status = 1;
             hfm.human_file_status = 1;
+            hfm.check_time = DateTime.Now;
             if (hfb.Update(hfm)>0)
             {
-                return Content("<script>alert('复核成功!');window.location='Index'</script>");
+                return Content("<script>alert('复核成功!');window.location='/human_file/Index'</script>");
             }
             return View(hfm);
         }
-
-        public ActionResult CX()
+        private void XLK()
         {
             List<config_file_first_kindModel> list = ib.Select();
             List<SelectListItem> listyj = new List<SelectListItem>();
+            listyj.Add(new SelectListItem { Text = "全部", Value = "", Selected = true });
             for (int i = 0; i < list.Count; i++)
             {
                 SelectListItem sl = new SelectListItem()
@@ -537,6 +537,7 @@ namespace UI.Controllers
             }
             List<config_major_kindModel> lll = ia.majorKindSelect();
             List<SelectListItem> liss = new List<SelectListItem>();
+            liss.Add(new SelectListItem { Text = "全部", Value = "", Selected = true });
             for (int i = 0; i < lll.Count; i++)
             {
                 SelectListItem sl = new SelectListItem()
@@ -548,12 +549,443 @@ namespace UI.Controllers
             }
             ViewData["yj"] = listyj;
             ViewData["jj"] = liss;
+        }
+        private Dictionary<string, object> FYCX(int dqy)
+        {
+            string first = Session["first_kind_id"].ToString();
+            string second = Session["second_kind_id"].ToString();
+            string third = Session["third_kind_id"].ToString();
+            string major = Session["human_major_id"].ToString();
+            string majorkind = Session["human_major_kind_id"].ToString();
+            string start = Session["startDate"].ToString();
+            string end = Session["endDate"].ToString();
+            Dictionary<string, object> list = hfb.Fenye(dqy, first, second, third, major, majorkind, start, end);
+            return list;
+        }
+        private void chuanzhi()
+        {
+            Session["first_kind_id"] = Request["first_kind_id"];
+            Session["second_kind_id"] = Request["second_kind_id"];
+            Session["third_kind_id"] = Request["third_kind_id"];
+            Session["human_major_id"] = Request["human_major_id"];
+            Session["human_major_kind_id"] = Request["human_major_kind_id"];
+            Session["startDate"] = Request["startDate"];
+            Session["endDate"] = Request["endDate"];
+        }
+        public ActionResult CX()
+        {
+            XLK();
             return View();
         }
         [HttpPost]
-        public ActionResult CX(human_fileModel hfm)
+        public ActionResult CX(int zt)
+        {
+            chuanzhi();
+            return Content("window.location='CXIndex'</script>");
+        }
+
+        public ActionResult CXIndex()
         {
             return View();
+        }
+        [HttpPost]
+        public ActionResult CXIndex(int dqy)
+        {
+            Dictionary<string, object> list = FYCX(dqy);
+            return Content(JsonConvert.SerializeObject(list));
+        }
+        public ActionResult CXSelect(int id)
+        {
+            human_fileModel hfm = new human_fileModel
+            {
+                Id = id
+            };
+            List<human_fileModel> list = hfb.SelectById(hfm);
+            human_fileModel st = new human_fileModel()
+            {
+                Id = list[0].Id,
+                human_id = list[0].human_id,
+                first_kind_id = list[0].first_kind_id,
+                first_kind_name = list[0].first_kind_name,
+                second_kind_id = list[0].second_kind_id,
+                second_kind_name = list[0].second_kind_name,
+                third_kind_id = list[0].third_kind_id,
+                third_kind_name = list[0].third_kind_name,
+                human_name = list[0].human_name,
+                human_address = list[0].human_address,
+                human_postcode = list[0].human_postcode,
+                human_pro_designation = list[0].human_pro_designation,
+                human_major_kind_id = list[0].human_major_kind_id,
+                human_major_kind_name = list[0].human_major_kind_name,
+                human_major_id = list[0].human_major_id,
+                hunma_major_name = list[0].hunma_major_name,
+                human_telephone = list[0].human_telephone,
+                human_mobilephone = list[0].human_mobilephone,
+                human_bank = list[0].human_bank,
+                human_account = list[0].human_account,
+                human_qq = list[0].human_qq,
+                human_email = list[0].human_email,
+                human_hobby = list[0].human_hobby,
+                human_speciality = list[0].human_speciality,
+                human_sex = list[0].human_sex,
+                human_religion = list[0].human_religion,
+                human_party = list[0].human_party,
+                human_nationality = list[0].human_nationality,
+                human_race = list[0].human_race,
+                human_birthday = list[0].human_birthday,
+                human_birthplace = list[0].human_birthplace,
+                human_age = list[0].human_age,
+                human_educated_degree = list[0].human_educated_degree,
+                human_educated_years = list[0].human_educated_years,
+                human_educated_major = list[0].human_educated_major,
+                human_society_security_id = list[0].human_society_security_id,
+                human_id_card = list[0].human_id_card,
+                remark = list[0].remark,
+                salary_standard_id = list[0].salary_standard_id,
+                salary_standard_name = list[0].salary_standard_name,
+                salary_sum = list[0].salary_sum,
+                major_change_amount = list[0].major_change_amount,
+                training_amount = list[0].training_amount,
+                file_chang_amount = list[0].file_chang_amount,
+                human_histroy_records = list[0].human_histroy_records,
+                regist_time = list[0].regist_time,
+                check_time = list[0].check_time,
+                change_time = list[0].change_time,
+                lastly_change_time = list[0].lastly_change_time,
+                delete_time = list[0].delete_time,
+                recovery_time = list[0].recovery_time,
+                register = list[0].register,
+                checker = list[0].checker,
+                changer = list[0].changer,
+                human_family_membership = list[0].human_family_membership
+            };
+            ViewData["url"] = list[0].human_picture;
+            return View(st);
+        }
+
+        public ActionResult BG()
+        {
+            XLK();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult BG(int zt)
+        {
+            chuanzhi();
+            return Content("window.location='BGIndex'</script>");
+        }
+
+        public ActionResult BGIndex()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult BGIndex(int dqy)
+        {
+            Dictionary<string, object> list = FYCX(dqy);
+            return Content(JsonConvert.SerializeObject(list));
+        }
+        public ActionResult BGSelect(int id)
+        {
+            human_fileModel hfm = new human_fileModel
+            {
+                Id = id
+            };
+            List<human_fileModel> list = hfb.SelectById(hfm);
+            human_fileModel st = new human_fileModel()
+            {
+                Id = list[0].Id,
+                human_id = list[0].human_id,
+                first_kind_id = list[0].first_kind_id,
+                first_kind_name = list[0].first_kind_name,
+                second_kind_id = list[0].second_kind_id,
+                second_kind_name = list[0].second_kind_name,
+                third_kind_id = list[0].third_kind_id,
+                third_kind_name = list[0].third_kind_name,
+                human_name = list[0].human_name,
+                human_address = list[0].human_address,
+                human_postcode = list[0].human_postcode,
+                human_pro_designation = list[0].human_pro_designation,
+                human_major_kind_id = list[0].human_major_kind_id,
+                human_major_kind_name = list[0].human_major_kind_name,
+                human_major_id = list[0].human_major_id,
+                hunma_major_name = list[0].hunma_major_name,
+                human_telephone = list[0].human_telephone,
+                human_mobilephone = list[0].human_mobilephone,
+                human_bank = list[0].human_bank,
+                human_account = list[0].human_account,
+                human_qq = list[0].human_qq,
+                human_email = list[0].human_email,
+                human_hobby = list[0].human_hobby,
+                human_speciality = list[0].human_speciality,
+                human_sex = list[0].human_sex,
+                human_religion = list[0].human_religion,
+                human_party = list[0].human_party,
+                human_nationality = list[0].human_nationality,
+                human_race = list[0].human_race,
+                human_birthday = list[0].human_birthday,
+                human_birthplace = list[0].human_birthplace,
+                human_age = list[0].human_age,
+                human_educated_degree = list[0].human_educated_degree,
+                human_educated_years = list[0].human_educated_years,
+                human_educated_major = list[0].human_educated_major,
+                human_society_security_id = list[0].human_society_security_id,
+                human_id_card = list[0].human_id_card,
+                remark = list[0].remark,
+                salary_standard_id = list[0].salary_standard_id,
+                salary_standard_name = list[0].salary_standard_name,
+                salary_sum = list[0].salary_sum,
+                major_change_amount = list[0].major_change_amount,
+                training_amount = list[0].training_amount,
+                file_chang_amount = list[0].file_chang_amount,
+                human_histroy_records = list[0].human_histroy_records,
+                regist_time = list[0].regist_time,
+                check_time = list[0].check_time,
+                change_time = list[0].change_time,
+                lastly_change_time = list[0].lastly_change_time,
+                delete_time = list[0].delete_time,
+                recovery_time = list[0].recovery_time,
+                register = list[0].register,
+                checker = list[0].checker,
+                changer = list[0].changer,
+                human_family_membership = list[0].human_family_membership
+            };
+            ViewData["url"] = list[0].human_picture;
+            return View(st);
+        }
+
+        public ActionResult BGUpdate(human_fileModel hfm)
+        {
+            return Content("");
+        }
+
+        public ActionResult SC()
+        {
+            XLK();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult SC(int zt)
+        {
+            chuanzhi();
+            return Content("window.location='SCIndex'</script>");
+        }
+
+        public ActionResult SCIndex()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult SCIndex(int dqy)
+        {
+            Dictionary<string, object> list = FYCX(dqy);
+            return Content(JsonConvert.SerializeObject(list));
+        }
+        public ActionResult SCSelect(int id)
+        {
+            human_fileModel hfm = new human_fileModel
+            {
+                Id = id
+            };
+            List<human_fileModel> list = hfb.SelectById(hfm);
+            human_fileModel st = new human_fileModel()
+            {
+                Id = list[0].Id,
+                human_id = list[0].human_id,
+                first_kind_id = list[0].first_kind_id,
+                first_kind_name = list[0].first_kind_name,
+                second_kind_id = list[0].second_kind_id,
+                second_kind_name = list[0].second_kind_name,
+                third_kind_id = list[0].third_kind_id,
+                third_kind_name = list[0].third_kind_name,
+                human_name = list[0].human_name,
+                human_address = list[0].human_address,
+                human_postcode = list[0].human_postcode,
+                human_pro_designation = list[0].human_pro_designation,
+                human_major_kind_id = list[0].human_major_kind_id,
+                human_major_kind_name = list[0].human_major_kind_name,
+                human_major_id = list[0].human_major_id,
+                hunma_major_name = list[0].hunma_major_name,
+                human_telephone = list[0].human_telephone,
+                human_mobilephone = list[0].human_mobilephone,
+                human_bank = list[0].human_bank,
+                human_account = list[0].human_account,
+                human_qq = list[0].human_qq,
+                human_email = list[0].human_email,
+                human_hobby = list[0].human_hobby,
+                human_speciality = list[0].human_speciality,
+                human_sex = list[0].human_sex,
+                human_religion = list[0].human_religion,
+                human_party = list[0].human_party,
+                human_nationality = list[0].human_nationality,
+                human_race = list[0].human_race,
+                human_birthday = list[0].human_birthday,
+                human_birthplace = list[0].human_birthplace,
+                human_age = list[0].human_age,
+                human_educated_degree = list[0].human_educated_degree,
+                human_educated_years = list[0].human_educated_years,
+                human_educated_major = list[0].human_educated_major,
+                human_society_security_id = list[0].human_society_security_id,
+                human_id_card = list[0].human_id_card,
+                remark = list[0].remark,
+                salary_standard_id = list[0].salary_standard_id,
+                salary_standard_name = list[0].salary_standard_name,
+                salary_sum = list[0].salary_sum,
+                major_change_amount = list[0].major_change_amount,
+                training_amount = list[0].training_amount,
+                file_chang_amount = list[0].file_chang_amount,
+                human_histroy_records = list[0].human_histroy_records,
+                regist_time = list[0].regist_time,
+                check_time = list[0].check_time,
+                change_time = list[0].change_time,
+                lastly_change_time = list[0].lastly_change_time,
+                delete_time = list[0].delete_time,
+                recovery_time = list[0].recovery_time,
+                register = list[0].register,
+                checker = list[0].checker,
+                changer = list[0].changer,
+                human_family_membership = list[0].human_family_membership
+            };
+            ViewData["url"] = list[0].human_picture;
+            return View(st);
+        }
+
+        public ActionResult SCUpdate(human_fileModel hfm)
+        {
+            return Content("");
+        }
+
+        public ActionResult SC1()
+        {
+            XLK();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult SC1(int zt)
+        {
+            chuanzhi();
+            return Content("<script>window.location='SCIndex1'</script>");
+        }
+
+        public ActionResult SCIndex1()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult SCIndex1(int dqy)
+        {
+            string first = Session["first_kind_id"].ToString();
+            string second = Session["second_kind_id"].ToString();
+            string third = Session["third_kind_id"].ToString();
+            string major = Session["human_major_id"].ToString();
+            string majorkind = Session["human_major_kind_id"].ToString();
+            string start = Session["startDate"].ToString();
+            string end = Session["endDate"].ToString();
+            Dictionary<string, object> list = hfb.Fenye1(dqy, first, second, third, major, majorkind, start, end);
+            return Content(JsonConvert.SerializeObject(list));
+        }
+        public ActionResult SCSelect1(int id)
+        {
+            human_fileModel hfm = new human_fileModel
+            {
+                Id = id
+            };
+            List<human_fileModel> list = hfb.SelectById(hfm);
+            human_fileModel st = new human_fileModel()
+            {
+                Id = list[0].Id,
+                human_id = list[0].human_id,
+                first_kind_id = list[0].first_kind_id,
+                first_kind_name = list[0].first_kind_name,
+                second_kind_id = list[0].second_kind_id,
+                second_kind_name = list[0].second_kind_name,
+                third_kind_id = list[0].third_kind_id,
+                third_kind_name = list[0].third_kind_name,
+                human_name = list[0].human_name,
+                human_address = list[0].human_address,
+                human_postcode = list[0].human_postcode,
+                human_pro_designation = list[0].human_pro_designation,
+                human_major_kind_id = list[0].human_major_kind_id,
+                human_major_kind_name = list[0].human_major_kind_name,
+                human_major_id = list[0].human_major_id,
+                hunma_major_name = list[0].hunma_major_name,
+                human_telephone = list[0].human_telephone,
+                human_mobilephone = list[0].human_mobilephone,
+                human_bank = list[0].human_bank,
+                human_account = list[0].human_account,
+                human_qq = list[0].human_qq,
+                human_email = list[0].human_email,
+                human_hobby = list[0].human_hobby,
+                human_speciality = list[0].human_speciality,
+                human_sex = list[0].human_sex,
+                human_religion = list[0].human_religion,
+                human_party = list[0].human_party,
+                human_nationality = list[0].human_nationality,
+                human_race = list[0].human_race,
+                human_birthday = list[0].human_birthday,
+                human_birthplace = list[0].human_birthplace,
+                human_age = list[0].human_age,
+                human_educated_degree = list[0].human_educated_degree,
+                human_educated_years = list[0].human_educated_years,
+                human_educated_major = list[0].human_educated_major,
+                human_society_security_id = list[0].human_society_security_id,
+                human_id_card = list[0].human_id_card,
+                remark = list[0].remark,
+                salary_standard_id = list[0].salary_standard_id,
+                salary_standard_name = list[0].salary_standard_name,
+                salary_sum = list[0].salary_sum,
+                major_change_amount = list[0].major_change_amount,
+                training_amount = list[0].training_amount,
+                file_chang_amount = list[0].file_chang_amount,
+                human_histroy_records = list[0].human_histroy_records,
+                regist_time = list[0].regist_time,
+                check_time = list[0].check_time,
+                change_time = list[0].change_time,
+                lastly_change_time = list[0].lastly_change_time,
+                delete_time = list[0].delete_time,
+                recovery_time = list[0].recovery_time,
+                register = list[0].register,
+                checker = list[0].checker,
+                changer = list[0].changer,
+                human_family_membership = list[0].human_family_membership
+            };
+            ViewData["url"] = list[0].human_picture;
+            return View(st);
+        }
+
+        public ActionResult SCUpdate1(human_fileModel hfm)
+        {
+            return Content("");
+        }
+
+        public ActionResult DEL()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult DEL(int dqy)
+        {
+            string first = "";
+            string second = "";
+            string third = "";
+            string major = "";
+            string majorkind = "";
+            string start = "";
+            string end = "";
+            Dictionary<string, object> list = hfb.Fenye1(dqy, first, second, third, major, majorkind, start, end);
+            return Content(JsonConvert.SerializeObject(list));
+        }
+        public ActionResult DEL1(int id)
+        {
+            human_fileModel hfm = new human_fileModel
+            {
+                Id = id
+            };
+            if (hfb.Del(hfm)>0)
+            {
+                return Content("<script>alert('删除成功');window.location='DEL'</script>");
+            } 
+            return Content("<script>alert('删除失败');window.location='DEL'</script>");
         }
     }
 }

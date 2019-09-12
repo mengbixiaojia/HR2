@@ -8,6 +8,7 @@ using IBLL;
 using IOC;
 using Newtonsoft.Json;
 using System.Globalization;
+using System.Collections;
 
 namespace UI.Controllers
 {
@@ -29,12 +30,7 @@ namespace UI.Controllers
         public ActionResult Index3() {
             return View();
         }
-        public ActionResult Fenyecx() {
-            
-            
-            List<salary_standardModel> list = sa.Fenyecx(int.Parse(Request["currentPage"]), Request["bh"], Request["gjz"],Convert.ToDateTime(Request["sjq"]),Convert.ToDateTime(Request["sjh"]));
-            return Content(JsonConvert.SerializeObject(list));
-        }
+      
         public ActionResult FenYe()
         {
             List<salary_standardModel> list = sa.fenye(int.Parse(Request["currentPage"]));
@@ -42,14 +38,124 @@ namespace UI.Controllers
         }
         public ActionResult tjSelect(salary_standardModel s)
         {
-            ViewData["rows"] = sa.rows(s.standard_id, s.designer,s.regist_time.ToString(),s.check_time.ToString());
-            ViewData["Pagescx"] = sa.Pagescx();
+            //DateTime.Now.Date.ToString("yyyy/MM/dd");
+            //ViewData["rows"] = sa.rows(s.standard_id, s.designer,Convert.ToDateTime(s.regist_time),s.check_time);
+            //ViewData["Pagescx"] = sa.Pagescx();
+            //return View();
+            string salaId = Request["id"];
+            string salaGJZ = Request["gjz"];
+            string endDate = Request["endDate"];
+            string date_start = Request["date_start"];
+
+            ListFenYeModel l = new ListFenYeModel()
+            {
+                Dq = int.Parse(Request["rl"]),    //当前页
+                PageSize = 2,   //每页要显示多少条数据
+                standard_id = salaId,        //根据id模糊查询
+                standard_name = salaGJZ,    //根据关键字来模糊查询，用了concat函数，不管输入的是什么，它都能根据多个字段查               
+                startDate = Convert.ToDateTime(date_start),
+                endDate = Convert.ToDateTime(endDate)
+            };
+            ArrayList list = sa.Salarystandard_query_locateLikeFenYe(l);
+            ViewBag.ls = list;
+            return View();
+        }
+        public ActionResult Index4() {
+            return View();
+        }
+        public ActionResult UPTJ(int id) {
+            salary_standardModel s3 = sa.SelectBYID(id);
+            ViewData.Model = s3;
+            return View();
+        }
+     
+
+        public ActionResult SelectBG(salary_standardModel s)
+        {
+            //ViewData["rows"] = sa.rows(s.standard_id, s.designer, Convert.ToDateTime(s.regist_time), s.check_time);
+            //ViewData["Pagescx"] = sa.Pagescx();
+            //return View();
+            string salaId = Request["id"];
+            string salaGJZ = Request["gjz"];
+            string endDate = Request["endDate"];
+            string date_start = Request["date_start"];
+
+            ListFenYeModel l = new ListFenYeModel()
+            {
+                Dq = int.Parse(Request["rl"]),    //当前页
+                PageSize = 2,   //每页要显示多少条数据
+                standard_id = salaId,        //根据id模糊查询
+                standard_name = salaGJZ,    //根据关键字来模糊查询，用了concat函数，不管输入的是什么，它都能根据多个字段查               
+                startDate = Convert.ToDateTime(date_start),
+                endDate = Convert.ToDateTime(endDate)
+            };
+            ArrayList list = sa.Salarystandard_query_locateLikeFenYe(l);
+            ViewBag.ls = list;
             return View();
 
         }
-     
         [HttpGet]
+        public ActionResult UPBG(int id) {
+            salary_standardModel s3 = sa.SelectBYID(id);
+            ViewData.Model = s3;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult UPBG()
+        {
+            string salary_standard = Request["salary_standard"];
+            string salary_standard_details = Request["salary_standard_details"];
+            string id = Request["said"];
+            Dictionary<string, object> di = JsonConvert.DeserializeObject<Dictionary<string, object>>(salary_standard);
+            salary_standardModel ssm = new salary_standardModel();
+            string sj = di["drsj"].ToString();
+            string fhsj = di["fhsj"].ToString().Substring(0, 10);
+            string qg = sj.Substring(0, 10);
+            ssm.Id = int.Parse(id);
+            ssm.standard_id = di["bh"].ToString();
+            ssm.standard_name = di["mc"].ToString();
+            ssm.designer = di["zdr"].ToString();
+            ssm.register = di["djr"].ToString();
+            ssm.checker = di["fhr"].ToString();
+            ssm.regist_time = DateTime.Parse(qg);
+            ssm.salary_sum = decimal.Parse(di["ze"].ToString());
+            ssm.check_comment = di["fhyj"].ToString(); 
+            ssm.check_time = Convert.ToDateTime(fhsj);
+            ssm.change_status = 0;
+            ssm.remark = di["bz"].ToString();
+            ssm.change_time = DateTime.Parse(di["bgsj"].ToString());
 
+
+            int res = sa.UP(ssm);
+            int ress = 0;
+            List<Dictionary<string, object>> list = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(salary_standard_details);
+            foreach (Dictionary<string, object> item in list)
+            {
+                salary_standard_detailsModel sala = new salary_standard_detailsModel();
+
+                sala.Id = int.Parse(item["id"].ToString());
+                sala.salary = Convert.ToDecimal(item["je"].ToString());
+                sala.standard_name = item["mc"].ToString();
+                sala.item_id = int.Parse(item["xh"].ToString());
+                sala.item_name = item["xcmc"].ToString();
+                sala.standard_id = item["bh"].ToString();
+                ress = sd.salaUP(sala);
+            }
+
+
+
+            if (res > 0 && ress > 0)
+            {
+                return Content("OK");
+            }
+            else
+            {
+                return Content("ON");
+            }
+
+          
+        }
+        [HttpGet]
         public ActionResult UPID(int id)
         {
             salary_standardModel s3 = sa.SelectBYID(id);
@@ -68,12 +174,13 @@ namespace UI.Controllers
             Dictionary<string, object> di = JsonConvert.DeserializeObject<Dictionary<string, object>>(salary_standard);
             salary_standardModel ssm = new salary_standardModel();
             string sj = di["drsj"].ToString();
-            string qg = sj.Substring(0,8);
+            string qg = sj.Substring(0,10);
             ssm.Id = int.Parse(id);
             ssm.standard_id = di["bh"].ToString();
             ssm.standard_name = di["mc"].ToString();
             ssm.designer = di["zdr"].ToString();
-            ssm.register = di["fhr"].ToString();
+            ssm.register = di["djr"].ToString();
+            ssm.checker = di["fhr"].ToString();
             ssm.regist_time = DateTime.Parse(qg);
             ssm.salary_sum = decimal.Parse(di["ze"].ToString());
             ssm.check_comment = di["fhyj"].ToString();

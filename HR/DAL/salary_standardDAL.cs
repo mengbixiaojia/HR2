@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Model;
 using EFEntity;
 using IDAL;
+using System.Collections;
 
 namespace DAL
 {
@@ -117,11 +118,11 @@ namespace DAL
             };
             return Update(ss);
         }
-
+          
         public List<salary_standardModel> Fenyecx(int dqy, string bh, string gjz, DateTime sjq, DateTime sjh)
         {
              int rows = 0;
-            List<salary_standard> list = FenYe<int>(e => e.Id, e =>  e.standard_id.Contains(bh) && e.designer.Contains(gjz) &&e.regist_time >= sjq ||e.regist_time <=sjh, ref rows, dqy, 2).ToList();
+            List<salary_standard> list = FenYe<int>(e => e.Id, e => e.Id > 0 && e.standard_id.Contains(bh) && e.designer.Contains(gjz) && e.regist_time >= sjq && e.regist_time <= sjh && e.change_status > 0, ref rows, dqy, 2).ToList();
             List<salary_standardModel> list2 = new List<salary_standardModel>();
             foreach (salary_standard s in list)
             {
@@ -149,16 +150,23 @@ namespace DAL
         }
         string bhs;
         string gjzs;
-        string sjqs;
-        string sjhs;
-        public int rows(string bh,string gjz,string sjq,string sjh)
+        DateTime sjqs;
+        DateTime sjhs;
+        public int rows(string bh,string gjz,DateTime sjq,DateTime sjh)
         {
             bhs = bh;
             gjzs = gjz;
-            sjhs=sjh;
-            sjqs = sjq;
+            sjhs = sjh;
+            sjqs = sjq.Date;
+           
+            string s2 = sjh.ToString().Substring(0,8);
+           string s= sjh.ToShortDateString();
+            int ss = DateTime.Compare(DateTime.Parse(sjq.ToString().Substring(0,10)),DateTime.Parse(sjh.ToShortDateString()));
             int rowscx = 0;
-            List<salary_standard> list = FenYe<int>(e => e.Id, e =>e.standard_id.Contains(bh)&& e.designer.Contains(gjz) && e.regist_time >= Convert.ToDateTime(sjq) || e.regist_time <= Convert.ToDateTime(sjh), ref rowscx, 1, 2).ToList();
+            List<salary_standard> list = FenYe<int>(e => e.Id,e => e.Id > 0 && e.standard_id.Contains(bh) && e.designer.Contains(gjz.ToString()) && e.regist_time >= sjq.Date && e.regist_time <= sjh.Date && e.change_status <= 0, ref rowscx, 1, 2).ToList();
+
+          
+
             return rowscx;
         }
 
@@ -168,5 +176,46 @@ namespace DAL
             double pages = rowes / 2.00;
             return (int)Math.Ceiling(pages);
         }
+
+
+        public ArrayList Salarystandard_query_locateLikeFenYe(ListFenYeModel l)
+        {
+            ArrayList list2 = new ArrayList();
+            int rows = 0;
+            List<salary_standard> list = null;
+            List<salary_standardModel> list1 = new List<salary_standardModel>();
+            //string.Concat函数是根据提供的字段进行模糊查询，可以多个字段
+            //|| string.Concat(e.designer, e.changer, e.standard_name,e.checker).Contains(l.standard_name) || e.regist_time >l.startDate && e.regist_time<= l.endDate,
+            list = FenYe<int>(e => e.Id, e => e.standard_id.Contains(l.standard_id) && string.Concat(e.designer, e.changer, e.standard_name, e.checker).Contains(l.standard_name) && e.regist_time <= l.startDate && e.regist_time >= l.endDate&&e.change_status>0, ref rows, l.Dq, l.PageSize);
+            foreach (var item in list)
+            {
+                salary_standardModel s = new salary_standardModel()
+                {
+                    Id = item.Id,
+                    standard_id = item.standard_id,
+                    standard_name = item.standard_name,
+                    designer = item.designer,
+                    register = item.register,
+                    checker = item.checker,
+                    changer = item.changer,
+                    regist_time = item.regist_time,
+                    //check_time = item.check_time,
+                    change_time = item.change_time,
+                    salary_sum = item.salary_sum,
+                    check_status = item.check_status,
+                    change_status = item.change_status,
+                    check_comment = item.check_comment,
+                    remark = item.remark
+                };
+                list1.Add(s);
+            }
+            list2.Add(list1);
+            list2.Add(rows);
+            list2.Add(l.Dq);
+            list2.Add(l.PageSize);
+            list2.Add((rows - 1) / l.PageSize + 1);
+            return list2;
+        
     }
+}
 }

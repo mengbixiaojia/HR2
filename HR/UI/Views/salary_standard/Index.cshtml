@@ -5,6 +5,7 @@
 
 <!DOCTYPE html>
 @model Model.salary_standardModel
+    
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -12,6 +13,8 @@
     <link href="~/css/table.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-3.3.1.js"></script>
     <script src="~/Scripts/vue.js"></script>
+   
+   
 </head>
 <body>
 
@@ -41,7 +44,7 @@
                     </td>
                     <td width="168" class="TD_STYLE2">
 
-                        @Html.TextBox("bh","", new { @class = "INPUT_STYLE2", @id = "bh" })
+                        @Html.TextBox("bh","", new { @class = "INPUT_STYLE2", @id = "bh", @readonly = "readonly" })
                     </td>
                     <td width="83" class="TD_STYLE1">
                         薪酬标准名称
@@ -114,47 +117,212 @@
                         &nbsp;
                     </td>
                 </tr>
-                <tbody id="tb">
-                  
+              
+                <tbody id="pub">
+                    <tr id="checkbox">
+                        <td colspan="8" class="TD_STYLE2" style="text-align:center">
+                            <div>
+                                <p>
+                                    <div id="s">
+                                        <span v-for="(item,i) in rows"><input id="Checkbox2" type="checkbox" v-model="rows1" :value="item.attribute_name" />{{item.attribute_name}}</span>
+                                    </div>
+                                </p>
+                                <input id="Button1" type="button" value="确认" v-on:click="show" />
+                            </div>
+
+                        </td>
+                    </tr>
+                    <tr v-if="flag" v-for="(item,index) in rows1" class="ha">
+
+                        <td align="center">
+                            {{index+1}}
+                            <input type="hidden" :name="`details[${index}].itemId`" value="63" :id="`pid${index}`" />
+                        </td>
+                        <td colspan="3">
+                            {{item}}
+                            <input type="hidden" :id="`details${index+1}`" :name="`details[${index}].itemName`" :value="item">
+                        </td>
+                        <td id="td1">
+                            <input type="text" :key="index" :id="salary(index+1)" value="0.00" :name="`details[${index}].salary`" @*v-on:input="ss($event)"*@
+                                   class="price INPUT_STYLE2 " @*"  v-on:click="ss"*@>
+                        </td>
+                        &nbsp;
+
+                    </tr>
                 </tbody>
+                
             </table>
+          
             <p>
                 &nbsp;
             </p>
+            @*<div style="margin:auto;width:45px;"><input type="button" id="choice" value="全选"  /></div>*@
+            @*<table style="margin:auto;border:solid 1px red;">
+                <tr >
+                    <td v-for="(item,i) in rows">
+                        <input type="checkbox"value="EXAM_NUMBER"name="field"  />
+                        {{item.attribute_name }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                       
+                    </td>
+                        </tr>
+            </table>
+            <input type="button" value="确认" style="margin:auto;display:block;margin-top:20px;"/>*@
         </div>
-    
+    <script type="text/javascript">
+
+           $(function () {
+               $(function () {
+                   //var ids = document.getElementById("register");
+                   //    ids.value = localStorage.getItem("a");
+                   document.getElementById("register").value = localStorage.getItem("a");
+               });
+           });
+           function check() {
+               var designer = document.getElementById("designer");
+               var standardName = document.getElementById("mc");
+               if (designer.value.length <= 0) {
+                   alert("制定人不可为空!!!");
+                   return;
+               }
+               if (standardName.value.length <= 0) {
+                   alert("薪酬标准名称不可为空!!!");
+                   return;
+               }
+
+               //都不为空时执行新增，发ajax
+
+           }  //制片人不能为空
+           $(document).on("click", "#Button1", function () {
+               $("#checkbox").hide();
+               setTimeout(function () {
+                   price();
+               }, 500);
+
+           })
+           function price() {
+               for (var i = 0; i < $(".price").length; i++) {
+                   var num = i + 1;
+                   var salary = 'salary' + num;
+                   $(".price").eq(i).attr("onkeyup", "countMoney("+num+", '" + salary + "')");
+               }
+           }
+
+           function countMoney(obj, o) {
+               //conselo.log(document.getElementById(o));
+               if (isNaN(document.getElementById(o).value) || document.getElementById(o).value < 0) {
+                   alert("金额填写错误!");
+                   document.getElementById(o).value = "0.00";
+                   return;
+               }
+               var sum = 0;
+               for (var i = 1; i <= obj; i++) {
+                   var salary = document.getElementById("salary" + i).value;
+                   if (salary == "") {
+                       salary = "0.00";
+                   }
+                   sum = Number(sum) + Number(salary);
+
+               }
+               document.getElementById("sumSalary").value = sum.toFixed(2);
+
+           }
+
+
+           function time() {
+               var tdate = document.getElementById("Tdate");
+               var d = new Date();
+               var y = d.getFullYear();
+               var moth = d.getMonth() + 1;
+               var date = d.getDate();
+               var h = d.getHours();
+               var m = d.getMinutes();
+               var s = d.getSeconds();
+               var hh = 20 - 1 - h;
+               var mm = 60 - 1 - m;
+               var ss = 60 - s;
+               if (hh > 0) {
+                   mm = mm + 60 * hh;
+               }
+               if (moth < 10) {
+                   moth = "0" + moth;
+               }
+               if (date < 10) {
+                   date = "0" + date;
+               }
+               if (h < 10) {
+                   h = "0" + h;
+               }
+               if (m < 10) {
+                   m = "0" + m;
+               }
+               if (s < 10) {
+                   s = "0" + s;
+               }
+               if (mm < 10) {
+                   mm = "0" + mm;
+               }
+               if (ss < 10) {
+                   ss = "0" + ss;
+               }
+
+               tdate.value = y + "-" + moth + "-" + date + " " + h + ":" + m + ":" + s;
+
+           }    //时间
+           window.onload = time;
+           var out = window.setInterval(time, 1000);
+
+
+
+    </script>
     <script type="text/javascript">
         var sum = 0;
         var cd = 0;
           var vm = new Vue({
               el: "#divsss",
               data: {
-                  rows:null
+                  rows: null,
+                  flag: false,
+                  rows1: [],
+                  s: "",
+                  dd: "salary",
               },
               methods:{
-                  load:function(){
+                  load: function () {
+                      var a = new Date();
+                      var bh = "HR" + a.getHours().toString() + a.getYear().toString() + a.getDay()+ a.getMinutes().toString() + a.getSeconds().toString()
+                      
+                      $("#bh").val(bh);
                       var v = this;
                       $.ajax({
                           url: "/salary_standard/Select",
                           type: "post",
                           success: function (msg) {
                               var dt = eval("(" + msg + ")");
-                              for (var i = 0; i < dt.length; i++) {
-                                  var $tr = $("<tr class='TD_STYLE2'></tr>");
-                                  var $td = $("<td align='center'>" + dt[i]["Id"] + "<input type='hidden' id='pid" + i + "' value='" + dt[i]["Id"] + "'></td>");
-                                  var $td1 = $("<td colspan='3'>" + dt[i]["attribute_name"] + "<input type='hidden' id='details" + (i + 1) + "' name='details[" + i + "].itemName' value='" + dt[i]["attribute_name"] + "'></td>");
-                                  var $td2 = $('<td><input  type="text" onkeyup="countMoney('+(i + 1) +')"  id="salary' + (i + 1) + '" value="0.00" name="details[' + i + '].salary" class="INPUT_STYLE2" ></td>');
-                                  var $td3 = $("<td colspan='3'>&nbsp;</td>");
-                                  $tr.append($td, $td1, $td2, $td3);
-                                  $("#tb").append($tr);
-                                  $("#salary" + (i + 1)).data("key", (i + 1));
-                                  cd = dt.length;
+                              v.rows = dt;
+                              //for (var i = 0; i < dt.length; i++) {
+                              //    var $tr = $("<tr class='TD_STYLE2'></tr>");
+                              //    var $td = $("<td align='center'>" + dt[i]["Id"] + "<input type='hidden' id='pid" + i + "' value='" + dt[i]["Id"] + "'></td>");
+                              //    var $td1 = $("<td colspan='3'>" + dt[i]["attribute_name"] + "<input type='hidden' id='details" + (i + 1) + "' name='details[" + i + "].itemName' value='" + dt[i]["attribute_name"] + "'></td>");
+                              //    var $td2 = $('<td><input  type="text" onkeyup="countMoney('+(i + 1) +')"  id="salary' + (i + 1) + '" value="0.00" name="details[' + i + '].salary" class="INPUT_STYLE2" ></td>');
+                              //    var $td3 = $("<td colspan='3'>&nbsp;</td>");
+                              //    $tr.append($td, $td1, $td2, $td3);
+                              //    $("#tb").append($tr);
+                              //    $("#salary" + (i + 1)).data("key", (i + 1));
+                              //    cd = dt.length;
                                  
                                  
-                              }
+                              //}
 
                           }
                       });
+                  }, show: function () {
+                      this.flag = !this.flag;
+                  }, salary: function (i) {
+                      return "salary" + i;
                   },
                   check: function () {
                       var designer = document.getElementById("zdr");
@@ -185,7 +353,9 @@
                           bz: $("#bz").val()
                       }
                       var arr = new Array();
-                      for (var i = 0; i < cd ; i++) {
+                      var counts = $(".ha").length;
+                      alert(counts);
+                      for (var i = 0; i < counts-1 ; i++) {
                           var salary_standard_details = {
                               bh: $("#bh").val(),
                               mc: $("#mc").val(),
@@ -214,66 +384,7 @@
           })
           vm.load();
        
-          function countMoney(id) {
-            
-              if (isNaN($("#salary" + id).val()) || $("#salary" + id).val() < 0) {
-                  alert("金额填写错误!");
-                  document.getElementById(o).value = "0.00";
-                  return;
-              }
-              var sum1 = 0;
-              for (var i = 1; i <= cd; i++) {
-                  var salary = document.getElementById("salary" + i).value;
-                  if (salary == "") {
-                      salary = "0.00";
-                  }
-                  sum1 = Number(sum1) + Number(salary);
-
-              }
-              $("#sumSalary").val(sum1);
-          }
-          function time() {
-              var tdate = document.getElementById("Tdate");
-              var d = new Date();
-              var y = d.getFullYear();
-              var moth = d.getMonth() + 1;
-              var date = d.getDate();
-              var h = d.getHours();
-              var m = d.getMinutes();
-              var s = d.getSeconds();
-              var hh = 20 - 1 - h;
-              var mm = 60 - 1 - m;
-              var ss = 60 - s;
-              if (hh > 0) {
-                  mm = mm + 60 * hh;
-              }
-              if (moth < 10) {
-                  moth = "0" + moth;
-              }
-              if (date < 10) {
-                  date = "0" + date;
-              }
-              if (h < 10) {
-                  h = "0" + h;
-              }
-              if (m < 10) {
-                  m = "0" + m;
-              }
-              if (s < 10) {
-                  s = "0" + s;
-              }
-              if (mm < 10) {
-                  mm = "0" + mm;
-              }
-              if (ss < 10) {
-                  ss = "0" + ss;
-              }
-
-              tdate.value = y + "-" + moth + "-" + date ;
-
-          }
-          window.onload = time;
-        
+       
     </script>
 </body>
 </html>

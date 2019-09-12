@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Model;
+using System.Collections;
+
 namespace IBLL
 {
     public interface salary_standardIBLL
@@ -15,8 +17,10 @@ namespace IBLL
         salary_standardModel SelectBYID(int id);
         int UP(salary_standardModel s);
         List<salary_standardModel> Fenyecx(int dqy, string bh, string gjz, DateTime sjq, DateTime sjh);
-        int rows(string bh, string gjz,string sjq,string sjh);
+        int rows(string bh, string gjz,DateTime sjq,DateTime sjh);
         int Pagescx();
-    
+        ArrayList Salarystandard_query_locateLikeFenYe(ListFenYeModel l);
+
+
     }
 }
